@@ -12,7 +12,7 @@ class Game:
         self.running = True
 
         # self.character_spritesheet = Spritesheet('img/character.png')
-        # self.terrain_spritesheet = Spritesheet('img/terrain.png')
+        self.terrain_spritesheet = Spritesheet('./assets/img/ground.png')
         # self.enemy_spritesheet = Spritesheet('img/enemy.png')
         # self.attack_spritesheet = Spritesheet('img/attack.png')
 
@@ -24,14 +24,15 @@ class Game:
         # i is the y position
         for i, row in enumerate(tilemap):
             for j, column in enumerate(row):
-                Ground(self, j, i)
-                if column == "B":
+                Ground(self, j, i) # ground
+                if column == "B": #block wall
                     Block(self, j, i)
-                if column == "E":
+                if column == "E": #enemy
                     Enemy(self, j, i)
-                if column == "P":
-                    self.player = Player(self, j , i)
-                    Attack(self, j, i)
+                # if column == "P": #player
+                #     self.player = Player(self, j , i)
+                #     # Attack(self, j, i)
+        self.player = Player(self, WIN_HEIGHT/2 , WIN_WIDTH/2)
 
     def new(self):
         print('newgame')
