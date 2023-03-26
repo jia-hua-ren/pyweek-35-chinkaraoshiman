@@ -10,6 +10,7 @@ GROUND_LAYER = 1
 
 PLAYER_SPEED = 5
 ENEMY_SPEED = 2
+GOAT_SPEED = 4
 
 RED = (255, 0, 0)
 BLACK = (0, 0, 0)
@@ -19,17 +20,17 @@ WHITE = (255, 255, 255)
 tilemap = [
     'BBBBBBBBBBBBBBBBBBBB',
     'B............E.....B',
-    '...BBBB.......BB.......B',
-    'B..................B',
-    '..B..................B',
+    '...BBBBG.......BB.......B',
+    'B....G..............B',
+    '..B......G....G........B',
     'B.........B..BB..BBB',
     '.....B...BBBBBBB..B...BBBBBBB..B',
     'BBBBB........B.....B',
-    'B......BBBBBBB.....B',
+    'B...G...BBBBBBB.....B',
     'B....E..B..........B',
-    'B.......B..........B',
+    'B.......B....G......B',
     'B.BBBBB...........E.....B',
-    '..B..................B',
-    'B.................BBBB.B',
+    '..B.......G...........B',
+    'B.....G............BBBB.B',
     '.BBBBBBBBBBBBBBBB.BBB'
 ]

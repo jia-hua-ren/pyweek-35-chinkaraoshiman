@@ -11,9 +11,11 @@ class Game:
         #self.font = pygame.font.Font('arial.ttf', 32)
         self.running = True
 
-        # self.character_spritesheet = Spritesheet('img/character.png')
+        self.character_spritesheet = Spritesheet('./assets/img/player.png')
+        self.goat_spritesheet = Spritesheet('./assets/img/goat.png')
         self.terrain_spritesheet = Spritesheet('./assets/img/ground.png')
-        # self.enemy_spritesheet = Spritesheet('img/enemy.png')
+        self.enemy_spritesheet = Spritesheet('./assets/img/enemy.png')
+        self.wall_spritesheet = Spritesheet('./assets/img/wall.png')
         # self.attack_spritesheet = Spritesheet('img/attack.png')
 
         # self.intro_background = pygame.image.load('./img/introbackground.png')
@@ -29,6 +31,8 @@ class Game:
                     Block(self, j, i)
                 if column == "E": #enemy
                     Enemy(self, j, i)
+                if column == "G": # goat
+                    Goat(self, j, i)
                 # if column == "P": #player
                 #     self.player = Player(self, j , i)
                 #     # Attack(self, j, i)
@@ -43,6 +47,7 @@ class Game:
         self.blocks = pygame.sprite.LayeredUpdates()
         self.enemies = pygame.sprite.LayeredUpdates()
         self.attacks = pygame.sprite.LayeredUpdates()
+        self.goats = pygame.sprite.LayeredUpdates()
         self.createTilemap()
 
     def events(self): # key presses and stuff
@@ -66,6 +71,7 @@ class Game:
             self.events()
             self.update()
             self.draw()
+            pygame.display.set_caption("current FPS: "+str(self.clock.get_fps()))
         pygame.quit()
         sys.exit()
         
