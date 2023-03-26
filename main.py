@@ -16,6 +16,7 @@ class Game:
         self.terrain_spritesheet = Spritesheet('./assets/img/ground.png')
         self.enemy_spritesheet = Spritesheet('./assets/img/enemy.png')
         self.wall_spritesheet = Spritesheet('./assets/img/wall.png')
+        self.shadow_spritesheet = Spritesheet('./assets/img/shadow.png')
         # self.attack_spritesheet = Spritesheet('img/attack.png')
 
         # self.intro_background = pygame.image.load('./img/introbackground.png')
@@ -29,6 +30,8 @@ class Game:
                 Ground(self, j, i) # ground
                 if column == "B": #block wall
                     Block(self, j, i)
+                if column == "S": #shadow 
+                    Shadow(self, j, i)
                 if column == "E": #enemy
                     Enemy(self, j, i)
                 if column == "G": # goat
@@ -48,6 +51,7 @@ class Game:
         self.enemies = pygame.sprite.LayeredUpdates()
         self.attacks = pygame.sprite.LayeredUpdates()
         self.goats = pygame.sprite.LayeredUpdates()
+        self.shadow = pygame.sprite.LayeredUpdates()
         self.createTilemap()
 
     def events(self): # key presses and stuff
