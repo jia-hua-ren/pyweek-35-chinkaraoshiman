@@ -1,52 +1,138 @@
 import pygame
+from sprites import *
+from config import *
 import sys
-import os
 
-pygame.init()
-screen = pygame.display.set_mode((640, 480))
-clock = pygame.time.Clock()            #get a pygame clock object
-running = True
+class Game:
+    def __init__(self):
+        pygame.init()
+        self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
+        self.clock = pygame.time.Clock()
+        #self.font = pygame.font.Font('arial.ttf', 32)
+        self.running = True
 
-dt=0
+        # self.character_spritesheet = Spritesheet('img/character.png')
+        # self.terrain_spritesheet = Spritesheet('img/terrain.png')
+        # self.enemy_spritesheet = Spritesheet('img/enemy.png')
+        # self.attack_spritesheet = Spritesheet('img/attack.png')
 
-x, y = 0, 0 #starting position
-i = 1 #x direction pointing right
-j = 1 #y direction pointing down
-speed = 5
-width = 100
-screen.fill("white")
-color = (x%249,x%249,x%249)
+        # self.intro_background = pygame.image.load('./img/introbackground.png')
+        # self.go_background = pygame.image.load('./img/gameover.png')
 
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+    def createTilemap(self):
+        # j is x position
+        # i is the y position
+        for i, row in enumerate(tilemap):
+            for j, column in enumerate(row):
+                Ground(self, j, i)
+                if column == "B":
+                    Block(self, j, i)
+                if column == "E":
+                    Enemy(self, j, i)
+                if column == "P":
+                    self.player = Player(self, j , i)
+                    Attack(self, j, i)
 
+    def new(self):
+        print('newgame')
+        # a new game starts
+        self.playing = True
 
+        self.all_sprites = pygame.sprite.LayeredUpdates()
+        self.blocks = pygame.sprite.LayeredUpdates()
+        self.enemies = pygame.sprite.LayeredUpdates()
+        self.attacks = pygame.sprite.LayeredUpdates()
+        self.createTilemap()
 
-    if x <= 0:
-        i = 1
-    elif x >= 640-width:
-        i = -1
-    else:
-        i = i
-    
-    if y <= 0:
-        j = 1
-    elif y >= 480-width:
-        j = -1
-    else:
-        j = j
+    def events(self): # key presses and stuff
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                self.playing = False
+                self.running = False
+    def update(self): # make things move
+        #game loop updates
+        self.all_sprites.update() #find update function/method in every sprite and update it
+
+    def draw(self): # draw sprites on screen
+        self.screen.fill(BLACK)
+        self.all_sprites.draw(self.screen) # sprite group draw method
+        self.clock.tick(FPS)
+        pygame.display.update()
+
+    def main(self):
+        # game loop
+        while self.playing:
+            self.events()
+            self.update()
+            self.draw()
+        pygame.quit()
+        sys.exit()
         
-    x+=speed*i
-    y+=speed*j
-    speed+=1*i
-    color = (x%249,y%249,(x*y)%249)
+        # self.running = False
 
-    pygame.draw.rect(screen,color,(x,y,width,width))
+    def game_over(self):
+        print('death')
+        # text = self.font.render('you die', False, WHITE)
+        # text_rect = text.get_rect(center=(WIN_WIDTH/2, WIN_HEIGHT/2))
 
-    pygame.display.flip()
-    dt = clock.tick(60) / 1000
+        # restart_button = Button(10, WIN_HEIGHT - 60, 120, 50, WHITE, BLACK, 'restart', 32)
+
+        # for sprite in self.all_sprites:
+        #     sprite.kill()
+
+        # while self.running:
+        #     for event in pygame.event.get():
+        #         if event.type == pygame.QUIT:
+        #             self.running = False 
+
+        #     mouse_pos = pygame.mouse.get_pos()
+        #     mouse_pressed = pygame.mouse.get_pressed()    
+
+        #     if restart_button.is_pressed(mouse_pos, mouse_pressed):
+        #         self.new()
+        #         self.main()
+
+        #     self.screen.blit(self.go_background, (0,0))     
+        #     self.screen.blit(text, text_rect)
+        #     self.screen.blit(restart_button.image, restart_button.rect)
+        #     self.clock.tick(FPS)
+        #     pygame.display.update() 
+
+    def intro_screen(self):
+        print('intro')
+        # intro = True
+
+        # title = self.font.render('rpg tutorial', False, BLACK)
+        # title_rect = title.get_rect(x=10, y=10)
+        
+        # play_button = Button(10, 50, 100, 50, WHITE, BLACK, 'Play', 32)
+
+        # while intro:
+        #     for event in pygame.event.get():
+        #         if event.type == pygame.QUIT:
+        #             intro = False
+        #             self.running = False
+
+        #     mouse_pos = pygame.mouse.get_pos()
+        #     mouse_pressed = pygame.mouse.get_pressed()
+
+        #     if play_button.is_pressed(mouse_pos, mouse_pressed):
+        #         intro = False
+            
+        #     self.screen.blit(self.intro_background, (0,0))
+        #     self.screen.blit(title, title_rect)
+        #     self.screen.blit(play_button.image, play_button.rect)
+        #     self.clock.tick(FPS)
+        #     pygame.display.update()
 
 
-pygame.quit()
+g = Game()
+# g.intro_screen()
+g.new()
+while g.running:
+    g.main()
+    pygame.quit()
+    # g.game_over()
+
+
+sys.exit()
