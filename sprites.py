@@ -116,15 +116,29 @@ class Player(pygame.sprite.Sprite):
             self.facing = 'down'
 
     def shadow_condition(self):
-        # callable = pygame.sprite.collide_rect_ratio(0.25)
+        #callable = pygame.sprite.collide_rect_ratio(1.1)
         # this callable + spritecollide calculates if the sprites are touching
         # with 0.25 their size. In other words, if they are, then the player
         # is mostly inside the other sprite, which will fulfill the condition
         # of "being under" it. Used for shadow and goat.
-        underShadow = pygame.sprite.spritecollide(self, self.game.shadow, False)
-        underGoat = pygame.sprite.spritecollide(self, self.game.goats, False)
+        touchingShadowSprites = pygame.sprite.spritecollide(self, self.game.shadow, False)
+        
+        if not touchingShadowSprites:
+            return False
+        
+        newBigShadowRect = None
+        for shadows in touchingShadowSprites:
+            if not newBigShadowRect:
+                newBigShadowRect = shadows.rect
+            else:
+                newBigShadowRect = pygame.Rect.union(newBigShadowRect, shadows.rect)
 
-        return underShadow or underGoat
+        
+        underShadow = pygame.Rect.contains(self.rect, newBigShadowRect)
+        
+        #underGoat = pygame.sprite.spritecollide(self, self.game.goats, False)
+
+        return underShadow
 
     def collide_enemy(self):
         hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
