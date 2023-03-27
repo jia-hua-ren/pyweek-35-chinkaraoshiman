@@ -40,6 +40,7 @@ class Game:
                 #     self.player = Player(self, j , i)
                 #     # Attack(self, j, i)
         self.player = Player(self, WIN_HEIGHT/2 , WIN_WIDTH/2)
+        self.playerAOE = PlayerAOE(self, self.player.x, self.player.y)
 
     def new(self):
         print('newgame')
@@ -49,6 +50,7 @@ class Game:
         self.all_sprites = pygame.sprite.LayeredUpdates()
         self.blocks = pygame.sprite.LayeredUpdates()
         self.enemies = pygame.sprite.LayeredUpdates()
+        self.playerAOE = pygame.sprite.LayeredUpdates()
         self.attacks = pygame.sprite.LayeredUpdates()
         self.goats = pygame.sprite.LayeredUpdates()
         self.shadow = pygame.sprite.LayeredUpdates()

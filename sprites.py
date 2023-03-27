@@ -3,6 +3,42 @@ from config import *
 import math
 import random
 
+def distance(x1, y1, x2, y2):
+    return (math.sqrt( (x1-x2)**2 + (y1-y2)**2 ))
+
+class PlayerAOE(pygame.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.game = game
+        self._layer = GROUND_LAYER
+        self.groups = self.game.all_sprites, self.game.playerAOE
+        pygame.sprite.Sprite.__init__(self, self.groups)
+
+        self.x = x
+        self.y = y
+        self.width = TILESIZE * 6
+        self.height = TILESIZE * 6
+
+        self.image = pygame.Surface([self.width, self.height])
+        # self.image.fill((255, 0, 0))
+
+        self.rect = self.image.get_rect()
+        self.rect.center = self.game.player.rect.center
+
+    def update(self): # pygame sprite manditory function
+        self.movement()
+        # self.collide_enemy()
+
+    def movement(self):
+        self.rect.center = self.game.player.rect.center
+
+    def collide_enemy(self):
+        hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
+        if hits:
+            print("aoe")
+            self.kill() #remove player from all sprites
+            # self.game.playing = False #exit game
+
+
 class Spritesheet:
     def __init__(self, file):
         self.sheet = pygame.image.load(file).convert_alpha()
@@ -201,6 +237,7 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
 
+        self.close_to_player = False
         # self.left_animations = [
         #     self.game.enemy_spritesheet.get_sprite(3, 98, self.width, self.height),
         #     self.game.enemy_spritesheet.get_sprite(35, 98, self.width, self.height),
@@ -211,29 +248,46 @@ class Enemy(pygame.sprite.Sprite):
         #     self.game.enemy_spritesheet.get_sprite(35, 66, self.width, self.height),
         #     self.game.enemy_spritesheet.get_sprite(68, 66, self.width, self.height)]
         
-
     def update(self):
         self.movement()
         # self.animate()
-
+        self.see_player()
         self.rect.x += self.x_change
         self.rect.y += self.y_change
 
         self.x_change = 0
         self.y_change = 0
 
-    def movement(self):
-        if self.facing == 'left':
-            self.x_change -= ENEMY_SPEED
-            self.movement_loop -= 1
-            if self.movement_loop <= -self.max_travel:
-                self.facing = 'right'
-        elif self.facing == 'right':
-            self.x_change += ENEMY_SPEED
-            self.movement_loop += 1
-            if self.movement_loop >= self.max_travel:
-                self.facing = 'left'
+    def see_player(self):
+        hits = pygame.Rect.colliderect(self.rect, self.game.playerAOE.rect)
+        if hits:
+            self.close_to_player = True
+        else:
+            self.close_to_player = False
+            
+    def follow_player(self):
+        # distance = (math.hypot(self.x  - self.game.player.x, self.y - self.game.player.y) )
+        angle_radians = (math.atan2(self.rect.y - self.game.player.y , self.rect.x - self.game.player.x))
 
+        self.rect.y -= math.sin(angle_radians) * ENEMY_SPEED
+        self.rect.x -= math.cos(angle_radians)  * ENEMY_SPEED
+
+
+    def movement(self):
+        if self.close_to_player:
+            self.follow_player()
+
+        else:
+            if self.facing == 'left':
+                self.x_change -= ENEMY_SPEED
+                self.movement_loop -= 1
+                if self.movement_loop <= -self.max_travel:
+                    self.facing = 'right'
+            elif self.facing == 'right':
+                self.x_change += ENEMY_SPEED
+                self.movement_loop += 1
+                if self.movement_loop >= self.max_travel:
+                    self.facing = 'left'
 
     def animate(self):
 
@@ -275,8 +329,6 @@ class Block(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
-
-
 
 class Shadow(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
@@ -463,11 +515,6 @@ class Attack(pygame.sprite.Sprite):
             self.animation_loop += 0.5
             if self.animation_loop >= 5:
                 self.kill()
-
-
-
-
-
 
 class Goat(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
