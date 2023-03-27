@@ -17,6 +17,8 @@ class Spritesheet:
 class Player(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
 
+        self.shadowForm = False
+
         self.game = game
         self._layer = PLAYER_LAYER
         self.groups = self.game.all_sprites
@@ -68,7 +70,19 @@ class Player(pygame.sprite.Sprite):
     def update(self): # pygame sprite manditory function
         self.movement()
         # self.animate()
-        self.collide_enemy()
+        # detect whether "H" key is pressed. if it is, 
+        # go in the shadow form.
+        # if not, check if collide enemy.
+        # has to be under goat or in a shadow block in order to turn to shadow.
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_h] and self.shadow_condition():
+            # turn into shadow
+            self.shadowForm = True
+            self.image.fill((255, 0, 0))
+        else:
+            self.shadowForm = False
+            self.image.fill((255, 255, 255))
+            self.collide_enemy()
 
         self.rect.x += self.x_change
         self.collide_blocks('x')
@@ -100,6 +114,17 @@ class Player(pygame.sprite.Sprite):
                 sprite.rect.y -= PLAYER_SPEED
             self.y_change += PLAYER_SPEED
             self.facing = 'down'
+
+    def shadow_condition(self):
+        # callable = pygame.sprite.collide_rect_ratio(0.25)
+        # this callable + spritecollide calculates if the sprites are touching
+        # with 0.25 their size. In other words, if they are, then the player
+        # is mostly inside the other sprite, which will fulfill the condition
+        # of "being under" it. Used for shadow and goat.
+        underShadow = pygame.sprite.spritecollide(self, self.game.shadow, False)
+        underGoat = pygame.sprite.spritecollide(self, self.game.goats, False)
+
+        return underShadow or underGoat
 
     def collide_enemy(self):
         hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
