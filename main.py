@@ -10,6 +10,7 @@ from player import *
 from enemy import *
 from block import *
 from config import *
+from levels import *
 import sys
 
 class Game:
