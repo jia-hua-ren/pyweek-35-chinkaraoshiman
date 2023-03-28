@@ -70,18 +70,17 @@ class Player(pygame.sprite.Sprite):
     def update(self): # pygame sprite manditory function
         self.movement()
         # self.animate()
-        # detect whether "H" key is pressed. if it is, 
-        # go in the shadow form.
-        # if not, check if collide enemy.
-        # has to be under goat or in a shadow block in order to turn to shadow.
+        
         keys = pygame.key.get_pressed()
         if keys[pygame.K_h] and self.shadow_condition():
-            # turn into shadow
+            # Turn into shadow on H key hold
+            # need to decide between toggle or hold
             self.shadowForm = True
+            # Red for now for testing purposes
             self.image.fill((255, 0, 0))
         else:
             self.shadowForm = False
-            self.image.fill((255, 255, 255))
+            self.image = self.game.character_spritesheet.get_sprite(0, 0, self.width, self.height)
             self.collide_enemy()
 
         self.rect.x += self.x_change
@@ -116,29 +115,38 @@ class Player(pygame.sprite.Sprite):
             self.facing = 'down'
 
     def shadow_condition(self):
-        #callable = pygame.sprite.collide_rect_ratio(1.1)
-        # this callable + spritecollide calculates if the sprites are touching
-        # with 0.25 their size. In other words, if they are, then the player
-        # is mostly inside the other sprite, which will fulfill the condition
-        # of "being under" it. Used for shadow and goat.
-        touchingShadowSprites = pygame.sprite.spritecollide(self, self.game.shadow, False)
+        callable = pygame.sprite.collide_rect_ratio(1)
         
-        if not touchingShadowSprites:
+        # Get the sprites that the player sprite is touching
+        touchingShadowSprites = pygame.sprite.spritecollide(self, self.game.shadow, False, callable)
+        touchingGoatSprites = pygame.sprite.spritecollide(self, self.game.goats, False, callable)
+
+        newShadowRect = None
+        newGoatsRect = None
+
+        if touchingShadowSprites:
+            # make the bigger shadow rect
+            for shadows in touchingShadowSprites:
+                if not newShadowRect:
+                    newShadowRect = shadows.rect
+                else:
+                    newShadowRect = pygame.Rect.union(newShadowRect, shadows.rect)
+        if touchingGoatSprites:
+            # make the bigger goats rect
+            for goats in touchingGoatSprites:
+                if not newGoatsRect:
+                    newGoatsRect = goats.rect
+                else:
+                    newGoatsRect = pygame.Rect.union(newGoatsRect, goats.rect)
+
+        if newShadowRect and newGoatsRect:
+            return pygame.Rect.contains(newShadowRect, self.rect) or pygame.Rect.contains(newGoatsRect, self.rect)
+        elif newShadowRect:
+            return pygame.Rect.contains(newShadowRect, self.rect)
+        elif newGoatsRect:
+            return pygame.Rect.contains(newGoatsRect, self.rect)
+        else:
             return False
-        
-        newBigShadowRect = None
-        for shadows in touchingShadowSprites:
-            if not newBigShadowRect:
-                newBigShadowRect = shadows.rect
-            else:
-                newBigShadowRect = pygame.Rect.union(newBigShadowRect, shadows.rect)
-
-        
-        underShadow = pygame.Rect.contains(self.rect, newBigShadowRect)
-        
-        #underGoat = pygame.sprite.spritecollide(self, self.game.goats, False)
-
-        return underShadow
 
     def collide_enemy(self):
         hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
