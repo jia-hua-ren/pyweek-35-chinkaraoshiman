@@ -53,6 +53,8 @@ class Spritesheet:
 class Player(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
 
+        self.shadowForm = False
+
         self.game = game
         self._layer = PLAYER_LAYER
         self.groups = self.game.all_sprites
@@ -63,8 +65,8 @@ class Player(pygame.sprite.Sprite):
 
         self.x = self.screen_width#WIN_WIDTH * TILESIZE * 0
         self.y = self.screen_height#WIN_HEIGHT * TILESIZE * 0
-        self.width = TILESIZE
-        self.height = TILESIZE
+        self.width = TILESIZE/2
+        self.height = TILESIZE/2
 
         self.x_change = 0
         self.y_change = 0
@@ -108,6 +110,18 @@ class Player(pygame.sprite.Sprite):
         # self.animate()
         self.collide_enemy()
         self.hide_in_shadow()
+        
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_h] and self.shadow_condition():
+            # Turn into shadow on H key hold
+            # need to decide between toggle or hold
+            self.shadowForm = True
+            # Red for now for testing purposes
+            self.image.fill((255, 0, 0))
+        else:
+            self.shadowForm = False
+            self.image = self.game.character_spritesheet.get_sprite(0, 0, self.width, self.height)
+            self.collide_enemy()
 
         self.rect.x += self.x_change
         self.collide_blocks('x')
@@ -139,6 +153,43 @@ class Player(pygame.sprite.Sprite):
                 sprite.rect.y -= PLAYER_SPEED
             self.y_change += PLAYER_SPEED
             self.facing = 'down'
+
+    def shadow_condition(self):
+        callable = pygame.sprite.collide_rect_ratio(1)
+        
+        # Get the sprites that the player sprite is touching
+        touchingShadowSprites = pygame.sprite.spritecollide(self, self.game.shadow, False, callable)
+        touchingGoatSprites = pygame.sprite.spritecollide(self, self.game.goats, False, callable)
+
+        newShadowRect = pygame.Rect(0,0,0,0)
+        newGoatsRect = pygame.Rect(0,0,0,0)
+
+        if touchingShadowSprites:
+            # make the bigger shadow rect
+            for shadows in touchingShadowSprites:
+                if not newShadowRect:
+                    newShadowRect = shadows.rect
+                else:
+                    newShadowRect = pygame.Rect.union(newShadowRect, shadows.rect)
+        if touchingGoatSprites:
+            # make the bigger goats rect
+            for goats in touchingGoatSprites:
+                if not newGoatsRect:
+                    newGoatsRect = goats.rect
+                else:
+                    newGoatsRect = pygame.Rect.union(newGoatsRect, goats.rect)
+
+        newShadowRect = newShadowRect.scale_by(1.2)
+        newGoatsRect = newGoatsRect.scale_by(1.2)
+
+        if newShadowRect and newGoatsRect:
+            return pygame.Rect.contains(newShadowRect, self.rect) or pygame.Rect.contains(newGoatsRect, self.rect)
+        elif newShadowRect:
+            return pygame.Rect.contains(newShadowRect, self.rect)
+        elif newGoatsRect:
+            return pygame.Rect.contains(newGoatsRect, self.rect)
+        else:
+            return False
 
     def collide_enemy(self):
         hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
@@ -258,6 +309,8 @@ class Enemy(pygame.sprite.Sprite):
         #     self.game.enemy_spritesheet.get_sprite(35, 66, self.width, self.height),
         #     self.game.enemy_spritesheet.get_sprite(68, 66, self.width, self.height)]
         
+        #     self.game.enemy_spritesheet.get_sprite(68, 66, self.width, self.height)]        
+
     def update(self):
         self.movement()
         # self.animate()
@@ -279,8 +332,8 @@ class Enemy(pygame.sprite.Sprite):
         # distance = (math.hypot(self.x  - self.game.player.x, self.y - self.game.player.y) )
         angle_radians = (math.atan2(self.rect.y - self.game.player.y , self.rect.x - self.game.player.x))
 
-        self.rect.y -= math.sin(angle_radians) * ENEMY_SPEED
-        self.rect.x -= math.cos(angle_radians)  * ENEMY_SPEED
+        self.rect.y -= math.sin(angle_radians) * ENEMY_SPEED * ENEMY_CHASE_BOOST
+        self.rect.x -= math.cos(angle_radians)  * ENEMY_SPEED * ENEMY_CHASE_BOOST
 
 
     def movement(self):
