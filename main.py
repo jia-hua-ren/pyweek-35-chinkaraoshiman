@@ -28,6 +28,7 @@ class Game:
         self.wall_spritesheet = Spritesheet('./assets/img/wall.png')
         self.shadow_spritesheet = Spritesheet('./assets/img/shadow.png')
         # self.attack_spritesheet = Spritesheet('img/attack.png')
+        self.bg_img = pygame.image.load('./assets/img/bg.png').convert_alpha()
 
         # self.intro_background = pygame.image.load('./img/introbackground.png')
         # self.go_background = pygame.image.load('./img/gameover.png')
@@ -77,6 +78,7 @@ class Game:
 
     def draw(self): # draw sprites on screen
         self.screen.fill(BLACK)
+        self.screen.blit(self.bg_img, (0, 0))
         self.all_sprites.draw(self.screen) # sprite group draw method
         self.clock.tick(FPS)
         pygame.display.update()
