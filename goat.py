@@ -56,15 +56,12 @@ class Goat(pygame.sprite.Sprite):
         self.y_change = 0
 
     def movement(self):
-        print('stuck', self.facing, self.max_travel, self.movement_loop)
         if self.facing == 'left':
             self.x_change -= GOAT_SPEED
             if self.movement_loop >= self.max_travel:
                 self.facing = random.choice(('right', 'up', 'down'))
                 self.movement_loop = 0
                 self.max_travel = random.randint(7, 30)
-                print('stuck', self.facing, self.max_travel, self.movement_loop)
-
 
         elif self.facing == 'right':
             self.x_change += GOAT_SPEED
@@ -72,7 +69,6 @@ class Goat(pygame.sprite.Sprite):
                 self.facing = random.choice(('left', 'up', 'down'))
                 self.movement_loop = 0
                 self.max_travel = random.randint(7, 30)
-                print('stuck', self.facing, self.max_travel, self.movement_loop)
 
 
         elif self.facing == 'up':
@@ -81,7 +77,6 @@ class Goat(pygame.sprite.Sprite):
                 self.facing = random.choice(('right', 'down', 'left'))
                 self.movement_loop = 0
                 self.max_travel = random.randint(7, 30)
-                print('stuck', self.facing, self.max_travel, self.movement_loop)
 
         elif self.facing == 'down':
             self.y_change += GOAT_SPEED
@@ -89,7 +84,6 @@ class Goat(pygame.sprite.Sprite):
                 self.facing = random.choice(('right', 'up', 'left'))
                 self.movement_loop = 0
                 self.max_travel = random.randint(7, 30)
-                print('stuck', self.facing, self.max_travel, self.movement_loop)
 
 
         self.movement_loop += 1
