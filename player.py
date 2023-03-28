@@ -1,0 +1,253 @@
+import pygame
+from config import *
+import math
+import random
+
+class Player(pygame.sprite.Sprite):
+    def __init__(self, game, x, y):
+
+        self.shadowForm = False
+
+        self.game = game
+        self._layer = PLAYER_LAYER
+        self.groups = self.game.all_sprites
+        pygame.sprite.Sprite.__init__(self, self.groups)
+
+        self.screen_width = 13 * TILESIZE * 0.5 - TILESIZE/2
+        self.screen_height = 7.3 * TILESIZE * 0.5 - TILESIZE/2
+
+        self.x = self.screen_width#WIN_WIDTH * TILESIZE * 0
+        self.y = self.screen_height#WIN_HEIGHT * TILESIZE * 0
+        self.width = TILESIZE/2
+        self.height = TILESIZE/2
+
+        self.x_change = 0
+        self.y_change = 0
+
+        self.facing = 'down'
+        self.animation_loop = 1
+
+        self.image = self.game.character_spritesheet.get_sprite(0, 0, self.width, self.height)
+        # self.image = pygame.Surface([self.width, self.height])
+        # self.image.fill((255, 0, 0))
+
+        self.rect = self.image.get_rect()
+        self.rect.x = self.x
+        self.rect.y = self.y
+
+        self.hidden_in_shadow = False
+
+        # self.down_animations = [
+        #     self.game.character_spritesheet.get_sprite(3, 2, self.width, self.height),
+        #     self.game.character_spritesheet.get_sprite(35, 2, self.width, self.height),
+        #     self.game.character_spritesheet.get_sprite(68, 2, self.width, self.height)]
+
+        # self.up_animations = [
+        #     self.game.character_spritesheet.get_sprite(3, 34, self.width, self.height),
+        #     self.game.character_spritesheet.get_sprite(35, 34, self.width, self.height),
+        #     self.game.character_spritesheet.get_sprite(68, 34, self.width, self.height)]
+
+        # self.left_animations = [
+        #     self.game.character_spritesheet.get_sprite(3, 98, self.width, self.height),
+        #     self.game.character_spritesheet.get_sprite(35, 98, self.width, self.height),
+        #     self.game.character_spritesheet.get_sprite(68, 98, self.width, self.height)]
+
+        # self.right_animations = [
+        #     self.game.character_spritesheet.get_sprite(3, 66, self.width, self.height),
+        #     self.game.character_spritesheet.get_sprite(35, 66, self.width, self.height),
+        #     self.game.character_spritesheet.get_sprite(68, 66, self.width, self.height)]
+
+
+    def update(self): # pygame sprite manditory function
+        self.movement()
+        # self.animate()
+        self.collide_enemy()
+        self.hide_in_shadow()
+        
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_h] and self.shadow_condition():
+            # Turn into shadow on H key hold
+            # need to decide between toggle or hold
+            self.shadowForm = True
+            # Red for now for testing purposes
+            self.image.fill((255, 0, 0))
+        else:
+            self.shadowForm = False
+            self.image = self.game.character_spritesheet.get_sprite(0, 0, self.width, self.height)
+            self.collide_enemy()
+
+        self.rect.x += self.x_change
+        self.collide_blocks('x')
+        self.rect.y += self.y_change
+        self.collide_blocks('y')
+
+        self.x_change = 0
+        self.y_change = 0
+
+    def movement(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            for sprite in self.game.all_sprites:
+                sprite.rect.x += PLAYER_SPEED
+            self.x_change -= PLAYER_SPEED
+            self.facing = 'left'
+        if keys[pygame.K_RIGHT]:
+            for sprite in self.game.all_sprites:
+                sprite.rect.x -= PLAYER_SPEED
+            self.x_change += PLAYER_SPEED
+            self.facing = 'right'
+        if keys[pygame.K_UP]:
+            for sprite in self.game.all_sprites:
+                sprite.rect.y += PLAYER_SPEED
+            self.y_change -= PLAYER_SPEED
+            self.facing = 'up'
+        if keys[pygame.K_DOWN]:
+            for sprite in self.game.all_sprites:
+                sprite.rect.y -= PLAYER_SPEED
+            self.y_change += PLAYER_SPEED
+            self.facing = 'down'
+
+    def shadow_condition(self):
+        callable = pygame.sprite.collide_rect_ratio(1)
+        
+        # Get the sprites that the player sprite is touching
+        touchingShadowSprites = pygame.sprite.spritecollide(self, self.game.shadow, False, callable)
+        touchingGoatSprites = pygame.sprite.spritecollide(self, self.game.goats, False, callable)
+
+        newShadowRect = pygame.Rect(0,0,0,0)
+        newGoatsRect = pygame.Rect(0,0,0,0)
+
+        if touchingShadowSprites:
+            # make the bigger shadow rect
+            for shadows in touchingShadowSprites:
+                if not newShadowRect:
+                    newShadowRect = shadows.rect
+                else:
+                    newShadowRect = pygame.Rect.union(newShadowRect, shadows.rect)
+        if touchingGoatSprites:
+            # make the bigger goats rect
+            for goats in touchingGoatSprites:
+                if not newGoatsRect:
+                    newGoatsRect = goats.rect
+                else:
+                    newGoatsRect = pygame.Rect.union(newGoatsRect, goats.rect)
+
+        newShadowRect = newShadowRect.scale_by(1.2)
+        newGoatsRect = newGoatsRect.scale_by(1.2)
+
+        if newShadowRect and newGoatsRect:
+            return pygame.Rect.contains(newShadowRect, self.rect) or pygame.Rect.contains(newGoatsRect, self.rect)
+        elif newShadowRect:
+            return pygame.Rect.contains(newShadowRect, self.rect)
+        elif newGoatsRect:
+            return pygame.Rect.contains(newGoatsRect, self.rect)
+        else:
+            return False
+
+    def collide_enemy(self):
+        hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
+        if hits:
+            self.kill() #remove player from all sprites
+            self.game.playing = False #exit game
+
+    def hide_in_shadow(self):
+        hits = pygame.sprite.spritecollide(self, self.game.shadow, False)
+        if hits:
+            # print('hidden')
+            self.hidden_in_shadow = True
+        else:
+            self.hidden_in_shadow = False
+
+    def collide_blocks(self, direction):
+        if direction == "x":
+            #False is dont want to delete sprite when collide
+            hits = pygame.sprite.spritecollide(self, self.game.blocks, False) #check player rect and every block in the game
+            if hits:
+                if self.x_change > 0: #moving right
+                    self.rect.x = hits[0].rect.left - self.rect.width
+                    for sprite in self.game.all_sprites:
+                        sprite.rect.x += PLAYER_SPEED
+                if self.x_change < 0:
+                    self.rect.x = hits[0].rect.right
+                    for sprite in self.game.all_sprites:
+                        sprite.rect.x -= PLAYER_SPEED
+        if direction == "y":
+            hits = pygame.sprite.spritecollide(self, self.game.blocks, False) #check player rect and every block in the game
+            if hits:
+                if self.y_change > 0: #moving down
+                    self.rect.y = hits[0].rect.top - self.rect.height #hits is the block rect
+                    for sprite in self.game.all_sprites:
+                        sprite.rect.y += PLAYER_SPEED
+                if self.y_change < 0:
+                    self.rect.y = hits[0].rect.bottom
+                    for sprite in self.game.all_sprites:
+                        sprite.rect.y -= PLAYER_SPEED
+    def animate(self):
+
+        if self.facing == "down":
+            if self.y_change ==0:
+                self.image = self.game.character_spritesheet.get_sprite(3, 2, self.width, self.height)
+            else:
+                self.image = self.down_animations[math.floor(self.animation_loop)]
+                self.animation_loop += 0.1
+                if self.animation_loop >= 3:
+                    self.animation_loop = 1
+
+        elif self.facing == "up":
+            if self.y_change ==0:
+                self.image = self.game.character_spritesheet.get_sprite(3, 34, self.width, self.height)
+            else:
+                self.image = self.up_animations[math.floor(self.animation_loop)]
+                self.animation_loop += 0.1
+                if self.animation_loop >= 3:
+                    self.animation_loop = 1
+
+        elif self.facing == "left":
+            if self.x_change ==0:
+                self.image = self.game.character_spritesheet.get_sprite(3, 98, self.width, self.height)
+            else:
+                self.image = self.left_animations[math.floor(self.animation_loop)]
+                self.animation_loop += 0.1
+                if self.animation_loop >= 3:
+                    self.animation_loop = 1
+
+        elif self.facing == "right":
+            if self.x_change ==0:
+                self.image = self.game.character_spritesheet.get_sprite(3, 66, self.width, self.height)
+            else:
+                self.image = self.right_animations[math.floor(self.animation_loop)]
+                self.animation_loop += 0.1
+                if self.animation_loop >= 3:
+                    self.animation_loop = 1
+
+class PlayerAOE(pygame.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.game = game
+        self._layer = GROUND_LAYER
+        self.groups = self.game.all_sprites, self.game.playerAOE
+        pygame.sprite.Sprite.__init__(self, self.groups)
+
+        self.x = x
+        self.y = y
+        self.width = TILESIZE * 6
+        self.height = TILESIZE * 6
+
+        self.image = pygame.Surface([self.width, self.height])
+        # self.image.fill((255, 0, 0))
+
+        self.rect = self.image.get_rect()
+        self.rect.center = self.game.player.rect.center
+
+    def update(self): # pygame sprite manditory function
+        self.movement()
+        # self.collide_enemy()
+
+    def movement(self):
+        self.rect.center = self.game.player.rect.center
+
+    def collide_enemy(self):
+        hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
+        if hits:
+            print("aoe")
+            self.kill() #remove player from all sprites
+            # self.game.playing = False #exit game

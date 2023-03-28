@@ -1,5 +1,14 @@
 import pygame
-from sprites import *
+# from sprites import *
+from utility import *
+from goat import *
+from attack import *
+from button import *
+from ground import *
+from shadow import *
+from player import *
+from enemy import *
+from block import *
 from config import *
 import sys
 
