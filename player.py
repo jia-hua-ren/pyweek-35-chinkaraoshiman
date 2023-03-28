@@ -234,6 +234,7 @@ class PlayerAOE(pygame.sprite.Sprite):
 
         self.image = pygame.Surface([self.width, self.height])
         # self.image.fill((255, 0, 0))
+        self.image.set_colorkey(BLACK)
 
         self.rect = self.image.get_rect()
         self.rect.center = self.game.player.rect.center
