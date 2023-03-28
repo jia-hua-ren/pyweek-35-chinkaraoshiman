@@ -18,7 +18,7 @@ class Goat(pygame.sprite.Sprite):
         self.x_change = 0
         self.y_change = 0   
 
-        self.facing = random.choice(['left', 'right']) 
+        self.facing = 'left'#random.choice(['left', 'right', 'up', 'down']) 
         self.animation_loop = 1
         self.movement_loop = 0
         self.max_travel = random.randint(7, 30) # enemy move back forth 7 to 30 pixels
@@ -56,16 +56,43 @@ class Goat(pygame.sprite.Sprite):
         self.y_change = 0
 
     def movement(self):
+        print('stuck', self.facing, self.max_travel, self.movement_loop)
         if self.facing == 'left':
             self.x_change -= GOAT_SPEED
-            self.movement_loop -= 1
-            if self.movement_loop <= -self.max_travel:
-                self.facing = 'right'
+            if self.movement_loop >= self.max_travel:
+                self.facing = random.choice(('right', 'up', 'down'))
+                self.movement_loop = 0
+                self.max_travel = random.randint(7, 30)
+                print('stuck', self.facing, self.max_travel, self.movement_loop)
+
+
         elif self.facing == 'right':
             self.x_change += GOAT_SPEED
-            self.movement_loop += 1
             if self.movement_loop >= self.max_travel:
-                self.facing = 'left'
+                self.facing = random.choice(('left', 'up', 'down'))
+                self.movement_loop = 0
+                self.max_travel = random.randint(7, 30)
+                print('stuck', self.facing, self.max_travel, self.movement_loop)
+
+
+        elif self.facing == 'up':
+            self.y_change -= GOAT_SPEED
+            if self.movement_loop >= self.max_travel:
+                self.facing = random.choice(('right', 'down', 'left'))
+                self.movement_loop = 0
+                self.max_travel = random.randint(7, 30)
+                print('stuck', self.facing, self.max_travel, self.movement_loop)
+
+        elif self.facing == 'down':
+            self.y_change += GOAT_SPEED
+            if self.movement_loop >= self.max_travel:
+                self.facing = random.choice(('right', 'up', 'left'))
+                self.movement_loop = 0
+                self.max_travel = random.randint(7, 30)
+                print('stuck', self.facing, self.max_travel, self.movement_loop)
+
+
+        self.movement_loop += 1
 
 
     def animate(self):
