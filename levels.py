@@ -1,9 +1,9 @@
 tilemap = [
     'BBBBBBBBBBBBBBBBBBBB',
     'B.SSSS.......E.....B',
-    '...BBBBG.......BB.......B',
-    'B....G...SSSS.......B',
-    '..B......G.SS.G........B',
+    '...BBBBGB......BB.......B',
+    'B..B.G...SSSS.......B',
+    '..BBBBBBBG.SS.G........B',
     'B.........B..BB..BBB',
     '.....B...BBBBBBB..B...BBBBBBB..B',
     'BBBBB..SSS...B.....B',
