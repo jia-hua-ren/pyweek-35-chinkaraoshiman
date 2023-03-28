@@ -48,14 +48,29 @@ class Enemy(pygame.sprite.Sprite):
         #     self.game.enemy_spritesheet.get_sprite(68, 66, self.width, self.height)]        
 
     def update(self):
+        self.see_player()
         self.movement()
         # self.animate()
-        self.see_player()
+        
         self.rect.x += self.x_change
         self.rect.y += self.y_change
 
         self.x_change = 0
         self.y_change = 0
+
+    def collide_blocks(self):
+        hits = pygame.sprite.spritecollide(self, self.game.blocks, False) #check player rect and every block in the game
+        if not hits: return False
+        if hits:
+            if self.x_change > 0: #moving right
+                self.rect.x = hits[0].rect.left - self.rect.width
+            if self.x_change < 0:
+                self.rect.x = hits[0].rect.right
+            if self.y_change > 0: #moving down
+                self.rect.y = hits[0].rect.top - self.rect.height #hits is the block rect
+            if self.y_change < 0:
+                self.rect.y = hits[0].rect.bottom
+        return True
 
     def see_player(self):
         hits = pygame.Rect.colliderect(self.rect, self.game.playerAOE.rect)
@@ -68,8 +83,11 @@ class Enemy(pygame.sprite.Sprite):
         # distance = (math.hypot(self.x  - self.game.player.x, self.y - self.game.player.y) )
         angle_radians = (math.atan2(self.rect.y - self.game.player.y , self.rect.x - self.game.player.x))
 
-        self.rect.y -= math.sin(angle_radians) * ENEMY_SPEED * ENEMY_CHASE_BOOST
-        self.rect.x -= math.cos(angle_radians)  * ENEMY_SPEED * ENEMY_CHASE_BOOST
+        if not self.collide_blocks():
+            self.rect.y -= math.sin(angle_radians) * ENEMY_SPEED * ENEMY_CHASE_BOOST
+            self.rect.x -= math.cos(angle_radians)  * ENEMY_SPEED * ENEMY_CHASE_BOOST
+
+        
 
 
     def movement(self):

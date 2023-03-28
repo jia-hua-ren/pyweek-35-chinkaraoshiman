@@ -37,17 +37,26 @@ class Game:
     def createTilemap(self):
         # j is x position
         # i is the y position
-        for i, row in enumerate(tilemap):
+        for i, row in enumerate(level1):
             for j, column in enumerate(row):
-                Ground(self, j, i) # ground
+                if column == ".": #normal ground
+                    Ground(self, j, i)
+                if column == "R": #restricted move area
+                    Ground(self, j, i, True)
                 if column == "B": #block wall
+                    Ground(self, j, i)
                     Block(self, j, i)
                 if column == "S": #shadow 
+                    Ground(self, j, i)
                     Shadow(self, j, i)
-                if column == "E": #enemy
-                    Enemy(self, j, i)
+                # moving objects default should have restricted
+                # area under them
                 if column == "G": # goat
+                    Ground(self, j, i, True)
                     Goat(self, j, i)
+                if column == "E": #enemy
+                    Ground(self, j, i, True)
+                    Enemy(self, j, i)
                 # if column == "P": #player
                 #     self.player = Player(self, j , i)
                 #     # Attack(self, j, i)
@@ -61,6 +70,7 @@ class Game:
 
         self.all_sprites = pygame.sprite.LayeredUpdates()
         self.blocks = pygame.sprite.LayeredUpdates()
+        self.grounds = pygame.sprite.LayeredUpdates()
         self.enemies = pygame.sprite.LayeredUpdates()
         self.playerAOE = pygame.sprite.LayeredUpdates()
         self.attacks = pygame.sprite.LayeredUpdates()

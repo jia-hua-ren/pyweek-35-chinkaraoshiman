@@ -19,10 +19,10 @@ tilemap = [
 level1 = [
     'BBBBBBBBBBBBBBBBBBBB',
     'B..................B',
-    'B.....SSSE.........B',
-    'B.....SSSE.........B',
-    'B..................B',
-    'B..................B',
+    'B.....RRRRR........B',
+    'B.....RRGRR....G...B',
+    'B.....RRRRR........B',
+    'B.....RRRRR........B',
     'B..................B',
     'BBBBBBBBBBBBBBBBBBBB',
 ]

@@ -4,10 +4,17 @@ import math
 import random
 
 class Ground(pygame.sprite.Sprite):
-    def __init__(self, game, x, y):
+    def __init__(self, game, x, y, restricted = False):
+        # determine if this block is part of restricted area.
+        # defaults false.
+        self.restricted = restricted
+
         self.game = game
         self._layer = GROUND_LAYER
         self.groups = self.game.all_sprites
+        if not restricted:
+            self.groups = self.game.all_sprites, self.game.grounds
+
         pygame.sprite.Sprite.__init__(self, self.groups)
 
         self.x = x * TILESIZE
