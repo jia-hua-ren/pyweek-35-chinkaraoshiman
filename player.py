@@ -147,9 +147,9 @@ class Player(pygame.sprite.Sprite):
             self.game.playing = False #exit game
 
     def collide_blocks(self, direction):
+        hits = pygame.sprite.spritecollide(self, self.game.blocks, False) #check player rect and every block in the game
+        #False is dont want to delete sprite when collide
         if direction == "x":
-            #False is dont want to delete sprite when collide
-            hits = pygame.sprite.spritecollide(self, self.game.blocks, False) #check player rect and every block in the game
             if hits:
                 if self.x_change > 0: #moving right
                     self.rect.x = hits[0].rect.left - self.rect.width
@@ -160,7 +160,6 @@ class Player(pygame.sprite.Sprite):
                     for sprite in self.game.all_sprites:
                         sprite.rect.x -= PLAYER_SPEED
         if direction == "y":
-            hits = pygame.sprite.spritecollide(self, self.game.blocks, False) #check player rect and every block in the game
             if hits:
                 if self.y_change > 0: #moving down
                     self.rect.y = hits[0].rect.top - self.rect.height #hits is the block rect
