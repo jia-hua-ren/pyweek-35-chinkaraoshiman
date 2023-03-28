@@ -11,6 +11,7 @@ from enemy import *
 from block import *
 from config import *
 from levels import *
+from textbox import *
 import sys
 
 class Game:
@@ -65,13 +66,20 @@ class Game:
         self.attacks = pygame.sprite.LayeredUpdates()
         self.goats = pygame.sprite.LayeredUpdates()
         self.shadow = pygame.sprite.LayeredUpdates()
+        self.textbox = pygame.sprite.LayeredUpdates()
         self.createTilemap()
+        self.test_test_box = Textbox(self)
 
     def events(self): # key presses and stuff
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                print('done')
                 self.playing = False
                 self.running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    # print('kill')
+                    self.test_test_box.kill()
     def update(self): # make things move
         #game loop updates
         self.all_sprites.update() #find update function/method in every sprite and update it
