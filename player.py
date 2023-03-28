@@ -35,8 +35,6 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
 
-        self.hidden_in_shadow = False
-
         # self.down_animations = [
         #     self.game.character_spritesheet.get_sprite(3, 2, self.width, self.height),
         #     self.game.character_spritesheet.get_sprite(35, 2, self.width, self.height),
@@ -62,7 +60,6 @@ class Player(pygame.sprite.Sprite):
         self.movement()
         # self.animate()
         self.collide_enemy()
-        self.hide_in_shadow()
         
         keys = pygame.key.get_pressed()
         if keys[pygame.K_h] and self.shadow_condition():
@@ -149,14 +146,6 @@ class Player(pygame.sprite.Sprite):
         if hits:
             self.kill() #remove player from all sprites
             self.game.playing = False #exit game
-
-    def hide_in_shadow(self):
-        hits = pygame.sprite.spritecollide(self, self.game.shadow, False)
-        if hits:
-            # print('hidden')
-            self.hidden_in_shadow = True
-        else:
-            self.hidden_in_shadow = False
 
     def collide_blocks(self, direction):
         if direction == "x":

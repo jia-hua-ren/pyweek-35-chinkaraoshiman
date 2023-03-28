@@ -59,7 +59,7 @@ class Enemy(pygame.sprite.Sprite):
 
     def see_player(self):
         hits = pygame.Rect.colliderect(self.rect, self.game.playerAOE.rect)
-        if hits and not self.game.player.hidden_in_shadow:
+        if hits and not self.game.player.shadowForm:
             self.close_to_player = True
         else:
             self.close_to_player = False
