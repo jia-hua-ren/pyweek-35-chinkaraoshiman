@@ -29,8 +29,8 @@ class Player(pygame.sprite.Sprite):
 
         self.x = self.screen_width#WIN_WIDTH * TILESIZE * 0
         self.y = self.screen_height#WIN_HEIGHT * TILESIZE * 0
-        self.width = TILESIZE
-        self.height = TILESIZE
+        self.width = TILESIZE/2
+        self.height = TILESIZE/2
 
         self.x_change = 0
         self.y_change = 0
@@ -121,8 +121,8 @@ class Player(pygame.sprite.Sprite):
         touchingShadowSprites = pygame.sprite.spritecollide(self, self.game.shadow, False, callable)
         touchingGoatSprites = pygame.sprite.spritecollide(self, self.game.goats, False, callable)
 
-        newShadowRect = None
-        newGoatsRect = None
+        newShadowRect = pygame.Rect(0,0,0,0)
+        newGoatsRect = pygame.Rect(0,0,0,0)
 
         if touchingShadowSprites:
             # make the bigger shadow rect
@@ -138,6 +138,9 @@ class Player(pygame.sprite.Sprite):
                     newGoatsRect = goats.rect
                 else:
                     newGoatsRect = pygame.Rect.union(newGoatsRect, goats.rect)
+
+        newShadowRect = newShadowRect.scale_by(1.2)
+        newGoatsRect = newGoatsRect.scale_by(1.2)
 
         if newShadowRect and newGoatsRect:
             return pygame.Rect.contains(newShadowRect, self.rect) or pygame.Rect.contains(newGoatsRect, self.rect)
@@ -256,8 +259,7 @@ class Enemy(pygame.sprite.Sprite):
         # self.right_animations = [
         #     self.game.enemy_spritesheet.get_sprite(3, 66, self.width, self.height),
         #     self.game.enemy_spritesheet.get_sprite(35, 66, self.width, self.height),
-        #     self.game.enemy_spritesheet.get_sprite(68, 66, self.width, self.height)]
-        
+        #     self.game.enemy_spritesheet.get_sprite(68, 66, self.width, self.height)]        
 
     def update(self):
         self.movement()
@@ -280,7 +282,6 @@ class Enemy(pygame.sprite.Sprite):
             self.movement_loop += 1
             if self.movement_loop >= self.max_travel:
                 self.facing = 'left'
-
 
     def animate(self):
 
