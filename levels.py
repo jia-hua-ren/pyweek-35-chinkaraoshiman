@@ -15,3 +15,14 @@ tilemap = [
     'B....SG..SSSS......BBBB.B',
     '.BBBBBBBBBBBBBBBB.BBB'
 ]
+
+level1 = [
+    'BBBBBBBBBBBBBBBBBBBB',
+    'B..................B',
+    'B.....SSSE.........B',
+    'B.....SSSE.........B',
+    'B..................B',
+    'B..................B',
+    'B..................B',
+    'BBBBBBBBBBBBBBBBBBBB',
+]

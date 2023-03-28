@@ -59,7 +59,6 @@ class Player(pygame.sprite.Sprite):
     def update(self): # pygame sprite manditory function
         self.movement()
         # self.animate()
-        self.collide_enemy()
         
         keys = pygame.key.get_pressed()
         if keys[pygame.K_h] and self.shadow_condition():
