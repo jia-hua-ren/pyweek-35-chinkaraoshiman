@@ -15,7 +15,7 @@ class Goat(pygame.sprite.Sprite):
         self.width = TILESIZE
         self.height = TILESIZE
 
-
+        # This is a testing comment
         self.x_change = 0
         self.y_change = 0   
 
