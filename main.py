@@ -16,8 +16,11 @@ from door import *
 import sys
 
 class Game:
-    def __init__(self):
+    def __init__(self, level, level_description):
         pygame.init()
+        self.level = level
+        self.level_description = level_description
+
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
         self.clock = pygame.time.Clock()
         #self.font = pygame.font.Font('arial.ttf', 32)
@@ -41,7 +44,7 @@ class Game:
     def createTilemap(self):
         # j is x position
         # i is the y position
-        for i, row in enumerate(level1):
+        for i, row in enumerate(self.level):
             for j, column in enumerate(row):
                 if column == ".": #normal ground
                     Ground(self, j, i)
@@ -91,20 +94,16 @@ class Game:
         self.shadow = pygame.sprite.LayeredUpdates()
         self.textbox = pygame.sprite.LayeredUpdates()
         self.createTilemap()
-        Textbox(self, ('press space', 
-                       'text centers always', 
-                       'surrender; if not you are dead.', 
-                       'By Holy Mary, brother!', 
-                       'We are brought by deception to the greatest treachery in the world.', 
-                       'amadis 315',
-                       'i4treif8uyhkj43tearf9oiulhk4ter9puijlkq345rea8ouyihlj345tearfo8yihlq354rewa8oyilhq354rwe8oyikh345rqaewoy8ihkj345rewfoy8ukhjq234rewoy8iuk'), 7)
+        Textbox(self, self.level_description, len(self.level_description))
 
     def events(self): # key presses and stuff
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 print('done')
+                pygame.quit()
                 self.playing = False
                 self.running = False
+                
 
     def update(self): # make things move
         #game loop updates
@@ -124,8 +123,10 @@ class Game:
             self.update()
             self.draw()
             pygame.display.set_caption("current FPS: "+str(self.clock.get_fps()))
-        pygame.quit()
-        sys.exit()
+        
+
+        # pygame.quit()
+        # sys.exit()
         
         # self.running = False
 
@@ -184,14 +185,21 @@ class Game:
         #     self.clock.tick(FPS)
         #     pygame.display.update()
 
+class GameStateController:
+    # control what level or state
+    # the game is in
+    # ex: intro --> menu -->
+    # lvl1 --> lvl2 --> lvl3
+    def __init__(self):
+        pass
 
-g = Game()
+g = Game(level3, description1)
 # g.intro_screen()
 g.new()
 while g.running:
     g.main()
-    pygame.quit()
+    # pygame.quit()
     # g.game_over()
 
-
+pygame.quit()
 sys.exit()
