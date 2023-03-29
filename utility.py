@@ -16,5 +16,3 @@ class Spritesheet:
         sprite.blit(self.sheet, (0,0), (x, y, width, height))
         sprite.set_colorkey(BLACK)
         return sprite
-
-

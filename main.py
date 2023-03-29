@@ -91,7 +91,13 @@ class Game:
         self.shadow = pygame.sprite.LayeredUpdates()
         self.textbox = pygame.sprite.LayeredUpdates()
         self.createTilemap()
-        self.test_test_box = Textbox(self)
+        Textbox(self, ('press space', 
+                       'text centers always', 
+                       'surrender; if not you are dead.', 
+                       'By Holy Mary, brother!', 
+                       'We are brought by deception to the greatest treachery in the world.', 
+                       'amadis 315',
+                       'i4treif8uyhkj43tearf9oiulhk4ter9puijlkq345rea8ouyihlj345tearfo8yihlq354rewa8oyilhq354rwe8oyikh345rqaewoy8ihkj345rewfoy8ukhjq234rewoy8iuk'), 7)
 
     def events(self): # key presses and stuff
         for event in pygame.event.get():
@@ -99,10 +105,7 @@ class Game:
                 print('done')
                 self.playing = False
                 self.running = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    # print('kill')
-                    self.test_test_box.kill()
+
     def update(self): # make things move
         #game loop updates
         self.all_sprites.update() #find update function/method in every sprite and update it
