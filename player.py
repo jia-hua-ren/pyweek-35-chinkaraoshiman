@@ -77,6 +77,9 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += self.y_change
         self.collide_blocks('y')
 
+        self.collide_door()
+        self.collide_item()
+
         self.x_change = 0
         self.y_change = 0
 
@@ -145,6 +148,18 @@ class Player(pygame.sprite.Sprite):
         if hits:
             self.kill() #remove player from all sprites
             self.game.playing = False #exit game
+
+    def collide_item(self):
+        hits = pygame.sprite.spritecollide(self, self.game.item, False)
+        if hits:
+            self.game.item_object.kill() #remove item from all sprites
+            self.game.item_aquired = True
+
+    def collide_door(self):
+        hits = pygame.sprite.spritecollide(self, self.game.door, False)
+        if hits and self.game.item_aquired:
+            # print(self.game.playing)
+            self.game.playing = False #next level
 
     def collide_blocks(self, direction):
         hits = pygame.sprite.spritecollide(self, self.game.blocks, False) #check player rect and every block in the game

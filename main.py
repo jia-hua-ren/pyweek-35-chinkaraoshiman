@@ -1,5 +1,4 @@
 import pygame
-# from sprites import *
 from utility import *
 from goat import *
 from attack import *
@@ -12,6 +11,8 @@ from block import *
 from config import *
 from levels import *
 from textbox import *
+from item import *
+from door import *
 import sys
 
 class Game:
@@ -28,11 +29,14 @@ class Game:
         self.enemy_spritesheet = Spritesheet('./assets/img/enemy.png')
         self.wall_spritesheet = Spritesheet('./assets/img/wall.png')
         self.shadow_spritesheet = Spritesheet('./assets/img/shadow.png')
+        self.door_spritesheet = Spritesheet('./assets/img/door.png')
+        self.item_spritesheet = Spritesheet('./assets/img/item.png')
         # self.attack_spritesheet = Spritesheet('img/attack.png')
         self.bg_img = pygame.image.load('./assets/img/bg.png').convert_alpha()
 
         # self.intro_background = pygame.image.load('./img/introbackground.png')
         # self.go_background = pygame.image.load('./img/gameover.png')
+        self.item_aquired = False
 
     def createTilemap(self):
         # j is x position
@@ -49,6 +53,13 @@ class Game:
                 if column == "S": #shadow 
                     Ground(self, j, i)
                     Shadow(self, j, i)
+                if column == "D": #goal, exit, door
+                    Ground(self, j, i, True)
+                    Door(self, j, i)
+                if column == "I": # item/ key
+                    Ground(self, j, i, True)
+                    self.item_object = Item(self, j, i)
+                    
                 # moving objects default should have restricted
                 # area under them
                 if column == "G": # goat
@@ -69,6 +80,8 @@ class Game:
         self.playing = True
 
         self.all_sprites = pygame.sprite.LayeredUpdates()
+        self.item = pygame.sprite.LayeredUpdates()
+        self.door = pygame.sprite.LayeredUpdates()
         self.blocks = pygame.sprite.LayeredUpdates()
         self.grounds = pygame.sprite.LayeredUpdates()
         self.enemies = pygame.sprite.LayeredUpdates()

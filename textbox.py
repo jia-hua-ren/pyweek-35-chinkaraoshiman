@@ -36,6 +36,7 @@ class Textbox(pygame.sprite.Sprite):
     #                 print('kill')
 
     def update(self):
+        pygame.draw.rect(self.game.screen, WHITE, self.rect)
         pass
         # print('update')
         # self.events()

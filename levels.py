@@ -22,7 +22,7 @@ level1 = [
     'B.....RRRRR........B',
     'B.....RRGRR....G...B',
     'B.....RRRRR........B',
-    'B.....RRRRR........B',
-    'B..................B',
+    'B.....RRRRR......I.B',
+    'B..................D',
     'BBBBBBBBBBBBBBBBBBBB',
 ]
