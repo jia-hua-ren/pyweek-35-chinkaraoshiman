@@ -24,5 +24,16 @@ level1 = [
     'B.....RRRRR........B',
     'B.....RRRRR......I.B',
     'B..................D',
-    'BBBBBBBBBBBBBBBBBBBB',
+    'BBBBBBBBBBBBBBBBBBBB'
+]
+
+level1 = [
+    'BBBBBBBBBBBBBBBBDBBB',
+    'BRRRRRRRRRRRRRRRRRRB',
+    'BR........E.......RB',
+    'BR.GGGGGGGGGGGGGG.RB',
+    'BR.GGGGGGGGGGGGGG.RB',
+    'BR...E......I.....RB',
+    'BRRRRRRRRRRRRRRRRRRR',
+    'BBBBBBBBBBBBBBBBBBBB'
 ]
