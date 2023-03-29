@@ -146,9 +146,11 @@ class Player(pygame.sprite.Sprite):
     def collide_enemy(self):
         hits = pygame.sprite.spritecollide(self, self.game.enemies, False)
         if hits:
+            self.game.state = 'lose'
             self.kill() #remove player from all sprites
-            self.game.running = False
-            self.game.playing = False #exit game
+            # self.game.running = False
+            
+            # self.game.playing = False #exit game
 
     def collide_item(self):
         hits = pygame.sprite.spritecollide(self, self.game.item, False)
@@ -160,8 +162,9 @@ class Player(pygame.sprite.Sprite):
         hits = pygame.sprite.spritecollide(self, self.game.door, False)
         if hits and self.game.item_aquired:
             # print(self.game.playing)
-            self.game.playing = False
-            self.game.running = False #next level
+            # self.game.playing = False
+            self.game.state = 'lose'
+            # self.game.running = False #next level
 
     def collide_blocks(self, direction):
         hits = pygame.sprite.spritecollide(self, self.game.blocks, False) #check player rect and every block in the game

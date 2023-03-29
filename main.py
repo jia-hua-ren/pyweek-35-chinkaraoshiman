@@ -15,16 +15,21 @@ from item import *
 from door import *
 import sys
 
+
+
 class Game:
     def __init__(self, level, level_description):
         pygame.init()
+        self.running = True
+
+        self.state = 'game'
+
         self.level = level
         self.level_description = level_description
 
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
         self.clock = pygame.time.Clock()
-        #self.font = pygame.font.Font('arial.ttf', 32)
-        self.running = True
+        self.font = pygame.font.SysFont('Arial', 32)
 
         self.character_spritesheet = Spritesheet('./assets/img/player.png')
         self.goat_spritesheet = Spritesheet('./assets/img/goat.png')
@@ -38,7 +43,7 @@ class Game:
         self.bg_img = pygame.image.load('./assets/img/bg.png').convert_alpha()
 
         # self.intro_background = pygame.image.load('./img/introbackground.png')
-        # self.go_background = pygame.image.load('./img/gameover.png')
+        self.go_background = self.bg_img
         self.item_aquired = False
 
     def createTilemap(self):
@@ -100,11 +105,11 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 print('done')
-                pygame.quit()
-                self.playing = False
-                self.running = False
-                
-
+                sys.exit()
+                # pygame.quit()
+                # self.playing = False
+                # self.running = False
+                            
     def update(self): # make things move
         #game loop updates
         self.all_sprites.update() #find update function/method in every sprite and update it
@@ -118,45 +123,38 @@ class Game:
 
     def main(self):
         # game loop
-        while self.playing:
-            self.events()
-            self.update()
-            self.draw()
-            pygame.display.set_caption("current FPS: "+str(self.clock.get_fps()))
-        
-
+        self.events()
+        self.update()
+        self.draw()
+        pygame.display.set_caption("current FPS: "+str(self.clock.get_fps()))
         # pygame.quit()
         # sys.exit()
-        
         # self.running = False
 
     def game_over(self):
-        print('death')
-        # text = self.font.render('you die', False, WHITE)
-        # text_rect = text.get_rect(center=(WIN_WIDTH/2, WIN_HEIGHT/2))
+        # print('death')
+        mouse_pos = pygame.mouse.get_pos()
+        mouse_pressed = pygame.mouse.get_pressed()   
+        text = self.font.render('you die', False, WHITE)
+        text_rect = text.get_rect(center=(WIN_WIDTH/2, WIN_HEIGHT/2))
 
-        # restart_button = Button(10, WIN_HEIGHT - 60, 120, 50, WHITE, BLACK, 'restart', 32)
+        restart_button = Button(10, WIN_HEIGHT - 60, 120, 50, WHITE, BLACK, 'restart', 32)
 
-        # for sprite in self.all_sprites:
-        #     sprite.kill()
+        for sprite in self.all_sprites:
+            sprite.kill()
 
-        # while self.running:
-        #     for event in pygame.event.get():
-        #         if event.type == pygame.QUIT:
-        #             self.running = False 
+        if restart_button.is_pressed(mouse_pos, mouse_pressed):
+            self.new()
+            self.state = 'game'
+            self.main() 
 
-        #     mouse_pos = pygame.mouse.get_pos()
-        #     mouse_pressed = pygame.mouse.get_pressed()    
-
-        #     if restart_button.is_pressed(mouse_pos, mouse_pressed):
-        #         self.new()
-        #         self.main()
-
-        #     self.screen.blit(self.go_background, (0,0))     
-        #     self.screen.blit(text, text_rect)
-        #     self.screen.blit(restart_button.image, restart_button.rect)
-        #     self.clock.tick(FPS)
-        #     pygame.display.update() 
+        pygame.display.set_caption("current FPS: "+str(self.clock.get_fps()))
+        self.events()
+        self.screen.blit(self.go_background, (0,0))     
+        self.screen.blit(text, text_rect)
+        self.screen.blit(restart_button.image, restart_button.rect)
+        self.clock.tick(FPS)
+        pygame.display.update() 
 
     def intro_screen(self):
         print('intro')
@@ -185,21 +183,29 @@ class Game:
         #     self.clock.tick(FPS)
         #     pygame.display.update()
 
-class GameStateController:
-    # control what level or state
-    # the game is in
-    # ex: intro --> menu -->
-    # lvl1 --> lvl2 --> lvl3
-    def __init__(self):
-        pass
+    def state_manager(self):
+        print(self.state)
+        if self.state == 'game':
+            self.main()
+        elif self.state == 'lose':
+            self.game_over()
+        
+
+        
+# class GameStateController:
+#     # control what level or state
+#     # the game is in
+#     # ex: intro --> menu -->
+#     # lvl1 --> lvl2 --> lvl3
+#     def __init__(self):
+#         self.state = 'main_game'
 
 g = Game(level3, description1)
 # g.intro_screen()
 g.new()
-while g.running:
-    g.main()
+while g.playing:
+    g.state_manager()
     # pygame.quit()
-    # g.game_over()
 
 pygame.quit()
 sys.exit()
