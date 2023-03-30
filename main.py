@@ -231,7 +231,39 @@ class Game:
             self.screen.blit(play_button.image, play_button.rect)
             self.clock.tick(FPS)
             pygame.display.update()
-        
+
+    def cutscene(self):
+        # print('death')
+
+        cutscene = True
+
+        for sprite in self.all_sprites:
+            sprite.kill()
+
+        text = self.font.render('cutscene', False, WHITE)
+        text_rect = text.get_rect(center=(WIN_WIDTH/2, WIN_HEIGHT/2))
+
+        next_level_button = Button(10, WIN_HEIGHT - 60, 120, 50, WHITE, BLACK, 'next level', 32)
+
+        while cutscene:
+            self.events()
+
+            mouse_pos = pygame.mouse.get_pos()
+            mouse_pressed = pygame.mouse.get_pressed()
+
+            if next_level_button.is_pressed(mouse_pos, mouse_pressed):
+                self.level_clear = True
+                self.item_aquired = False
+                self.levelUpdate()
+                cutscene = False
+                self.state = 'game'
+
+            
+            self.screen.blit(self.intro_background, (0,0))
+            self.screen.blit(text, text_rect)
+            self.screen.blit(next_level_button.image, next_level_button.rect)
+            self.clock.tick(FPS)
+            pygame.display.update()
 
     def state_manager(self):
         #print(self.state)
@@ -239,6 +271,8 @@ class Game:
             self.main()
         elif self.state == 'lose':
             self.game_over()
+        elif self.state == 'cutscene':
+            self.cutscene()
         
 
         
