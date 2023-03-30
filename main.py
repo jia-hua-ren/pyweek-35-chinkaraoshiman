@@ -20,6 +20,9 @@ import sys
 class Game:
     def __init__(self, level, level_description):
         pygame.init()
+        pygame.mixer.init()
+        self.bgm = pygame.mixer.music.load('./assets/music/goat2.ogg')
+        pygame.mixer.music.play(-1)
         self.running = True
 
         self.state = 'game'
