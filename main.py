@@ -15,18 +15,19 @@ from config import *
 from levels import *
 from item import *
 from door import *
+from cutscene import *
 
 
 class Game:
     def __init__(self):
         pygame.init()
-        pygame.mixer.init()
+        pygame.mixer.pre_init()
         self.bgm = pygame.mixer.music.load('./assets/music/goat2.ogg')
         pygame.mixer.music.play(-1)
         self.running = True
         self.FullScreen = False
 
-        self.state = 'game'
+        self.state = 'title'
 
         self.level = 0
         self.level_description = level_descrip[0]
@@ -59,7 +60,17 @@ class Game:
 
         self.intro_background = pygame.image.load('./assets/img/bg_copy.png').convert_alpha()
         self.go_background = self.bg_img
+        self.backTexture = load_new_image('./assets/img/backTexture.png', 1280, 150, WHITE)
+
         self.item_aquired = False
+
+        self.intro_images = [
+            pygame.image.load(intro_images[0]).convert_alpha(),
+            pygame.image.load(intro_images[1]).convert_alpha(),
+            pygame.image.load(intro_images[2]).convert_alpha(),
+            pygame.image.load(intro_images[3]).convert_alpha(),
+            pygame.image.load(intro_images[4]).convert_alpha()
+        ]
 
     def createTilemap(self, level):
         # j is x position
@@ -116,7 +127,7 @@ class Game:
         self.goats = pygame.sprite.LayeredUpdates()
         self.shadow = pygame.sprite.LayeredUpdates()
         self.textbox = pygame.sprite.LayeredUpdates()
-        self.intro_screen()
+        # self.intro_screen()
         
         #self.createTilemap()
         #Textbox(self, self.level_description, len(self.level_description))
@@ -206,31 +217,76 @@ class Game:
             self.clock.tick(FPS)
             pygame.display.update()
 
-    def intro_screen(self):
-        
-        intro = True
+    def intro_anime(self):
+
+        intro_cutscene = CutsceneAnime(intro_text, self.intro_images, self.screen)
+
+        intro_done = intro_cutscene.stop
+        # intro = True
+        # print(intro_done)
 
         title = self.font.render('rpg tutorial', False, BLACK)
         title_rect = title.get_rect(x=10, y=10)
         
         play_button = Button(10, 50, 100, 50, WHITE, BLACK, 'Play', 32)
 
-        while intro:
+        while not intro_done:
+            print(intro_done)
+            intro_done = intro_cutscene.stop
+            # print(intro_done)
             self.events()
 
-            mouse_pos = pygame.mouse.get_pos()
-            mouse_pressed = pygame.mouse.get_pressed()
+            # mouse_pos = pygame.mouse.get_pos()
+            # mouse_pressed = pygame.mouse.get_pressed()
 
-            if play_button.is_pressed(mouse_pos, mouse_pressed):
-                intro = False
+            if intro_done == True:
+                intro_done = True
+                self.state = 'game'
                 self.level_clear = True
                 self.levelUpdate()
             
             self.screen.blit(self.intro_background, (0,0))
             self.screen.blit(title, title_rect)
             self.screen.blit(play_button.image, play_button.rect)
+            intro_cutscene.update()
             self.clock.tick(FPS)
+
+
             pygame.display.update()
+        # intro_done = True
+        # self.level_clear = True
+        # self.state = 'game'
+        # self.levelUpdate()
+
+    def intro_screen(self):
+
+        intro_done = False
+        # intro = True
+
+        title = self.font.render('rpg tutorial', False, BLACK)
+        title_rect = title.get_rect(x=10, y=10)
+        
+        play_button = Button(10, 50, 100, 50, WHITE, BLACK, 'Play', 32)
+
+        while not intro_done:
+            self.events()
+
+            mouse_pos = pygame.mouse.get_pos()
+            mouse_pressed = pygame.mouse.get_pressed()
+
+            if play_button.is_pressed(mouse_pos, mouse_pressed):
+                intro_done = True
+                self.state = 'intro'
+            
+            self.screen.blit(self.intro_background, (0,0))
+            self.screen.blit(title, title_rect)
+            self.screen.blit(play_button.image, play_button.rect)
+            self.clock.tick(FPS)
+
+
+            pygame.display.update()
+
+        
 
     def cutscene(self):
         # print('death')
@@ -266,9 +322,13 @@ class Game:
             pygame.display.update()
 
     def state_manager(self):
-        #print(self.state)
+        # print(self.state)
         if self.state == 'game':
             self.main()
+        elif self.state == 'title':
+            self.intro_screen()
+        elif self.state == 'intro':
+            self.intro_anime()
         elif self.state == 'lose':
             self.game_over()
         elif self.state == 'cutscene':

@@ -92,3 +92,29 @@ level3 = [
 # store the levels and descriptions in arrays
 levels = [level0, level1, level2, level3]
 level_descrip = [description0, description1, description2, description3]
+
+
+
+
+intro_text = [['', 'by holy mary, these are the best goats i have ever seen', 0.5],
+        ['', 'I said: sir price please', 0.5],
+        ['', 'he says: brother no sale', 0.5],
+        ['', 'I am brought by deception to the greatest treachery in the world', 0.5],
+        ['', 'I am brought by deception to the greatest treachery in the world', 0.5]
+        ]
+
+#INTRO IMAGES LOADED IN GAME CLASS RIGHT NOW
+intro_images = [
+    './assets/img/intro/1.png',
+    './assets/img/intro/2.png',
+    './assets/img/intro/3.png',
+    './assets/img/intro/4.png',
+    './assets/img/intro/5.png'
+]
+
+cut0 = []
+cut1 = []
+cut2 = []
+cut3 = []
+
+cutscenes = [cut0, cut1, cut2, cut3]
