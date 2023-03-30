@@ -203,16 +203,18 @@ class Player(pygame.sprite.Sprite):
                     for sprite in self.game.all_sprites:
                         sprite.rect.y -= PLAYER_SPEED
     def animate(self):
+        keys = pygame.key.get_pressed()
+
         if self.shadowForm:
             self.image = self.animations_shadow[int(self.animation_loop)]
         else:
             self.image = self.animations[int(self.animation_loop)]
-        print(self.animation_loop)
-        self.animation_loop += 0.1
+        
+        if keys[pygame.K_LEFT] or keys[pygame.K_RIGHT] or keys[pygame.K_UP] or keys[pygame.K_DOWN]:
+            self.animation_loop += 0.1
 
         if self.animation_loop > len(self.animations):
             self.animation_loop = 0
-
 
 class PlayerAOE(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
