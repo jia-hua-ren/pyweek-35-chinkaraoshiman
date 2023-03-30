@@ -108,34 +108,25 @@ class Game:
         #Textbox(self, self.level_description, len(self.level_description))
 
     def levelUpdate(self):
+        # zeroth "level" (intro screen)
         if self.level_clear:
             self.level += 1
-            for sprite in self.all_sprites:
-                sprite.kill()
-            self.createTilemap(levels[self.level])
-            Textbox(self, level_descrip[self.level], len(level_descrip[self.level]))
             self.level_clear = False
 
-    def events(self): # key presses and stuff
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                print('done')
-                sys.exit()
-                # pygame.quit()
-                # self.playing = False
-                # self.running = False
+        if self.level >= len(levels):
+            # insert real game over screen
+            pygame.quit()
+            sys.exit()
+        
+        # else don't change level
+        for sprite in self.all_sprites:
+            sprite.kill()
+        self.createTilemap(levels[self.level])
+        Textbox(self, level_descrip[self.level], len(level_descrip[self.level]))
             
     def update(self): # make things move
-        # game loop updates
-        if(self.level == len(levels)):
-            self.game_over()
-        else:
-            self.levelUpdate()
-        
-        self.all_sprites.update() #find update function/method in every sprite and update it
-        # update level here
-        
-
+        # game loop updates        
+        self.all_sprites.update() #find update function/method in every sprite and update it        
 
     def draw(self): # draw sprites on screen
         self.screen.fill(BLACK)
@@ -154,30 +145,48 @@ class Game:
         # sys.exit()
         # self.running = False
 
+    def events(self): # key presses and stuff
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                print('done')
+                sys.exit()
+                # pygame.quit()
+                # self.playing = False
+                # self.running = False
+
     def game_over(self):
         # print('death')
-        mouse_pos = pygame.mouse.get_pos()
-        mouse_pressed = pygame.mouse.get_pressed()   
+
+        gameover = True
+
+        for sprite in self.all_sprites:
+            sprite.kill()
+
         text = self.font.render('you die', False, WHITE)
         text_rect = text.get_rect(center=(WIN_WIDTH/2, WIN_HEIGHT/2))
 
         restart_button = Button(10, WIN_HEIGHT - 60, 120, 50, WHITE, BLACK, 'restart', 32)
 
-        for sprite in self.all_sprites:
-            sprite.kill()
+        while gameover:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    gameover = False
+                    self.running = False
 
-        if restart_button.is_pressed(mouse_pos, mouse_pressed):
-            self.new()
-            self.state = 'game'
-            self.main() 
+            mouse_pos = pygame.mouse.get_pos()
+            mouse_pressed = pygame.mouse.get_pressed()
 
-        pygame.display.set_caption("current FPS: "+str(self.clock.get_fps()))
-        self.events()
-        self.screen.blit(self.go_background, (0,0))     
-        self.screen.blit(text, text_rect)
-        self.screen.blit(restart_button.image, restart_button.rect)
-        self.clock.tick(FPS)
-        pygame.display.update() 
+            if restart_button.is_pressed(mouse_pos, mouse_pressed):
+                gameover = False
+                self.state = 'game'
+                self.level_clear = False
+                self.levelUpdate()
+            
+            self.screen.blit(self.intro_background, (0,0))
+            self.screen.blit(text, text_rect)
+            self.screen.blit(restart_button.image, restart_button.rect)
+            self.clock.tick(FPS)
+            pygame.display.update()
 
     def intro_screen(self):
         
@@ -201,7 +210,6 @@ class Game:
                 intro = False
                 self.level_clear = True
                 self.levelUpdate()
-
             
             self.screen.blit(self.intro_background, (0,0))
             self.screen.blit(title, title_rect)
