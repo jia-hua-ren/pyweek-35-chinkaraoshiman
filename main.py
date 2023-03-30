@@ -47,6 +47,16 @@ class Game:
         # self.attack_spritesheet = Spritesheet('img/attack.png')
         self.bg_img = pygame.image.load('./assets/img/bg.png').convert_alpha()
 
+        self.F1 = load_new_image('./assets/img/Goat1/Goast1_MoveF_1.png', 100, 100, WHITE)
+        self.F2 = load_new_image('./assets/img/Goat1/Goast1_MoveF_2.png', 100, 100, WHITE)
+        self.B1 = load_new_image('./assets/img/Goat1/Goat1_MoveB_1.png', 100, 100, WHITE)
+        self.B2 = load_new_image('./assets/img/Goat1/Goat1_MoveB_2.png', 100, 100, WHITE)
+        self.L1 = load_new_image('./assets/img/Goat1/Goat1_MoveL_1.png', 100, 100, WHITE)
+        self.L2 = load_new_image('./assets/img/Goat1/Goat1_MoveL_2.png', 100, 100, WHITE)
+        self.R1 = load_new_image('./assets/img/Goat1/Goat1_MoveR_1.png', 100, 100, WHITE)
+        self.R2 = load_new_image('./assets/img/Goat1/Goat1_MoveR_2.png', 100, 100, WHITE)
+
+
         self.intro_background = pygame.image.load('./assets/img/bg_copy.png').convert_alpha()
         self.go_background = self.bg_img
         self.item_aquired = False
