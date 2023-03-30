@@ -20,7 +20,7 @@ class Goat(pygame.sprite.Sprite):
         self.y_change = 0   
 
         self.facing = 'left'#random.choice(['left', 'right', 'up', 'down']) 
-        self.animation_loop = 1
+        self.animation_loop = 0
         self.movement_loop = 0
         self.max_travel = random.randint(7, 30) # goat move back forth 7 to 30 pixels
 
@@ -35,21 +35,36 @@ class Goat(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
 
+        #animations must have same amount of frames
+        self.left_animations = [
+            self.game.goat_spritesheet.get_sprite(0, 0, self.width, self.height),
+            self.game.goat_spritesheet.get_sprite(111, 0, self.width, self.height),
+            self.game.goat_spritesheet.get_sprite(225, 0, self.width, self.height),
+            self.game.goat_spritesheet.get_sprite(334, 0, self.width, self.height)
+            ]
 
-        # self.left_animations = [
-        #     self.game.enemy_spritesheet.get_sprite(3, 98, self.width, self.height),
-        #     self.game.enemy_spritesheet.get_sprite(35, 98, self.width, self.height),
-        #     self.game.enemy_spritesheet.get_sprite(68, 98, self.width, self.height)]
+        self.right_animations = [
+            self.game.goat_spritesheet.get_sprite(0, 326, self.width, self.height),
+            self.game.goat_spritesheet.get_sprite(111, 326, self.width, self.height),
+            self.game.goat_spritesheet.get_sprite(225, 326, self.width, self.height),
+            self.game.goat_spritesheet.get_sprite(334, 326, self.width, self.height)
+            ]
+        self.up_animations = [
+            self.game.goat_spritesheet.get_sprite(0, 109, self.width, self.height),
+            self.game.goat_spritesheet.get_sprite(104, 109, self.width, self.height),
+            self.game.goat_spritesheet.get_sprite(0, 109, self.width, self.height),
+            self.game.goat_spritesheet.get_sprite(104, 109, self.width, self.height)]
 
-        # self.right_animations = [
-        #     self.game.enemy_spritesheet.get_sprite(3, 66, self.width, self.height),
-        #     self.game.enemy_spritesheet.get_sprite(35, 66, self.width, self.height),
-        #     self.game.enemy_spritesheet.get_sprite(68, 66, self.width, self.height)]
+        self.down_animations = [
+            self.game.goat_spritesheet.get_sprite(0, 219, self.width, self.height),
+            self.game.goat_spritesheet.get_sprite(123, 219, self.width, self.height),
+            self.game.goat_spritesheet.get_sprite(227, 219, self.width, self.height),
+            self.game.goat_spritesheet.get_sprite(123, 219, self.width, self.height)]
         
 
     def update(self):
         self.movement()
-        # self.animate()
+        self.animate()
 
         self.rect.x += self.x_change
         self.rect.y += self.y_change
@@ -113,21 +128,27 @@ class Goat(pygame.sprite.Sprite):
         return True
 
     def animate(self):
-
+        # print(self.animation_loop, len(self.left_animations))
         if self.facing == "left":
-            if self.x_change ==0:
-                self.image = self.game.goat_spritesheet.get_sprite(3, 98, self.width, self.height)
-            else:
-                self.image = self.left_animations[math.floor(self.animation_loop)]
-                self.animation_loop += 0.1
-                if self.animation_loop >= 3:
-                    self.animation_loop = 1
+            self.image = self.left_animations[int(self.animation_loop)]
+            self.animation_loop += 0.1
+            if self.animation_loop > len(self.left_animations):
+                self.animation_loop = 0
 
         elif self.facing == "right":
-            if self.x_change ==0:
-                self.image = self.game.goat_spritesheet.get_sprite(3, 66, self.width, self.height)
-            else:
-                self.image = self.right_animations[math.floor(self.animation_loop)]
-                self.animation_loop += 0.1
-                if self.animation_loop >= 3:
-                    self.animation_loop = 1
+            self.image = self.right_animations[int(self.animation_loop)]
+            self.animation_loop += 0.1
+            if self.animation_loop > len(self.right_animations):
+                self.animation_loop = 0
+
+        elif self.facing == "up":
+            self.image = self.up_animations[int(self.animation_loop)]
+            self.animation_loop += 0.1
+            if self.animation_loop > len(self.up_animations):
+                self.animation_loop = 0
+
+        elif self.facing == "down":
+            self.image = self.down_animations[int(self.animation_loop)]
+            self.animation_loop += 0.1
+            if self.animation_loop > len(self.down_animations):
+                self.animation_loop = 0
