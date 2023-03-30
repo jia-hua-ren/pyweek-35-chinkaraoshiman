@@ -25,7 +25,7 @@ class Player(pygame.sprite.Sprite):
         self.y_change = 0
 
         self.facing = 'down'
-        self.animation_loop = 1
+        self.animation_loop = 0
 
         self.image = self.game.character_spritesheet.get_sprite(0, 0, self.width, self.height)
         # self.image = pygame.Surface([self.width, self.height])
@@ -55,10 +55,23 @@ class Player(pygame.sprite.Sprite):
         #     self.game.character_spritesheet.get_sprite(35, 66, self.width, self.height),
         #     self.game.character_spritesheet.get_sprite(68, 66, self.width, self.height)]
 
+        self.animations = [
+            self.game.character_spritesheet.get_sprite(0, 0, self.width, self.height),
+            self.game.character_spritesheet.get_sprite(51, 0, self.width, self.height),
+            self.game.character_spritesheet.get_sprite(0, 0, self.width, self.height),
+            self.game.character_spritesheet.get_sprite(51, 0, self.width, self.height)
+        ]
+
+        self.animations_shadow = [
+            self.game.character_spritesheet.get_sprite(0, 52, self.width, self.height),
+            self.game.character_spritesheet.get_sprite(51, 52, self.width, self.height),
+            self.game.character_spritesheet.get_sprite(0, 52, self.width, self.height),
+            self.game.character_spritesheet.get_sprite(51, 52, self.width, self.height)
+        ]
 
     def update(self): # pygame sprite manditory function
         self.movement()
-        # self.animate()
+        self.animate()
         
         keys = pygame.key.get_pressed()
         if keys[pygame.K_h] and self.shadow_condition():
@@ -66,10 +79,10 @@ class Player(pygame.sprite.Sprite):
             # need to decide between toggle or hold
             self.shadowForm = True
             # Red for now for testing purposes
-            self.image.fill((255, 0, 0))
+            # self.image.fill((255, 0, 0))
         else:
             self.shadowForm = False
-            self.image = self.game.character_spritesheet.get_sprite(0, 0, self.width, self.height)
+            # self.image = self.game.character_spritesheet.get_sprite(0, 0, self.width, self.height)
             self.collide_enemy()
 
         self.rect.x += self.x_change
@@ -190,42 +203,16 @@ class Player(pygame.sprite.Sprite):
                     for sprite in self.game.all_sprites:
                         sprite.rect.y -= PLAYER_SPEED
     def animate(self):
+        if self.shadowForm:
+            self.image = self.animations_shadow[int(self.animation_loop)]
+        else:
+            self.image = self.animations[int(self.animation_loop)]
+        print(self.animation_loop)
+        self.animation_loop += 0.1
 
-        if self.facing == "down":
-            if self.y_change ==0:
-                self.image = self.game.character_spritesheet.get_sprite(3, 2, self.width, self.height)
-            else:
-                self.image = self.down_animations[math.floor(self.animation_loop)]
-                self.animation_loop += 0.1
-                if self.animation_loop >= 3:
-                    self.animation_loop = 1
+        if self.animation_loop > len(self.animations):
+            self.animation_loop = 0
 
-        elif self.facing == "up":
-            if self.y_change ==0:
-                self.image = self.game.character_spritesheet.get_sprite(3, 34, self.width, self.height)
-            else:
-                self.image = self.up_animations[math.floor(self.animation_loop)]
-                self.animation_loop += 0.1
-                if self.animation_loop >= 3:
-                    self.animation_loop = 1
-
-        elif self.facing == "left":
-            if self.x_change ==0:
-                self.image = self.game.character_spritesheet.get_sprite(3, 98, self.width, self.height)
-            else:
-                self.image = self.left_animations[math.floor(self.animation_loop)]
-                self.animation_loop += 0.1
-                if self.animation_loop >= 3:
-                    self.animation_loop = 1
-
-        elif self.facing == "right":
-            if self.x_change ==0:
-                self.image = self.game.character_spritesheet.get_sprite(3, 66, self.width, self.height)
-            else:
-                self.image = self.right_animations[math.floor(self.animation_loop)]
-                self.animation_loop += 0.1
-                if self.animation_loop >= 3:
-                    self.animation_loop = 1
 
 class PlayerAOE(pygame.sprite.Sprite):
     def __init__(self, game, x, y):

@@ -20,6 +20,9 @@ import sys
 class Game:
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
+        self.bgm = pygame.mixer.music.load('./assets/music/goat2.ogg')
+        pygame.mixer.music.play(-1)
         self.running = True
 
         self.state = 'game'
@@ -32,8 +35,8 @@ class Game:
         self.clock = pygame.time.Clock()
         self.font = pygame.font.SysFont('Arial', 32)
 
-        self.character_spritesheet = Spritesheet('./assets/img/player.png')
-        self.goat_spritesheet = Spritesheet('./assets/img/goat.png')
+        self.character_spritesheet = Spritesheet('./assets/img/player_spritesheet.png')
+        self.goat_spritesheet = Spritesheet('./assets/img/goat_spritesheet.png')
         self.terrain_spritesheet = Spritesheet('./assets/img/ground.png')
         self.enemy_spritesheet = Spritesheet('./assets/img/enemy.png')
         self.wall_spritesheet = Spritesheet('./assets/img/wall.png')
