@@ -1,7 +1,6 @@
 import pygame
 from config import *
-import math
-import random
+from utility import *
 
 class Button:
     def __init__(self, x, y, width, height, fg, bg, content, fontsize):

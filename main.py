@@ -1,8 +1,11 @@
 import pygame
+import sys
+
 from utility import *
+from button import *
+from textbox import *
 from goat import *
 from attack import *
-from button import *
 from ground import *
 from shadow import *
 from player import *
@@ -10,11 +13,8 @@ from enemy import *
 from block import *
 from config import *
 from levels import *
-from textbox import *
 from item import *
 from door import *
-import sys
-
 
 
 class Game:
@@ -238,7 +238,7 @@ class Game:
 g = Game()
 # g.intro_screen()
 g.new()
-while g.playing:
+while g.running:
     g.state_manager()
     # pygame.quit()
 

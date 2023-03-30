@@ -1,7 +1,5 @@
 import pygame
 from config import *
-import math
-import random
 from utility import *
 
 class Textbox(pygame.sprite.Sprite):

@@ -1,7 +1,5 @@
 import pygame
 from config import *
-import math
-import random
 
 class Door(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
