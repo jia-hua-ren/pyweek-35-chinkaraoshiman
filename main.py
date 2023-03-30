@@ -34,7 +34,7 @@ class Game:
         self.clock = pygame.time.Clock()
         self.font = pygame.font.SysFont('Arial', 32)
 
-        self.character_spritesheet = Spritesheet('./assets/img/player.png')
+        self.character_spritesheet = Spritesheet('./assets/img/player_spritesheet.png')
         self.goat_spritesheet = Spritesheet('./assets/img/goat_spritesheet.png')
         self.terrain_spritesheet = Spritesheet('./assets/img/ground.png')
         self.enemy_spritesheet = Spritesheet('./assets/img/enemy.png')
@@ -203,7 +203,7 @@ class Game:
 #     def __init__(self):
 #         self.state = 'main_game'
 
-g = Game(level2, description1)
+g = Game(level3, description1)
 # g.intro_screen()
 g.new()
 while g.playing:
