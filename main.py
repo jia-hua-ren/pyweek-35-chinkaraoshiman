@@ -76,7 +76,7 @@ class Game:
                 # area under them
                 if column == "G": # goat
                     Ground(self, j, i, True)
-                    Goat(self, j, i)
+                    Goat(self, j, i, 1)
                 if column == "E": #enemy
                     Ground(self, j, i, True)
                     Enemy(self, j, i)

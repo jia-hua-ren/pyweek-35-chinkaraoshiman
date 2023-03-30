@@ -5,6 +5,11 @@ import math
 def distance(x1, y1, x2, y2):
     return (math.sqrt( (x1-x2)**2 + (y1-y2)**2 ))
 
+def load_new_image(image_path, width, height, colorkey):
+    image = pygame.image.load(image_path).convert_alpha()
+    image = pygame.transform.scale(image, (width, height))
+    image.set_colorkey(colorkey)
+    return image
 
 class Spritesheet:
     def __init__(self, file):
