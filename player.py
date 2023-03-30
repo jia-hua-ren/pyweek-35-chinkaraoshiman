@@ -174,6 +174,8 @@ class Player(pygame.sprite.Sprite):
             # print(self.game.playing)
             # self.game.playing = False
             self.game.level_clear = True
+            self.game.item_aquired = False
+
             self.game.levelUpdate()
             #pygame.sprite.spritecollide(self, self.game.door, True)
             # self.game.running = False #next level
