@@ -1,6 +1,6 @@
 import pygame
 import sys
-
+from random import getrandbits
 from utility import *
 from button import *
 from textbox import *
@@ -24,6 +24,7 @@ class Game:
         self.bgm = pygame.mixer.music.load('./assets/music/goat2.ogg')
         pygame.mixer.music.play(-1)
         self.running = True
+        self.FullScreen = False
 
         self.state = 'game'
 
@@ -76,7 +77,10 @@ class Game:
                 # area under them
                 if column == "G": # goat
                     Ground(self, j, i, True)
-                    Goat(self, j, i, 1)
+                    if getrandbits(1):
+                        Goat(self, j, i, 1)
+                    else:
+                        Goat(self, j, i, 0)
                 if column == "E": #enemy
                     Ground(self, j, i, True)
                     Enemy(self, j, i)
@@ -150,6 +154,13 @@ class Game:
             if event.type == pygame.QUIT:
                 print('done')
                 sys.exit()
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_f:
+                if self.FullScreen:#if already fullscreen go to windowed
+                    pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
+                    self.FullScreen = False
+                else: # if windowed, go to fullscreen
+                    pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+                    self.FullScreen = True
                 # pygame.quit()
                 # self.playing = False
                 # self.running = False
@@ -168,10 +179,7 @@ class Game:
         restart_button = Button(10, WIN_HEIGHT - 60, 120, 50, WHITE, BLACK, 'restart', 32)
 
         while gameover:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    gameover = False
-                    self.running = False
+            self.events()
 
             mouse_pos = pygame.mouse.get_pos()
             mouse_pressed = pygame.mouse.get_pressed()
@@ -198,10 +206,7 @@ class Game:
         play_button = Button(10, 50, 100, 50, WHITE, BLACK, 'Play', 32)
 
         while intro:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    intro = False
-                    self.running = False
+            self.events()
 
             mouse_pos = pygame.mouse.get_pos()
             mouse_pressed = pygame.mouse.get_pressed()
