@@ -18,14 +18,15 @@ import sys
 
 
 class Game:
-    def __init__(self, level, level_description):
+    def __init__(self):
         pygame.init()
         self.running = True
 
         self.state = 'game'
 
-        self.level = level
-        self.level_description = level_description
+        self.level = 0
+        self.level_description = level_descrip[0]
+        self.level_clear = False
 
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
         self.clock = pygame.time.Clock()
@@ -42,14 +43,14 @@ class Game:
         # self.attack_spritesheet = Spritesheet('img/attack.png')
         self.bg_img = pygame.image.load('./assets/img/bg.png').convert_alpha()
 
-        # self.intro_background = pygame.image.load('./img/introbackground.png')
+        self.intro_background = pygame.image.load('./assets/img/bg_copy.png').convert_alpha()
         self.go_background = self.bg_img
         self.item_aquired = False
 
-    def createTilemap(self):
+    def createTilemap(self, level):
         # j is x position
         # i is the y position
-        for i, row in enumerate(self.level):
+        for i, row in enumerate(level):
             for j, column in enumerate(row):
                 if column == ".": #normal ground
                     Ground(self, j, i)
@@ -68,7 +69,7 @@ class Game:
                     Ground(self, j, i, True)
                     self.item_object = Item(self, j, i)
                     
-                # moving objects default should have restricted
+                # moving objects by default should have restricted
                 # area under them
                 if column == "G": # goat
                     Ground(self, j, i, True)
@@ -98,8 +99,19 @@ class Game:
         self.goats = pygame.sprite.LayeredUpdates()
         self.shadow = pygame.sprite.LayeredUpdates()
         self.textbox = pygame.sprite.LayeredUpdates()
-        self.createTilemap()
-        Textbox(self, self.level_description, len(self.level_description))
+        self.intro_screen()
+        
+        #self.createTilemap()
+        #Textbox(self, self.level_description, len(self.level_description))
+
+    def levelUpdate(self):
+        if self.level_clear:
+            self.level += 1
+            for sprite in self.all_sprites:
+                sprite.kill()
+            self.createTilemap(levels[self.level])
+            Textbox(self, level_descrip[self.level], len(level_descrip[self.level]))
+            self.level_clear = False
 
     def events(self): # key presses and stuff
         for event in pygame.event.get():
@@ -109,10 +121,18 @@ class Game:
                 # pygame.quit()
                 # self.playing = False
                 # self.running = False
-                            
+            
     def update(self): # make things move
-        #game loop updates
+        # game loop updates
+        if(self.level == len(levels)):
+            self.game_over()
+        else:
+            self.levelUpdate()
+        
         self.all_sprites.update() #find update function/method in every sprite and update it
+        # update level here
+        
+
 
     def draw(self): # draw sprites on screen
         self.screen.fill(BLACK)
@@ -157,34 +177,38 @@ class Game:
         pygame.display.update() 
 
     def intro_screen(self):
-        print('intro')
-        # intro = True
-
-        # title = self.font.render('rpg tutorial', False, BLACK)
-        # title_rect = title.get_rect(x=10, y=10)
         
-        # play_button = Button(10, 50, 100, 50, WHITE, BLACK, 'Play', 32)
+        intro = True
 
-        # while intro:
-        #     for event in pygame.event.get():
-        #         if event.type == pygame.QUIT:
-        #             intro = False
-        #             self.running = False
+        title = self.font.render('rpg tutorial', False, BLACK)
+        title_rect = title.get_rect(x=10, y=10)
+        
+        play_button = Button(10, 50, 100, 50, WHITE, BLACK, 'Play', 32)
 
-        #     mouse_pos = pygame.mouse.get_pos()
-        #     mouse_pressed = pygame.mouse.get_pressed()
+        while intro:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    intro = False
+                    self.running = False
 
-        #     if play_button.is_pressed(mouse_pos, mouse_pressed):
-        #         intro = False
+            mouse_pos = pygame.mouse.get_pos()
+            mouse_pressed = pygame.mouse.get_pressed()
+
+            if play_button.is_pressed(mouse_pos, mouse_pressed):
+                intro = False
+                self.level_clear = True
+                self.levelUpdate()
+
             
-        #     self.screen.blit(self.intro_background, (0,0))
-        #     self.screen.blit(title, title_rect)
-        #     self.screen.blit(play_button.image, play_button.rect)
-        #     self.clock.tick(FPS)
-        #     pygame.display.update()
+            self.screen.blit(self.intro_background, (0,0))
+            self.screen.blit(title, title_rect)
+            self.screen.blit(play_button.image, play_button.rect)
+            self.clock.tick(FPS)
+            pygame.display.update()
+        
 
     def state_manager(self):
-        print(self.state)
+        #print(self.state)
         if self.state == 'game':
             self.main()
         elif self.state == 'lose':
@@ -200,7 +224,7 @@ class Game:
 #     def __init__(self):
 #         self.state = 'main_game'
 
-g = Game(level3, description1)
+g = Game()
 # g.intro_screen()
 g.new()
 while g.playing:

@@ -65,14 +65,15 @@ class Enemy(pygame.sprite.Sprite):
         hits = pygame.sprite.spritecollide(self, group, False) #check player rect and every block in the game
         if not hits: return False
         if hits:
+            # here
             if self.x_change > 0: #moving right
-                self.rect.x = hits[0].rect.left - self.rect.width
+                self.rect.x = hits[0].rect.left - self.rect.width - 10
             if self.x_change < 0:
-                self.rect.x = hits[0].rect.right
+                self.rect.x = hits[0].rect.right + 10
             if self.y_change > 0: #moving down
-                self.rect.y = hits[0].rect.top - self.rect.height #hits is the block rect
+                self.rect.y = hits[0].rect.top - self.rect.height - 10 #hits is the block rect
             if self.y_change < 0:
-                self.rect.y = hits[0].rect.bottom
+                self.rect.y = hits[0].rect.bottom + 10
         return True
 
     def see_player(self):
@@ -86,7 +87,9 @@ class Enemy(pygame.sprite.Sprite):
         if not self.collide_blocks():
             self.rect.y -= math.sin(angle_radians) * ENEMY_SPEED * ENEMY_CHASE_BOOST
             self.rect.x -= math.cos(angle_radians)  * ENEMY_SPEED * ENEMY_CHASE_BOOST 
-        
+        else: 
+            self.collide_blocks()
+
     def movement(self):
         if self.see_player():
             self.follow_player()

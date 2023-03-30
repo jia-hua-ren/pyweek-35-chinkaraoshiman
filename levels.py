@@ -27,6 +27,11 @@
 #     'BBBBBBBBBBBBBBBBBBBB'
 # ]
 
+description0 = ('Intro screen',
+                'very pog')
+
+level0 = "left blank intentionally"
+
 description1 = ('press space', 
                 'text centers always', 
                 'surrender; if not you are dead.', 
@@ -83,3 +88,7 @@ level3 = [
     'B....G...G....G....B',
     'BBBBBBBBBBBBBBBBBBBB'
 ]
+
+# store the levels and descriptions in arrays
+levels = [level0, level1, level2, level3]
+level_descrip = [description0, description1, description2, description3]
