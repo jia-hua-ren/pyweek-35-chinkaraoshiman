@@ -16,7 +16,7 @@ from levels import *
 from item import *
 from door import *
 from slideshow import *
-
+from fadein import *
 
 class Game:
     def __init__(self):
@@ -79,6 +79,9 @@ class Game:
             pygame.image.load(intro_images[3]).convert_alpha(),
             pygame.image.load(intro_images[4]).convert_alpha()
         ]
+
+        self.end_img = pygame.image.load('./assets/img/ending/ending1.png').convert_alpha()
+        self.FinalEnd= Fadein(self.end_img, (WIN_WIDTH/2, WIN_HEIGHT/2), 0.5, self.screen)
 
     def createTilemap(self, level):
         # j is x position
@@ -148,8 +151,9 @@ class Game:
 
         if self.level >= len(levels):
             # insert real game over screen
-            pygame.quit()
-            sys.exit()
+            # pygame.quit()
+            # sys.exit()
+            self.state = 'end_screen'
         
         # else don't change level
         for sprite in self.all_sprites:
@@ -227,26 +231,12 @@ class Game:
             pygame.display.update()
 
     def intro_anime(self):
-
         intro_cutscene = Slideshow(intro_text, self.intro_images, self.bg_intro_images, self.screen)
-        print('init')
         intro_done = intro_cutscene.stop
-        # intro = True
-        # print(intro_done)
-
-        title = self.font.render('rpg tutorial', False, BLACK)
-        title_rect = title.get_rect(x=10, y=10)
-        
-        play_button = Button(10, 50, 100, 50, WHITE, BLACK, 'Play', 32)
 
         while not intro_done:
-            # print(intro_done)
             intro_done = intro_cutscene.stop
-            # print(intro_done)
             self.events()
-
-            # mouse_pos = pygame.mouse.get_pos()
-            # mouse_pressed = pygame.mouse.get_pressed()
 
             if intro_done == True:
                 intro_done = True
@@ -254,28 +244,19 @@ class Game:
                 self.level_clear = True
                 self.levelUpdate()
             
-            self.screen.blit(self.intro_background, (0,0))
-            self.screen.blit(title, title_rect)
-            self.screen.blit(play_button.image, play_button.rect)
             intro_cutscene.update()
             self.clock.tick(FPS)
-
-
             pygame.display.update()
-        # intro_done = True
-        # self.level_clear = True
-        # self.state = 'game'
-        # self.levelUpdate()
 
     def intro_screen(self):
 
         intro_done = False
         # intro = True
 
-        title = self.font.render('rpg tutorial', False, BLACK)
-        title_rect = title.get_rect(x=10, y=10)
+        title = Text('press space to skip intro', (WIN_WIDTH/2, WIN_HEIGHT/6), 50, WHITE, False)
+        title.update('press space to skip intro')
         
-        play_button = Button(10, 50, 100, 50, WHITE, BLACK, 'Play', 32)
+        play_button = Button(WIN_WIDTH/2, 5*WIN_HEIGHT/6, 300, 150, WHITE, BLACK, 'Play', 100)
 
         while not intro_done:
             self.events()
@@ -288,14 +269,12 @@ class Game:
                 self.state = 'intro'
             
             self.screen.blit(self.intro_background, (0,0))
-            self.screen.blit(title, title_rect)
+            title.draw(self.screen)
             self.screen.blit(play_button.image, play_button.rect)
             self.clock.tick(FPS)
 
 
             pygame.display.update()
-
-        
 
     def cutscene(self):
         # print('death')
@@ -315,20 +294,41 @@ class Game:
 
             mouse_pos = pygame.mouse.get_pos()
             mouse_pressed = pygame.mouse.get_pressed()
-
+            print(self.level, len(levels))
             if next_level_button.is_pressed(mouse_pos, mouse_pressed):
                 self.level_clear = True
                 self.item_aquired = False
-                self.levelUpdate()
-                cutscene = False
-                self.state = 'game'
+                # print(self.state)
 
+                #$#############$%^&*&^%$#$%^&*(*&^%^&*(*&^%$%^&*(*&^%%^&*&^%$%^&*&^%$%^&*(*&^%$%^&*&^%$%^&))))
+                if self.level >= len(levels)-1: #--------------------------------------------------------------------------------------------------check if this is problem later
+                    # insert real game over screen
+                    # pygame.quit()
+                    # sys.exit()
+                    self.state = 'end_screen'#problem? maybe?
+                    cutscene = False
+
+                else:
+                    self.levelUpdate()
+                    self.state = 'game'
+                    cutscene = False
+                #$#############$%^&*&^%$#$%^&*(*&^%^&*(*&^%$%^&*(*&^%%^&*&^%$%^&*&^%$%^&*(*&^%$%^&*&^%$%^&))))
             
             self.screen.blit(self.intro_background, (0,0))
             self.screen.blit(text, text_rect)
+            print('cutscene active')
             self.screen.blit(next_level_button.image, next_level_button.rect)
             self.clock.tick(FPS)
             pygame.display.update()
+
+    def final_ending_screen(self):
+        self.events()
+        self.state = 'end_screen' #lock this state
+        # print(self.state)
+        self.FinalEnd.draw()
+        self.clock.tick(FPS)
+        pygame.display.update()
+
 
     def state_manager(self):
         # print(self.state)
@@ -342,6 +342,9 @@ class Game:
             self.game_over()
         elif self.state == 'cutscene':
             self.cutscene()
+        elif self.state == 'end_screen':
+            # print('end now')
+            self.final_ending_screen()
         
 
         
@@ -357,6 +360,8 @@ g = Game()
 # g.intro_screen()
 g.new()
 while g.running:
+    pygame.display.set_caption("current FPS: "+str(g.clock.get_fps()))
+
     g.state_manager()
     # pygame.quit()
 

@@ -4,6 +4,7 @@ from utility import *
 
 class Button:
     def __init__(self, x, y, width, height, fg, bg, content, fontsize):
+        """self, x, y, width, height, fg, bg, content, fontsize)"""
         self.font = pygame.font.SysFont('Arial', fontsize)
         self.content = content
 
@@ -19,8 +20,7 @@ class Button:
         self.image.fill(self.bg)
         self.rect = self.image.get_rect()
 
-        self.rect.x = self.x
-        self.rect.y = self.y
+        self.rect.center = (self.x, self.y)
 
         self.text = self.font.render(self.content, False, self.fg) #false antialiasing
         self.text_rect = self.text.get_rect(center=(self.width/2, self.height/2))

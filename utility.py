@@ -23,8 +23,8 @@ class Spritesheet:
     
 
 class Text:
-    def __init__(self,text,pos,size,color,bg):
-        self.bg = bg
+    def __init__(self,text,pos,size,color,do_bg):
+        self.do_bg = do_bg
         self.myFont = pygame.font.SysFont('Arial', size)
         self.pos = pos
         self.size = size
@@ -34,16 +34,18 @@ class Text:
         self.rect = self.label.get_rect()
         self.rect.center = self.pos
         #background
-        self.bg= pygame.Surface(self.rect.size)
-        self.bg.fill(BLACK)
+        if self.do_bg:
+            self.bg= pygame.Surface(self.rect.size)
+            self.bg.fill(BLACK)
     def update(self, text):
         self.label = self.myFont.render(text, self.size, self.color)
         self.rect = self.label.get_rect()
         self.rect.center = self.pos
         self.bg= pygame.Surface(self.rect.size)
-        self.bg.fill(BLACK)
+        if self.do_bg:
+            self.bg.fill(BLACK)
     def draw(self,screen):
-        if self.bg:
+        if self.do_bg:
             screen.blit(self.bg, self.rect)
         screen.blit(self.label, self.rect)
 
