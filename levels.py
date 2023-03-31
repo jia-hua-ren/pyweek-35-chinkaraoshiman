@@ -104,7 +104,7 @@ level4 = [
     'BBBBBBBBBBBBBBBBBBBB',
     'B...SSSSSSSSSS.....BB',
     'B...BS.......SISSSSDB',
-    'B...BS.............BB',
+    'B...BS...O.........BB',
     'B...BS......E......B',
     'B....G...G....G....B',
     'BBBBBBBBBBBBBBBBBBBB'

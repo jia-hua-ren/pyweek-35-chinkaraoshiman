@@ -1,5 +1,5 @@
 import pygame
-import sys
+from sys import exit
 from random import getrandbits
 from utility import *
 from button import *
@@ -17,6 +17,7 @@ from item import *
 from door import *
 from slideshow import *
 from fadein import *
+from mapobject import *
 
 class Game:
     def __init__(self):
@@ -80,6 +81,8 @@ class Game:
         self.end_img = pygame.image.load('./assets/img/ending/ending1.png').convert_alpha()
         self.FinalEnd= Fadein(self.end_img, WIN_CENTER, 0.5, self.screen)
 
+        self.corpse_img = load_new_image('./assets/img/Goat_Eating_Corpes.png', 300, 300, WHITE)
+
     def createTilemap(self, level):
         # j is x position
         # i is the y position
@@ -113,6 +116,9 @@ class Game:
                 if column == "E": #enemy
                     Ground(self, j, i, True)
                     Enemy(self, j, i)
+                if column == "O": #map object
+                    Ground(self, j, i, True)
+                    MapObject(self, j, i, self.corpse_img)
                 # if column == "P": #player
                 #     self.player = Player(self, j , i)
                 #     # Attack(self, j, i)
@@ -135,6 +141,8 @@ class Game:
         self.goats = pygame.sprite.LayeredUpdates()
         self.shadow = pygame.sprite.LayeredUpdates()
         self.textbox = pygame.sprite.LayeredUpdates()
+        self.map_object = pygame.sprite.LayeredUpdates()
+
         # self.intro_screen()
         
         #self.createTilemap()
@@ -183,7 +191,7 @@ class Game:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 print('done')
-                sys.exit()
+                exit()
             if event.type == pygame.KEYDOWN and event.key == pygame.K_f:
                 if self.FullScreen:#if already fullscreen go to windowed
                     pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
@@ -203,10 +211,10 @@ class Game:
         for sprite in self.all_sprites:
             sprite.kill()
 
-        text = self.font.render('you die', False, WHITE)
-        text_rect = text.get_rect(center=WIN_CENTER)
+        text = Text('you die', (WIN_WIDTH/2, WIN_HEIGHT/6), 50, WHITE, False)
+        text.update('you die')
 
-        restart_button = Button(10, WIN_HEIGHT - 60, 120, 50, WHITE, BLACK, 'restart', 32)
+        restart_button = Button(WIN_WIDTH/2, 4*WIN_HEIGHT/6, 300, 150, WHITE, BLACK, 'next level', 50)
 
         while gameover:
             self.events()
@@ -222,7 +230,7 @@ class Game:
                 self.levelUpdate()
             
             self.screen.blit(self.intro_background, (0,0))
-            self.screen.blit(text, text_rect)
+            text.draw(self.screen)
             self.screen.blit(restart_button.image, restart_button.rect)
             self.clock.tick(FPS)
             pygame.display.update()
@@ -286,10 +294,10 @@ class Game:
         for sprite in self.all_sprites:
             sprite.kill()
 
-        text = self.font.render('cutscene', False, WHITE)
-        text_rect = text.get_rect(center=WIN_CENTER)
+        title = Text('you beat level', (WIN_WIDTH/2, WIN_HEIGHT/6), 50, WHITE, False)
+        title.update('you beat level')
 
-        next_level_button = Button(10, WIN_HEIGHT - 60, 120, 50, WHITE, BLACK, 'next level', 32)
+        next_level_button = Button(WIN_WIDTH/2, 4*WIN_HEIGHT/6, 300, 150, WHITE, BLACK, 'next level', 50)
 
         while cutscene:
             self.events()
@@ -317,7 +325,7 @@ class Game:
                 #$#############$%^&*&^%$#$%^&*(*&^%^&*(*&^%$%^&*(*&^%%^&*&^%$%^&*&^%$%^&*(*&^%$%^&*&^%$%^&))))
             
             self.screen.blit(self.intro_background, (0,0))
-            self.screen.blit(text, text_rect)
+            title.draw(self.screen)
             print('cutscene active')
             self.screen.blit(next_level_button.image, next_level_button.rect)
             self.clock.tick(FPS)
@@ -368,4 +376,4 @@ while g.running:
     # pygame.quit()
 
 pygame.quit()
-sys.exit()
+exit()
