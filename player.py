@@ -71,8 +71,8 @@ class Player(pygame.sprite.Sprite):
         self.movement()
         self.animate()
         
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_h] and self.shadow_condition():
+        # keys = pygame.key.get_pressed()
+        if self.shadow_condition(): #and keys[pygame.K_h]:
             # Turn into shadow on H key hold
             # need to decide between toggle or hold
             self.shadowForm = True
