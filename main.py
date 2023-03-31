@@ -317,7 +317,7 @@ class Game:
 
             mouse_pos = pygame.mouse.get_pos()
             mouse_pressed = pygame.mouse.get_pressed()
-            print(self.level, len(levels))
+            # print(self.level, len(levels))
             if next_level_button.is_pressed(mouse_pos, mouse_pressed):
                 self.level_clear = True
                 self.item_aquired = False
@@ -339,7 +339,7 @@ class Game:
             
             self.screen.blit(self.intro_background, (0,0))
             title.draw(self.screen)
-            print('cutscene active')
+            # print('cutscene active')
             self.screen.blit(next_level_button.image, next_level_button.rect)
             self.clock.tick(FPS)
             pygame.display.update()
