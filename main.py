@@ -209,6 +209,7 @@ class Game:
                 gameover = False
                 self.state = 'game'
                 self.level_clear = False
+                self.item_aquired = False
                 self.levelUpdate()
             
             self.screen.blit(self.intro_background, (0,0))

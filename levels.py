@@ -17,13 +17,13 @@
 # ]
 
 # level1 = [ @player spawn point at &
-#     'BBBBBBBBBBBBBBBBDBBB',
-#     'BRRRRRRRRRRRRRRRRRRB',
-#     'BR................RB',
-#     'BR....&...........RB',
-#     'BR................RB',
-#     'BR................RB',
-#     'BRRRRRRRRRRRRRRRRRRR',
+#     'BBBBBBBBBBBBBBBBBBBB',
+#     'B..................B',
+#     'B..................B',
+#     'B.....&............B',
+#     'B..................B',
+#     'B..................B',
+#     'B..................B',
 #     'BBBBBBBBBBBBBBBBBBBB'
 # ]
 
@@ -39,6 +39,8 @@ description1 = ('press space',
                 'We are brought by deception to the greatest treachery in the world.', 
                 'amadis 315',
                 'i4treif8uyhkj43tearf9oiulhk4ter9puijlkq345rea8ouyihlj345tearfo8yihlq354rewa8oyilhq354rwe8oyikh345rqaewoy8ihkj345rewfoy8ukhjq234rewoy8iuk')
+
+
 
 level1 = [
     'BBBBBBBBBBBBBBBBBBBB',
@@ -61,12 +63,24 @@ description2 = ('press space',
 
 
 level2 = [
+    '....................',
+    '....................',
+    'BBBBBBBBBBBBBBBBBBBB',
+    'B.....&.SS...SS....B',
+    'BBBBBBBBBB....BBBS.B',
+    'BR......G.SSSSSSSS.B',
+    'BRG.GE.....I.S.BBBBB',
+    'BRRR....E.BBBDBB',
+    '.BBBBBBBBB...BBB.....'
+]
+
+level3 = [
     'BBBBBBBBBBBBBBBBDBBB',
     'BRRRRRRRRRRRRRRRRRRB',
-    'BR.........E......RB',
-    'BR.GGGGGGGGG......RB',
-    'BR.GGGGGGGGG......RB',
-    'BR......E..I.....RB',
+    'BR........E.......RB',
+    'BR.GGGGGGGGGGGGGG.RB',
+    'BR.GGGGGGGGGGGGGG.RB',
+    'BR...E......I.....RB',
     'BRRRRRRRRRRRRRRRRRRB',
     'BBBBBBBBBBBBBBBBBBBB'
 ]
@@ -78,8 +92,15 @@ description3 = ('press space',
                 'We are brought by deception to the greatest treachery in the world.', 
                 'amadis 315',
                 'i4treif8uyhkj43tearf9oiulhk4ter9puijlkq345rea8ouyihlj345tearfo8yihlq354rewa8oyilhq354rwe8oyikh345rqaewoy8ihkj345rewfoy8ukhjq234rewoy8iuk')
+description4 = ('press space', 
+                'text centers always', 
+                'surrender; if not you are dead.', 
+                'By Holy Mary, brother!', 
+                'We are brought by deception to the greatest treachery in the world.', 
+                'amadis 315',
+                'i4treif8uyhkj43tearf9oiulhk4ter9puijlkq345rea8ouyihlj345tearfo8yihlq354rewa8oyilhq354rwe8oyikh345rqaewoy8ihkj345rewfoy8ukhjq234rewoy8iuk')
 
-level3 = [ 
+level4 = [ 
     'BBBBBBBBBBBBBBBBBBBB',
     'B...SSSSSSSSSS.....BB',
     'B...BS.......SISSSSDB',
@@ -89,18 +110,33 @@ level3 = [
     'BBBBBBBBBBBBBBBBBBBB'
 ]
 
+
+description5 = ('a')
+
+level5 = [ 
+    'BBBBBBBBBBBBBBBBBBBB',
+    'B.EE....EE.........B',
+    'BRRR..RRRE......B',
+    'BRRRSIRGR.E........B',
+    'BGRGS.RRRE.........B',
+    'BGRR..RRRE.........B',
+    'BRRRRRRGR..........B',
+    'BBDBBBBBBBBBBBBBBBBB'
+]
+
+
 # store the levels and descriptions in arrays
-levels = [level0, level1, level2, level3]
-level_descrip = [description0, description1, description2, description3]
+levels = [level0, level5, level2, level3, level4, level5]
+level_descrip = [description0, description1, description2, description3, description4, description5]
 
 
 
 
-intro_text = [['', 'by holy mary, these are the best goats i have ever seen', 0.5],
-        ['', 'I said: sir price please', 0.5],
-        ['', 'he says: brother no sale', 0.5],
-        ['', 'I am brought by deception to the greatest treachery in the world', 0.5],
-        ['', 'I am brought by deception to the greatest treachery in the world', 0.5]
+intro_text = ['by holy mary, these are the best goats i have ever seen',
+        'I said: sir price please',
+        'he says: brother no sale',
+        'I am brought by deception to the greatest treachery in the world',
+        'hi'
         ]
 
 #INTRO IMAGES LOADED IN GAME CLASS RIGHT NOW
