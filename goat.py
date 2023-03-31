@@ -120,7 +120,6 @@ class Goat(pygame.sprite.Sprite):
         if not group:
             group = self.game.blocks
         hits = pygame.sprite.spritecollide(self, group, False) #check player rect and every block in the game
-        if not hits: return False
         if hits:
             if self.x_change > 0: #moving right
                 self.rect.x = hits[0].rect.left - self.rect.width
@@ -130,7 +129,6 @@ class Goat(pygame.sprite.Sprite):
                 self.rect.y = hits[0].rect.top - self.rect.height #hits is the block rect
             if self.y_change < 0:
                 self.rect.y = hits[0].rect.bottom
-        return True
 
     def animate(self):
         # print(self.animation_loop, len(self.left_animations))

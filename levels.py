@@ -63,10 +63,10 @@ description2 = ('press space',
 level2 = [
     'BBBBBBBBBBBBBBBBDBBB',
     'BRRRRRRRRRRRRRRRRRRB',
-    'BR........E.......RB',
-    'BR.GGGGGGGGGGGGGG.RB',
-    'BR.GGGGGGGGGGGGGG.RB',
-    'BR...E......I.....RB',
+    'BR.........E......RB',
+    'BR.GGGGGGGGG......RB',
+    'BR.GGGGGGGGG......RB',
+    'BR......E..I.....RB',
     'BRRRRRRRRRRRRRRRRRRB',
     'BBBBBBBBBBBBBBBBBBBB'
 ]

@@ -54,27 +54,27 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.x += self.x_change
         self.rect.y += self.y_change
 
-        self.collide_blocks()
+        self.collide_blocks('x')
+        self.collide_blocks('y')
 
         self.x_change = 0
         self.y_change = 0
 
-    def collide_blocks(self, group = None):
-        if not group:
-            group = self.game.blocks
-        hits = pygame.sprite.spritecollide(self, group, False) #check player rect and every block in the game
-        if not hits: return False
-        if hits:
-            # here
-            if self.x_change > 0: #moving right
-                self.rect.x = hits[0].rect.left - self.rect.width - 10
-            if self.x_change < 0:
-                self.rect.x = hits[0].rect.right + 10
-            if self.y_change > 0: #moving down
-                self.rect.y = hits[0].rect.top - self.rect.height - 10 #hits is the block rect
-            if self.y_change < 0:
-                self.rect.y = hits[0].rect.bottom + 10
-        return True
+    def collide_blocks(self, direction):
+        hits = pygame.sprite.spritecollide(self, self.game.blocks, False) #check player rect and every block in the game
+        #False is dont want to delete sprite when collide
+        if direction == "x":
+            if hits:
+                if self.x_change > 0: #moving right
+                    self.rect.x = hits[0].rect.left - self.rect.width
+                if self.x_change < 0:
+                    self.rect.x = hits[0].rect.right
+        if direction == "y":
+            if hits:
+                if self.y_change > 0: #moving down
+                    self.rect.y = hits[0].rect.top - self.rect.height #hits is the block rect
+                if self.y_change < 0:
+                    self.rect.y = hits[0].rect.bottom
 
     def see_player(self):
         hits = pygame.Rect.colliderect(self.rect, self.game.playerAOE.rect)
@@ -84,11 +84,8 @@ class Enemy(pygame.sprite.Sprite):
         # distance = (math.hypot(self.x  - self.game.player.x, self.y - self.game.player.y) )
         angle_radians = (math.atan2(self.rect.y - self.game.player.y , self.rect.x - self.game.player.x))
         
-        if not self.collide_blocks():
-            self.rect.y -= math.sin(angle_radians) * ENEMY_SPEED * ENEMY_CHASE_BOOST
-            self.rect.x -= math.cos(angle_radians)  * ENEMY_SPEED * ENEMY_CHASE_BOOST 
-        else: 
-            self.collide_blocks()
+        self.y_change = -1 * math.sin(angle_radians) * ENEMY_SPEED * ENEMY_CHASE_BOOST
+        self.x_change = -1 * math.cos(angle_radians) * ENEMY_SPEED * ENEMY_CHASE_BOOST
 
     def movement(self):
         if self.see_player():
