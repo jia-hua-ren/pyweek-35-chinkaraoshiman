@@ -14,7 +14,7 @@ class Item(pygame.sprite.Sprite):
         self.width = TILESIZE / 2
         self.height = TILESIZE / 2
 
-        self.image = self.game.item_spritesheet.get_sprite(0, 0, self.width, self.height)
+        self.image = self.game.terrain_spritesheet.get_sprite(184, 426, self.width, self.height)
         # self.image = pygame.Surface([self.width, self.height])
         # self.image.fill((0, 0, 100))
         

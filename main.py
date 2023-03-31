@@ -42,7 +42,6 @@ class Game:
         self.goat_spritesheet = Spritesheet('./assets/img/goat_spritesheet.png')
         self.terrain_spritesheet = Spritesheet('./assets/img/terrain_spritesheet.png')
         self.enemy_spritesheet = Spritesheet('./assets/img/enemy.png')
-        self.item_spritesheet = Spritesheet('./assets/img/item.png')
         # self.attack_spritesheet = Spritesheet('img/attack.png')
         self.bg_img = pygame.image.load('./assets/img/bg.png').convert_alpha()
 
@@ -82,6 +81,7 @@ class Game:
         self.FinalEnd= Fadein(self.end_img, WIN_CENTER, 0.5, self.screen)
 
         self.corpse_img = load_new_image('./assets/img/Goat_Eating_Corpes.png', 300, 300, WHITE)
+        self.car_img = self.terrain_spritesheet.get_sprite(157, 153, 300, 250)
 
     def createTilemap(self, level):
         # j is x position
@@ -90,8 +90,13 @@ class Game:
             for j, column in enumerate(row):
                 if column == ".": #normal ground
                     Ground(self, j, i)
+                if column == "~": #grass ground
+                    Ground(self, j, i, False, 'grass')
+                if column == "_": #metal ground
+                    Ground(self, j, i, False, 'metal')
                 if column == "R": #restricted move area
                     Ground(self, j, i, True)
+
                 if column == "B": #block wall
                     Ground(self, j, i)
                     Block(self, j, i)
@@ -116,9 +121,16 @@ class Game:
                 if column == "E": #enemy
                     Ground(self, j, i, True)
                     Enemy(self, j, i)
-                if column == "O": #map object
+                
+                #map objects
+                if column == "O": #map object corpse can add animation later
                     Ground(self, j, i, True)
                     MapObject(self, j, i, self.corpse_img)
+                if column == "C":
+                    Ground(self, j, i, True)
+                    MapObject(self, j, i, self.car_img)
+
+                
                 # if column == "P": #player
                 #     self.player = Player(self, j , i)
                 #     # Attack(self, j, i)

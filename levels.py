@@ -39,9 +39,9 @@ description1 = ('press h to hide in shadow and goat',
 
 level1 = [
     'BBBBBBBBBBBBBBBBBBBB',
-    'B............RRRRRRB',
-    'B....RRRRRRRRRRRERRB',
-    'B....RGSSSISSSSSDRRB',
+    'B~~~.........RRRRRRB',
+    'B~~C.RRRRRRRRRR_E_RB',
+    'B~~..RGSSSISSSS_D_RB',
     'BBBBBBBBBBBBBBBBBBBB'
 ]
 
