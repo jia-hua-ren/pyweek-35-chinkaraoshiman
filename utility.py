@@ -20,3 +20,16 @@ class Spritesheet:
         sprite.blit(self.sheet, (0,0), (x, y, width, height))
         sprite.set_colorkey(BLACK)
         return sprite
+    
+
+class Text:
+    def __init__(self,text,x,y,size,color):
+        myFont = pygame.font.SysFont('Arial', size)
+        self.x = x
+        self.y = y
+        self.size = size
+        self.color = color
+        self.label = myFont.render(text, self.size, color)
+    def update(self, screen):
+        screen.blit(self.label, (self.x, self.y))
+

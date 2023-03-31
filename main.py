@@ -72,6 +72,14 @@ class Game:
             pygame.image.load(intro_images[4]).convert_alpha()
         ]
 
+        self.bg_intro_images = [
+            pygame.image.load(intro_images[0]).convert_alpha(),
+            pygame.image.load(intro_images[1]).convert_alpha(),
+            pygame.image.load(intro_images[2]).convert_alpha(),
+            pygame.image.load(intro_images[3]).convert_alpha(),
+            pygame.image.load(intro_images[4]).convert_alpha()
+        ]
+
     def createTilemap(self, level):
         # j is x position
         # i is the y position
@@ -220,8 +228,8 @@ class Game:
 
     def intro_anime(self):
 
-        intro_cutscene = Slideshow(intro_text, self.intro_images, self.screen)
-
+        intro_cutscene = Slideshow(intro_text, self.intro_images, self.bg_intro_images, self.screen)
+        print('init')
         intro_done = intro_cutscene.stop
         # intro = True
         # print(intro_done)
