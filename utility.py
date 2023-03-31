@@ -23,13 +23,27 @@ class Spritesheet:
     
 
 class Text:
-    def __init__(self,text,x,y,size,color):
-        myFont = pygame.font.SysFont('Arial', size)
-        self.x = x
-        self.y = y
+    def __init__(self,text,pos,size,color,bg):
+        self.bg = bg
+        self.myFont = pygame.font.SysFont('Arial', size)
+        self.pos = pos
         self.size = size
+        self.text = text
         self.color = color
-        self.label = myFont.render(text, self.size, color)
-    def update(self, screen):
-        screen.blit(self.label, (self.x, self.y))
+        self.label = self.myFont.render(self.text, self.size, color)
+        self.rect = self.label.get_rect()
+        self.rect.center = self.pos
+        #background
+        self.bg= pygame.Surface(self.rect.size)
+        self.bg.fill(BLACK)
+    def update(self, text):
+        self.label = self.myFont.render(text, self.size, self.color)
+        self.rect = self.label.get_rect()
+        self.rect.center = self.pos
+        self.bg= pygame.Surface(self.rect.size)
+        self.bg.fill(BLACK)
+    def draw(self,screen):
+        if self.bg:
+            screen.blit(self.bg, self.rect)
+        screen.blit(self.label, self.rect)
 
