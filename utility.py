@@ -25,7 +25,7 @@ class Spritesheet:
 class Text:
     def __init__(self,text,pos,size,color,do_bg):
         self.do_bg = do_bg
-        self.myFont = pygame.font.SysFont('Arial', size)
+        self.myFont = pygame.font.Font(FONT_PATH, size)
         self.pos = pos
         self.size = size
         self.text = text

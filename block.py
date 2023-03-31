@@ -14,7 +14,7 @@ class Block(pygame.sprite.Sprite):
         self.width = TILESIZE
         self.height = TILESIZE
 
-        self.image = self.game.wall_spritesheet.get_sprite(0, 0, self.width, self.height)
+        self.image = self.game.terrain_spritesheet.get_sprite(33, 273, self.width, self.height)
         # self.image = pygame.Surface([self.width, self.height])
         # self.image.fill((0, 0, 100))
         

@@ -1,5 +1,8 @@
 WIN_WIDTH = 1280
 WIN_HEIGHT = 720
+
+WIN_CENTER = (640, 360)
+
 TILESIZE = 100
 FPS = 60
 
@@ -18,3 +21,7 @@ RED = (255, 0, 0)
 BLACK = (0, 0, 0)
 BLUE = (0, 0, 255)
 WHITE = (255, 255, 255)
+
+# FONT_PATH = './assets/fonts/SourceSansPro-Regular.ttf'
+FONT_PATH = './assets/fonts/Roboto-Regular.ttf'
+

@@ -23,7 +23,7 @@ class Slideshow(object):
         self.index = 0
         self.image = self.images[self.index]
         self.rect = self.image.get_rect() #assume all images have same dimensions so same rect
-        self.rect.center = (WIN_WIDTH/2, WIN_HEIGHT/2)
+        self.rect.center = WIN_CENTER
 
         #bg image to fix flashing glitch
         self.bg_images = bg_images

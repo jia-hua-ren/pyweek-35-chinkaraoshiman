@@ -5,7 +5,7 @@ from utility import *
 class Button:
     def __init__(self, x, y, width, height, fg, bg, content, fontsize):
         """self, x, y, width, height, fg, bg, content, fontsize)"""
-        self.font = pygame.font.SysFont('Arial', fontsize)
+        self.font = pygame.font.Font(FONT_PATH, fontsize)
         self.content = content
 
         self.x = x

@@ -35,15 +35,12 @@ class Game:
 
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
         self.clock = pygame.time.Clock()
-        self.font = pygame.font.SysFont('Arial', 32)
+        self.font = pygame.font.Font(FONT_PATH, 32)
 
         self.character_spritesheet = Spritesheet('./assets/img/player_spritesheet.png')
         self.goat_spritesheet = Spritesheet('./assets/img/goat_spritesheet.png')
-        self.terrain_spritesheet = Spritesheet('./assets/img/ground.png')
+        self.terrain_spritesheet = Spritesheet('./assets/img/terrain_spritesheet.png')
         self.enemy_spritesheet = Spritesheet('./assets/img/enemy.png')
-        self.wall_spritesheet = Spritesheet('./assets/img/wall.png')
-        self.shadow_spritesheet = Spritesheet('./assets/img/shadow.png')
-        self.door_spritesheet = Spritesheet('./assets/img/door.png')
         self.item_spritesheet = Spritesheet('./assets/img/item.png')
         # self.attack_spritesheet = Spritesheet('img/attack.png')
         self.bg_img = pygame.image.load('./assets/img/bg.png').convert_alpha()
@@ -60,7 +57,7 @@ class Game:
 
         self.intro_background = pygame.image.load('./assets/img/bg_copy.png').convert_alpha()
         self.go_background = self.bg_img
-        self.backTexture = load_new_image('./assets/img/backTexture.png', 1280, 150, WHITE)
+        # self.backTexture = load_new_image('./assets/img/backTexture.png', 1280, 150, WHITE)
 
         self.item_aquired = False
 
@@ -81,7 +78,7 @@ class Game:
         ]
 
         self.end_img = pygame.image.load('./assets/img/ending/ending1.png').convert_alpha()
-        self.FinalEnd= Fadein(self.end_img, (WIN_WIDTH/2, WIN_HEIGHT/2), 0.5, self.screen)
+        self.FinalEnd= Fadein(self.end_img, WIN_CENTER, 0.5, self.screen)
 
     def createTilemap(self, level):
         # j is x position
@@ -207,7 +204,7 @@ class Game:
             sprite.kill()
 
         text = self.font.render('you die', False, WHITE)
-        text_rect = text.get_rect(center=(WIN_WIDTH/2, WIN_HEIGHT/2))
+        text_rect = text.get_rect(center=WIN_CENTER)
 
         restart_button = Button(10, WIN_HEIGHT - 60, 120, 50, WHITE, BLACK, 'restart', 32)
 
@@ -255,8 +252,12 @@ class Game:
 
         title = Text('press space to skip intro', (WIN_WIDTH/2, WIN_HEIGHT/6), 50, WHITE, False)
         title.update('press space to skip intro')
+
+        subtitle = Text('If red is your color, and what do you rejoice. When the war is over. Or….',
+                        (WIN_WIDTH/2, 5*WIN_HEIGHT/6), 30, WHITE, True)
+        subtitle.update('If red is your color, and what do you rejoice. When the war is over. Or….')
         
-        play_button = Button(WIN_WIDTH/2, 5*WIN_HEIGHT/6, 300, 150, WHITE, BLACK, 'Play', 100)
+        play_button = Button(WIN_WIDTH/2, 4*WIN_HEIGHT/6, 300, 150, WHITE, BLACK, 'Play', 100)
 
         while not intro_done:
             self.events()
@@ -270,6 +271,7 @@ class Game:
             
             self.screen.blit(self.intro_background, (0,0))
             title.draw(self.screen)
+            subtitle.draw(self.screen)
             self.screen.blit(play_button.image, play_button.rect)
             self.clock.tick(FPS)
 
@@ -285,7 +287,7 @@ class Game:
             sprite.kill()
 
         text = self.font.render('cutscene', False, WHITE)
-        text_rect = text.get_rect(center=(WIN_WIDTH/2, WIN_HEIGHT/2))
+        text_rect = text.get_rect(center=WIN_CENTER)
 
         next_level_button = Button(10, WIN_HEIGHT - 60, 120, 50, WHITE, BLACK, 'next level', 32)
 

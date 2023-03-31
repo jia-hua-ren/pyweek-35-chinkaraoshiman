@@ -1,7 +1,6 @@
 import pygame
 from config import *
-import math
-import random
+
 
 class Shadow(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
@@ -16,7 +15,7 @@ class Shadow(pygame.sprite.Sprite):
         self.width = TILESIZE
         self.height = TILESIZE
 
-        self.image = self.game.shadow_spritesheet.get_sprite(0, 0, self.width, self.height)
+        self.image = self.game.terrain_spritesheet.get_sprite(32, 143, self.width, self.height)
         # self.image = pygame.Surface([self.width, self.height])
         # self.image.fill((0, 0, 100))
         

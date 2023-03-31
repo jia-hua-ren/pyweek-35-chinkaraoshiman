@@ -16,7 +16,7 @@ class Textbox(pygame.sprite.Sprite):
         self.y = WIN_HEIGHT * 0.75
         self.width = WIN_WIDTH
         self.height = WIN_HEIGHT
-        self.font = pygame.font.SysFont('Arial', 32)
+        self.font = pygame.font.Font(FONT_PATH, 32)
         self.image = self.font.render(self.text_list[self.text_index], False, BLACK, RED)
 
         # self.image = self.game.wall_spritesheet.get_sprite(0, 0, self.width, self.height)
