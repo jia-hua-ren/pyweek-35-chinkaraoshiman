@@ -15,7 +15,7 @@ from config import *
 from levels import *
 from item import *
 from door import *
-from cutscene import *
+from slideshow import *
 
 
 class Game:
@@ -219,7 +219,7 @@ class Game:
 
     def intro_anime(self):
 
-        intro_cutscene = CutsceneAnime(intro_text, self.intro_images, self.screen)
+        intro_cutscene = Slideshow(intro_text, self.intro_images, self.screen)
 
         intro_done = intro_cutscene.stop
         # intro = True
@@ -231,7 +231,7 @@ class Game:
         play_button = Button(10, 50, 100, 50, WHITE, BLACK, 'Play', 32)
 
         while not intro_done:
-            print(intro_done)
+            # print(intro_done)
             intro_done = intro_cutscene.stop
             # print(intro_done)
             self.events()

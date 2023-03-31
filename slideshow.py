@@ -118,7 +118,7 @@ from config import *
 
 
 
-class CutsceneAnime(object):
+class Slideshow(object):
     """docstring for CutsceneAnime"""
     def __init__(self, texts, images, screen):
         self.texts = texts
@@ -132,27 +132,32 @@ class CutsceneAnime(object):
         self.mode = 1
         self.stop = False
 
-        self.isboss = True
 
-        if self.isboss==True:
-            self.max_alph = 500
-            self.min_alph = -100
-        else:
-            self.max_alph = 400
-            self.min_alph = 0
+        self.max_alph = 100#adjust these values to change timing of slides
+        self.min_alph = 0
+
+        self.kill_on_release = False
+
+
+    def events(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE]:
+            self.kill_on_release = True
+        elif self.kill_on_release == True and not keys[pygame.K_SPACE]:
+            self.stop = True
 
     def update(self):
+        self.events()
         self.screen.fill(BLACK)
         if self.alph >=self.max_alph:
             self.mode =-1
         elif self.alph <=-0:
             self.index+=1
             if self.index>len(self.images)-1:
-                if self.isboss==True:
-                    self.index=self.index>len(self.images)-1
-                    self.stop=True
-                else:
-                    self.index=0
+
+                self.index=self.index>len(self.images)-1
+                self.stop=True
+
             self.image = self.images[self.index]
             self.mode=1
 
@@ -162,11 +167,4 @@ class CutsceneAnime(object):
 
 
         self.screen.blit(self.image,self.rect)
-        # if self.isboss==False:
-        #     self.text_group.update(True)
-        #     self.text_group.draw(self.screen)
-    # def StopNow(self):
-    #     if self.stop == True:
-    #         return True
-    # def MyIndex(self):
-    #     return self.index    
+  
