@@ -82,6 +82,8 @@ class Game:
         self.FinalEnd= Fadein(self.end_img, WIN_CENTER, 0.5, self.screen)
 
         self.corpse_img = load_new_image('./assets/img/Goat_Eating_Corpes.png', 300, 300, WHITE)
+        self.corpse_img2 = load_new_image('./assets/img/Goat_Eating_Corpes2.png', 300, 300, WHITE)
+
         self.car_img = self.terrain_spritesheet.get_sprite(157, 153, 300, 250)
 
     def createTilemap(self, level):
@@ -126,10 +128,10 @@ class Game:
                 #map objects
                 if column == "O": #map object corpse can add animation later
                     Ground(self, j, i, True)
-                    MapObject(self, j, i, self.corpse_img)
+                    MapObject(self, j, i, (self.corpse_img, self.corpse_img2))
                 if column == "C":
                     Ground(self, j, i, True)
-                    MapObject(self, j, i, self.car_img)
+                    MapObject(self, j, i, (self.car_img, self.car_img))
 
                 
                 # if column == "P": #player
