@@ -23,16 +23,17 @@ class Enemy(pygame.sprite.Sprite):
         self.movement_loop = 0
         self.max_travel = random.randint(7, 30) # enemy move back forth 7 to 30 pixels
 
-
         self.image = self.game.enemy_spritesheet.get_sprite(0, 0, self.width, self.height)
         self.image.set_colorkey(BLACK) #get transparent background
-
-        # self.image = pygame.Surface([self.width, self.height])
-        # self.image.fill((100, 0, 0))
 
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
+
+        # for the return to original function
+        self.original_x = (self.rect.x - self.max_travel, self.rect.x, self.rect.x + self.max_travel)
+        self.original_y = self.rect.y
+
 
         self.close_to_player = False
         # self.left_animations = [
@@ -76,32 +77,42 @@ class Enemy(pygame.sprite.Sprite):
                 if self.y_change < 0:
                     self.rect.y = hits[0].rect.bottom
 
+    def return_original_position(self):
+        angle_radians = (math.atan2(self.rect.y - self.original_y , self.rect.x - self.original_x[1]))
+        if(self.rect.y != self.original_y):
+            self.y_change = -1 * math.sin(angle_radians) * ENEMY_SPEED * ENEMY_CHASE_BOOST
+        if(self.rect.x != self.original_x[1]):
+            self.x_change = -1 * math.cos(angle_radians) * ENEMY_SPEED * ENEMY_CHASE_BOOST
+
     def see_player(self):
         hits = pygame.Rect.colliderect(self.rect, self.game.playerAOE.rect)
         return hits and not self.game.player.shadowForm
-            
-    def follow_player(self):
-        # distance = (math.hypot(self.x  - self.game.player.x, self.y - self.game.player.y) )
-        angle_radians = (math.atan2(self.rect.y - self.game.player.y , self.rect.x - self.game.player.x))
-        
-        self.y_change = -1 * math.sin(angle_radians) * ENEMY_SPEED * ENEMY_CHASE_BOOST
-        self.x_change = -1 * math.cos(angle_radians) * ENEMY_SPEED * ENEMY_CHASE_BOOST
 
     def movement(self):
-        if self.see_player():
-            self.follow_player()
 
+
+        if self.see_player():
+            angle_radians = (math.atan2(self.rect.y - self.game.player.y , self.rect.x - self.game.player.x))
+            self.y_change = -1 * math.sin(angle_radians) * ENEMY_SPEED * ENEMY_CHASE_BOOST
+            self.x_change = -1 * math.cos(angle_radians) * ENEMY_SPEED * ENEMY_CHASE_BOOST
         else:
-            if self.facing == 'left':
-                self.x_change -= ENEMY_SPEED
-                self.movement_loop -= 1
-                if self.movement_loop <= -self.max_travel:
-                    self.facing = 'right'
-            elif self.facing == 'right':
-                self.x_change += ENEMY_SPEED
-                self.movement_loop += 1
-                if self.movement_loop >= self.max_travel:
-                    self.facing = 'left'
+            at_original = self.rect.y == self.original_y and self.rect.x >= self.original_x[0] and self.rect.x <= self.original_x[2]
+            if(not at_original):
+                self.return_original_position()
+            else:
+
+            #when the player moves its no longer at the orignal x
+
+                if self.facing == 'left':
+                    self.x_change -= ENEMY_SPEED
+                    self.movement_loop -= 1
+                    if self.movement_loop <= -self.max_travel:
+                        self.facing = 'right'
+                elif self.facing == 'right':
+                    self.x_change += ENEMY_SPEED
+                    self.movement_loop += 1
+                    if self.movement_loop >= self.max_travel:
+                        self.facing = 'left'
 
     def animate(self):
 
