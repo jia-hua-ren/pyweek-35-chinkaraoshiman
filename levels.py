@@ -32,26 +32,37 @@ description0 = ('Intro screen',
 
 level0 = "left blank intentionally"
 
-description1 = ('press space', 
-                'text centers always', 
-                'surrender; if not you are dead.', 
-                'By Holy Mary, brother!', 
-                'We are brought by deception to the greatest treachery in the world.', 
-                'amadis 315',
-                'i4treif8uyhkj43tearf9oiulhk4ter9puijlkq345rea8ouyihlj345tearfo8yihlq354rewa8oyilhq354rwe8oyikh345rqaewoy8ihkj345rewfoy8ukhjq234rewoy8iuk')
 
+description1 = ('press h to hide in shadow and goat', 
+                'I see a green object, i said, and i must pick it up')
 
 
 level1 = [
     'BBBBBBBBBBBBBBBBBBBB',
-    'B..................B',
-    'B.....RRRRR........B',
-    'B.....RRGRR....G...B',
-    'B.....RRRRR........B',
-    'B.....RRRRR......I.B',
-    'B..................D',
+    'B............RRRRRRB',
+    'B....RRRRRRRRRRRERRB',
+    'B....RGSSSISSSSSDRRB',
     'BBBBBBBBBBBBBBBBBBBB'
 ]
+
+level2 = [
+    'BBBBBBBBBBBBBBBBBBBB',
+    'B..................B',
+    'B..................B',
+    'B.........I.....D..B',
+    'BBBBBBBBBBBBBBBBBBBB'
+]
+
+# level1 = [
+#     'BBBBBBBBBBBBBBBBBBBB',
+#     'B..................B',
+#     'B.....RRRRR........B',
+#     'B.....RRGRR....G...B',
+#     'B.....RRRRR........B',
+#     'B.....RRRRR......I.B',
+#     'B..................D',
+#     'BBBBBBBBBBBBBBBBBBBB'
+# ]
 
 description2 = ('press space', 
                 'text centers always', 
@@ -126,7 +137,7 @@ level5 = [
 
 
 # store the levels and descriptions in arrays
-levels = [level0, level4, level2, level3, level4, level5]
+levels = [level0, level1, level2, level3, level4, level5]
 level_descrip = [description0, description1, description2, description3, description4, description5]
 
 

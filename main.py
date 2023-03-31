@@ -164,7 +164,7 @@ class Game:
         for sprite in self.all_sprites:
             sprite.kill()
         self.createTilemap(levels[self.level])
-        Textbox(self, level_descrip[self.level], len(level_descrip[self.level]))
+        Textbox(self, level_descrip[self.level], len(level_descrip[self.level]), self.clock)
             
     def update(self): # make things move
         # game loop updates        

@@ -3,7 +3,8 @@ from config import *
 from utility import *
 
 class Textbox(pygame.sprite.Sprite):
-    def __init__(self, game, text_list, size):
+    def __init__(self, game, text_list, size, clock):
+        self.clock = clock
         self.text_list = text_list #all diologues to go through
         self.text_index = 0
         self.size = size - 1 # find maximum index for text_list
@@ -31,17 +32,11 @@ class Textbox(pygame.sprite.Sprite):
 
         self.kill_on_release = False
 
+        self.wait_seconds = 3
+        self.wait_clock_cycles = FPS * self.wait_seconds
+        self.clock_cycles = 0
 
-
-    # def events(self):
-    #     for event in pygame.event.get():
-    #         print('event')
-    #         if event.type == pygame.KEYDOWN:
-    #             if event.key == pygame.K_SPACE:
-    #                 self.kill()
-    #                 print('kill')
-
-    def update(self):
+    def events(self):
         key_pressed = pygame.key.get_pressed() 
 
         if key_pressed[pygame.K_SPACE]:
@@ -56,6 +51,20 @@ class Textbox(pygame.sprite.Sprite):
                 self.rect = self.image.get_rect()
                 self.kill_on_release = False
 
+        if self.clock_cycles > self.wait_clock_cycles:
+            if self.text_index == self.size:
+                self.kill()
+            else:
+                self.text_index += 1
+                self.image = self.font.render(self.text_list[self.text_index], False, BLACK, RED)
+                self.rect = self.image.get_rect()
+            self.clock_cycles = 0
+
+    def update(self):
+        self.events()
         self.rect.center = (self.game.player.rect.x, self.y)
 
         pygame.draw.rect(self.game.screen, WHITE, self.rect)
+
+        self.clock_cycles += 1
+        # self.clock.tick(FPS)
