@@ -1,22 +1,5 @@
-# tilemap = [
-#     'BBBBBBBBBBBBBBBBBBBB',
-#     'B.SSSS.......E.....B',
-#     '...BBBBGB......BB.......B',
-#     'B..B.G...SSSS.......B',
-#     '..BBBBBBBG.SS.G........B',
-#     'B.........B..BB..BBB',
-#     '.....B...BBBBBBB..B...BBBBBBB..B',
-#     'BBBBB..SSS...B.....B',
-#     'B...G...BBBBBBB.....B',
-#     'B....E..B..........B',
-#     'B.......B....G......B',
-#     'B.BBBBB.........SSE.....B',
-#     '..B..S...SG....S......B',
-#     'B....SG..SSSS......BBBB.B',
-#     '.BBBBBBBBBBBBBBBB.BBB'
-# ]
-
-# level1 = [ @player spawn point at &
+#level template with player spawnpoint
+# level1 = [ @player spawn point
 #     'BBBBBBBBBBBBBBBBBBBB',
 #     'B..................B',
 #     'B..................B',
@@ -29,15 +12,24 @@
 
 description0 = ('Intro screen',
                 'very pog')
-
 level0 = "left blank intentionally"
 
 
-description1 = ('press h to hide in shadow and goat', 
-                'I see a green object, i said, and i must pick it up')
-
-
+description1 = ('I may press space and i will have a goat','I see a green object, i said, and i must pick it up')
 level1 = [
+    'BBBBBBBBBBBBBBBBBBBB',
+    'B..................B',
+    'B.....RRRRR........B',
+    'B.....RRGRR....G...B',
+    'B.....RRRRR........B',
+    'B.....RRRRR......I.B',
+    'B..................D',
+    'BBBBBBBBBBBBBBBBBBBB'
+]
+
+description2 = ('i have droven may car,',
+                'they guards will not notice me, i said, if i conceal my person')
+level2 = [
     'BBBBBBBBBBBBBBBBBBBB',
     'B~~~.........RRRRRRB',
     'B~~C.RRRRRRRRRR_E_RB',
@@ -45,46 +37,19 @@ level1 = [
     'BBBBBBBBBBBBBBBBBBBB'
 ]
 
-level2 = [
-    'BBBBBBBBBBBBBBBBBBBB',
-    'B..................B',
-    'B..................B',
-    'B.........I.....D..B',
-    'BBBBBBBBBBBBBBBBBBBB'
-]
-
-# level1 = [
+# level2 = [
+#     '....................',
+#     '....................',
 #     'BBBBBBBBBBBBBBBBBBBB',
-#     'B..................B',
-#     'B.....RRRRR........B',
-#     'B.....RRGRR....G...B',
-#     'B.....RRRRR........B',
-#     'B.....RRRRR......I.B',
-#     'B..................D',
-#     'BBBBBBBBBBBBBBBBBBBB'
+#     'B.....&.SS...SS....B',
+#     'BBBBBBBBBB....BBBS.B',
+#     'BR......G.SSSSSSSS.B',
+#     'BRG.GE.....I.S.BBBBB',
+#     'BRRR....E.BBBDBB',
+#     '.BBBBBBBBB...BBB.....'
 # ]
 
-description2 = ('press space', 
-                'text centers always', 
-                'surrender; if not you are dead.', 
-                'By Holy Mary, brother!', 
-                'We are brought by deception to the greatest treachery in the world.', 
-                'amadis 315',
-                'i4treif8uyhkj43tearf9oiulhk4ter9puijlkq345rea8ouyihlj345tearfo8yihlq354rewa8oyilhq354rwe8oyikh345rqaewoy8ihkj345rewfoy8ukhjq234rewoy8iuk')
-
-
-level2 = [
-    '....................',
-    '....................',
-    'BBBBBBBBBBBBBBBBBBBB',
-    'B.....&.SS...SS....B',
-    'BBBBBBBBBB....BBBS.B',
-    'BR......G.SSSSSSSS.B',
-    'BRG.GE.....I.S.BBBBB',
-    'BRRR....E.BBBDBB',
-    '.BBBBBBBBB...BBB.....'
-]
-
+description3 = ('by holy mary! brother there are many goats.','')
 level3 = [
     'BBBBBBBBBBBBBBBBDBBB',
     'BRRRRRRRRRRRRRRRRRRB',
@@ -96,20 +61,9 @@ level3 = [
     'BBBBBBBBBBBBBBBBBBBB'
 ]
 
-description3 = ('press space', 
-                'text centers always', 
-                'surrender; if not you are dead.', 
-                'By Holy Mary, brother!', 
-                'We are brought by deception to the greatest treachery in the world.', 
-                'amadis 315',
-                'i4treif8uyhkj43tearf9oiulhk4ter9puijlkq345rea8ouyihlj345tearfo8yihlq354rewa8oyilhq354rwe8oyikh345rqaewoy8ihkj345rewfoy8ukhjq234rewoy8iuk')
-description4 = ('press space', 
-                'text centers always', 
-                'surrender; if not you are dead.', 
-                'By Holy Mary, brother!', 
-                'We are brought by deception to the greatest treachery in the world.', 
-                'amadis 315',
-                'i4treif8uyhkj43tearf9oiulhk4ter9puijlkq345rea8ouyihlj345tearfo8yihlq354rewa8oyilhq354rwe8oyikh345rqaewoy8ihkj345rewfoy8ukhjq234rewoy8iuk')
+
+description4 = ('the guards are too stupid i will sneak past the fools',
+                'now i know their secret they use the humans to make beautifl goats.')
 
 level4 = [ 
     'BBBBBBBBBBBBBBBBBBBB',
@@ -122,7 +76,7 @@ level4 = [
 ]
 
 
-description5 = ('a')
+description5 = ('i will take this secret to my grave and I will share it with all my friends.','')
 
 level5 = [ 
     'BBBBBBBBBBBBBBBBBBBB',

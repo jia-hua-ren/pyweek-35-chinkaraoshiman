@@ -25,6 +25,7 @@ class Game:
         pygame.mixer.pre_init()
         self.bgm = pygame.mixer.music.load('./assets/music/goat2.ogg')
         pygame.mixer.music.play(-1)
+        self.can_switch_music = True
         self.running = True
         self.FullScreen = False
 
@@ -346,6 +347,10 @@ class Game:
     def final_ending_screen(self):
         self.events()
         self.state = 'end_screen' #lock this state
+        if self.can_switch_music:
+            self.bgm = pygame.mixer.music.load('./assets/music/newspaper.ogg')
+            pygame.mixer.music.play(-1)
+            self.can_switch_music = False
         # print(self.state)
         self.FinalEnd.draw()
         self.clock.tick(FPS)
