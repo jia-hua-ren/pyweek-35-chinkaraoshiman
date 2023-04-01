@@ -142,7 +142,10 @@ class Game:
                 if column == "D": #goal, exit, door
                     Ground(self, j, i, True)
                     Door(self, j, i)
-                if column == "I": # item/ key
+                if column == "I" and level == 3: # item/ key
+                    Ground(self, j, i, True)
+                    self.item_object = Item(self, j, i, True)
+                elif column == "I":
                     Ground(self, j, i, True)
                     self.item_object = Item(self, j, i)
                     
