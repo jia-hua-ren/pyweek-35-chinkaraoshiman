@@ -97,9 +97,9 @@ description6 = ('the treatment towards these unfortunate creatures is inhumane',
 
 level6 = [
     'BBBBBBBBBBBBBBBBBBBB',
-    'BRRRRRRR__E____SSSSB',
-    'BRRRGR_RE__________B',
-    'BRRRR_SSSSSS___M___B',
+    'BRRRRRRR__E_SSSSSSSB',
+    'BRRRGR_RE___S______B',
+    'BRRRR_SSSSSSS__M___B',
     'BRGRRR_...E________B',
     'BRGRRR~S~...E._M___B',
     'BRRRRRBB~SSSI._____B',
