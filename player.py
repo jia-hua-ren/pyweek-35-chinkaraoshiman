@@ -152,8 +152,13 @@ class Player(pygame.sprite.Sprite):
     def collide_item(self):
         hits = pygame.sprite.spritecollide(self, self.game.item, False)
         if hits:
-            self.game.item_object.kill() #remove item from all sprites
-            self.game.item_aquired = True
+            if not hits[0].gdp:
+                self.game.item_aquired = True
+            else:
+                hits[0].item_popup()
+                # text screen
+            hits[0].kill() #remove item from all sprites
+            
 
     def collide_door(self):
         hits = pygame.sprite.spritecollide(self, self.game.door, False)

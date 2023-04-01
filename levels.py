@@ -49,16 +49,39 @@ level2 = [
 #     '.BBBBBBBBB...BBB.....'
 # ]
 
+level_gdp = [
+    'BBBBBBBB',
+    'B.!..I.B',
+    'B______D',
+    'B......B',
+    'BBBBBBBB',
+
+]
+
+descriptiongdp = ('a nice entrance hall, but it cannot fool me.',
+                  'i can see a brochure there, let me check.')
+
+
+gdptext = ("The Goat Decoration Process (GDP), which produces the best goats, a summary:",
+           "",
+           "1. Selection Process: Take only the best goats from our farm partners.",
+           "2. Haircare Process: Wash, trim, dye (if necessary) the goat\'s fur.",
+           "3. Elegance Process: Harsh training of the goats for correct posture",
+           "4. Enchanting Process: Our workers from the Witch Department give goats a glowup.",
+           "5. Package Process: Cryo-freeze shipment chambers to preserve their beauty.",
+           "",
+           "All employees should do well to remember the SHEEP process of the GDP.")
+
 description3 = ('by holy mary! brother there are many goats.',
                 'each will all attain their freedom, if I can help it')
 level3 = [
     'BBBBBBBBBBBBBBBBDBBB',
-    'BRRRRRRRRRRRRRRRRRRB',
     'B.........E........B',
     'BGGGGGGGGGGGGGGGGGGB',
     'BGGGGGGGGGGGGGGGGGGB',
-    'BR...E......I......B',
-    'BRRRRRRRRRRRRRRRRRRB',
+    'BGGGGGGGGGGGGGGGGGGB',
+    'B..................B',
+    'B....E......I......B',
     'BBBBBBBBBBBBBBBBBBBB'
 ]
 
@@ -159,9 +182,9 @@ description_last = ('let me free these wrethed beasts',
                     'I tell you, i am going to report all these inhuman conducts')
 
 # store the levels and descriptions in arrays
-levels = [level0, level1, level2, level3, level4, level5, level6, level7, level8, level_last]
+levels = [level0, level1, level2, level_gdp, level3, level4, level5, level6, level7, level8, level_last]
 
-level_descrip = [description0, description1, description2, description3, description4, description5, description6, description7, description8, description_last]
+level_descrip = [description0, description1, description2, descriptiongdp, description3, description4, description5, description6, description7, description8, description_last]
 
 
 
