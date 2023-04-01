@@ -300,7 +300,7 @@ class Game:
                 self.state = 'title'
                 self.reset()
             
-            self.screen.blit(self.intro_background, (0,0))
+            self.screen.blit(self.bg_img, (0,0))
             text.draw(self.screen)
             self.screen.blit(restart_button.image, restart_button.rect)
             self.screen.blit(title_button.image, title_button.rect)
@@ -473,7 +473,7 @@ class Game:
                     self.state = 'game'
                     cutscene = False
             
-            self.screen.blit(self.intro_background, (0,0))
+            self.screen.blit(self.bg_img, (0,0))
             for sen in sentences:
                 sen.draw(self.screen)
             # print('cutscene active')
@@ -518,15 +518,16 @@ class Game:
         elif self.state == 'end_screen':
             # print('end now')
             self.final_ending_screen()
-        
-g = Game()
-# g.intro_screen()
-g.new()
-while g.running:
-    pygame.display.set_caption("current FPS: "+str(g.clock.get_fps()))
 
-    g.state_manager()
-    # pygame.quit()
+if __name__ == "__main__":    
+    g = Game()
+    # g.intro_screen()
+    g.new()
+    while g.running:
+        pygame.display.set_caption("current FPS: "+str(g.clock.get_fps()))
 
-pygame.quit()
-exit()
+        g.state_manager()
+        # pygame.quit()
+
+    pygame.quit()
+    exit()
