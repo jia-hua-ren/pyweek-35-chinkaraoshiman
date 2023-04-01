@@ -163,13 +163,18 @@ class Player(pygame.sprite.Sprite):
             self.game.state = 'cutscene'
             # self.game.level_clear = True
             # self.game.item_aquired = False
-
+           
             # self.game.levelUpdate()
             #pygame.sprite.spritecollide(self, self.game.door, True)
             # self.game.running = False #next level
+        else:
+            self.collide_blocks('x', self.game.door)
+            self.collide_blocks('y', self.game.door)
 
-    def collide_blocks(self, direction):
-        hits = pygame.sprite.spritecollide(self, self.game.blocks, False) #check player rect and every block in the game
+    def collide_blocks(self, direction, group = None):
+        if not group:
+            group = self.game.blocks
+        hits = pygame.sprite.spritecollide(self, group, False) #check player rect and every block in the game
         #False is dont want to delete sprite when collide
         if direction == "x":
             if hits:

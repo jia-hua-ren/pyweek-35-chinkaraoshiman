@@ -49,9 +49,8 @@ class Enemy(pygame.sprite.Sprite):
         # self.animate()
         
         self.rect.x += self.x_change
-        self.rect.y += self.y_change
-
         self.collide_blocks('x')
+        self.rect.y += self.y_change
         self.collide_blocks('y')
 
         self.x_change = 0
