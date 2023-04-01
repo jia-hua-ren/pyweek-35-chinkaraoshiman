@@ -111,8 +111,8 @@ level5 = [
     'BRERSISGR~B',
     'BGRGS~SRR~B',
     'BGRR~~ERR~B',
-    'BRRRRRRGRBB',
-    'B_GBBBBBBB',
+    'BR_RRRRGRBB',
+    'B_G_BBBBBB',
     'BG_RB',
     'B_GSB',
     'BSGEB',
@@ -138,14 +138,14 @@ level6 = [
 ]
 
 level7 = [
-    'BBBBBBBBBBBBBBBBB',
-    'B.BB...X.B..X.__BB',
-    'B__X.________.BBB',
-    'B___..SSSR..BBB_B',
-    'B_..S...RGR__E.EB',
-    'BBB.BB.SRGR_EEBBBBBB',
-    'BI.X.B.SRGRBEE..X..B',
-    'BBBBBBBBBDBBBBBBBBBB'
+    'BBBBBBBBBBBBBBBB',
+    'B.BB.B.X.B..X._B',
+    'B__X.B___BB__.BB',
+    'B___..SSSR..E_BB',
+    'BBBRS.EGRGR____B',
+    'BR_GRBB.SRGR_E_B',
+    'BISXSB.SRGRBBBBB',
+    'BBBBBBBBBDBBB'
 ]
 
 description7 = (
@@ -156,14 +156,14 @@ description7 = (
 
 level8 = [
     'BBBBBBBBBB',
-    'B........BBBBBBB',
+    'B......+.BBBBBBB',
     'B.+..+......E..B',
     'B..E..S..SSIS..B',
-    'B#....S.SS.....B',
-    'B....ES...#.E.B',
-    'B.+..._RRRB.B..B',
-    'B..____RGDRBB.B',
-    'B......RGBBBBB',
+    'BB.#..S.SS..+..B',
+    'BB...ES...#.E.B',
+    'B_+..+_RRRB.B+.B',
+    'B_.____RGDRBB.B',
+    'BB..+..RGBBBBB',
     'BBBBBBBBBB'
 ]
 description8 = ('these goats are frozen',
@@ -186,7 +186,7 @@ description_last = ('let me free these wrethed beasts',
                     'I tell you, i am going to report all these inhuman conducts')
 
 # store the levels and descriptions in arrays
-levels = [level0, level5, level2, level_gdp, level3, level4, level5, level6, level7, level8, level_last]
+levels = [level0, level8, level2, level_gdp, level3, level4, level5, level6, level7, level8, level_last]
 
 level_descrip = [description0, description1, description2, descriptiongdp, description3, description4, description5, description6, description7, description8, description_last]
 

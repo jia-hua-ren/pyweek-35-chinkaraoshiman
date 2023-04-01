@@ -168,7 +168,7 @@ class Game:
                     MapObject(self, j, i, self.hair_brushing_imgs, 0.1)
                 if column == "C": #my car
                     Ground(self, j, i, True)
-                    MapObject(self, j, i, (self.car_img, self.car_img), 0)
+                    MapObjectStatic(self, j, i, self.car_img)
                 if column == "M":# goat machine crying goat
                     Ground(self, j, i, True)
                     MapObject(self, j, i, self.hair_machine_imgs, 0.1)
@@ -177,10 +177,10 @@ class Game:
                     MapObject(self, j, i, self.slapping_imgs, 0.5)
                 if column == "#":#ice
                     Ground(self, j, i, True, 'metal')
-                    MapObject(self, j, i, (self.ice_img,self.ice_img), 0)
+                    MapObjectStatic(self, j, i, self.ice_img)
                 if column == "+":#shipping goat
                     Ground(self, j, i, True, 'metal')
-                    MapObject(self, j, i, (self.shipping_img,self.shipping_img), 0)
+                    MapObjectStatic(self, j, i, self.shipping_img)
                 
 
     def new(self):

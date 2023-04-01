@@ -40,3 +40,21 @@ class MapObject(pygame.sprite.Sprite):
                 self.index = 0
             self.image = self.images[int(self.index)]
             self.clock_cycles = 0
+
+
+class MapObjectStatic(pygame.sprite.Sprite):
+    def __init__(self, game, x, y, image):
+        self.x = x
+        self.y = y
+        self.image = image
+        self.game = game
+        self._layer = BLOCK_LAYER
+        self.groups = self.game.all_sprites, self.game.map_object
+        pygame.sprite.Sprite.__init__(self, self.groups)
+
+        
+        self.width = TILESIZE
+        self.height = TILESIZE
+
+        self.rect = self.image.get_rect()
+        self.rect.center = (self.x * TILESIZE + TILESIZE/2, self.y * TILESIZE + TILESIZE/2)
