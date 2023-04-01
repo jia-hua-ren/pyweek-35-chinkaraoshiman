@@ -14,6 +14,7 @@ Python3 and Pygame (we used Python3.11.2 and pygame 2.3.0). We also used sys and
 Please go into the top directory ```pyweek-35-chinkaraoshiman``` where the README.md and main.py is in. <br />
 Then do ```python3 main.py```
 or ```python main.py```
+or ```python3.11 main.py```
 but you need to use **python3.11**
 
 ## Extra tips and instructions
