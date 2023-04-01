@@ -330,8 +330,8 @@ class Game:
         intro_done = False
         # intro = True
 
-        title = Text('chinkara goat farm', (WIN_WIDTH/2, WIN_HEIGHT/7), 100, WHITE, False)
-        title.update('chinkara goat farm')
+        title = Text('chinkara goat paradise', (WIN_WIDTH/2, WIN_HEIGHT/7), 100, WHITE, False)
+        title.update('chinkara goat paradise')
 
         subtitle = Text('If red is your color, and what do you rejoice. When the war is over. Or….',
                         (WIN_WIDTH/2, 2*WIN_HEIGHT/7), 30, WHITE, False)
@@ -384,6 +384,11 @@ class Game:
         line1.update('meatyy: code')
         line2.update('name642: art')
         line3.update('speedlimit35: music, art, code')
+
+        line4 = Text('this game made for pyweek35 "In the shadows".', (WIN_WIDTH/2, 15*WIN_HEIGHT/20), 30, WHITE, False)
+        line5 = Text('development time: March 25th to April 1st in year 2023', (WIN_WIDTH/2, 16*WIN_HEIGHT/20), 30, WHITE, False)
+        line4.update('this game made for pyweek35 "In the shadows".')
+        line5.update('development time: March 25th to April 1st in year 2023')
         back_button = Button(WIN_WIDTH/2, 18*WIN_HEIGHT/20, 300, 70, WHITE, BLACK, 'back', 60)
         while not intro_done:
             self.events()
@@ -400,6 +405,8 @@ class Game:
             line1.draw(self.screen)
             line2.draw(self.screen)
             line3.draw(self.screen)
+            line4.draw(self.screen)
+            line5.draw(self.screen)
             self.screen.blit(back_button.image, back_button.rect)
 
             self.clock.tick(FPS)
@@ -452,6 +459,10 @@ class Game:
             pygame.display.update()
 
     def final_ending_screen(self):
+        title = Text('chinkaraoshiman presents this pyweek35 game "chinkara goat paradise"', (WIN_WIDTH/2, WIN_HEIGHT/30), 30, WHITE, True)
+        title.update('chinkaraoshiman presents this pyweek35 game "chinkara goat paradise"')
+        congrats_text = Text('you win and thank you for playing this game, we hope we win, we hope we get the part.', (WIN_WIDTH/2, WIN_HEIGHT-WIN_HEIGHT/30), 30, WHITE, True)
+        congrats_text.update('you win and thank you for playing this game, we hope we win, we hope we get the part.')
         self.events()
         self.state = 'end_screen' #lock this state
         if self.can_switch_music:
@@ -460,6 +471,8 @@ class Game:
             self.can_switch_music = False
         # print(self.state)
         self.FinalEnd.draw()
+        title.draw(self.screen)
+        congrats_text.draw(self.screen)
         self.clock.tick(FPS)
         pygame.display.update()
 
