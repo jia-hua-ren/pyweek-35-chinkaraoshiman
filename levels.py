@@ -127,9 +127,24 @@ description7 = (
 )
 
 
+level_last = [
+    'BBBBBBBBBBBBBBBBBBBB',
+    'B...GGGG...SSISSSSB',
+    'BGGGGGGG..GGGB.M..SB',
+    'BGGGGGSS.GG..B...ES.B',
+    'B.....E...GGGB.X..SB',
+    'B...E......GGBE...SB',
+    'B.....C...GGGG.H.GSDB',
+    'BBBBBBBBBBBBBBBBBBBB'
+]
+
+description_last = ('let me free these wrethed beasts',
+                    'and if you will not do it, it will be to his harm.',
+                    'I tell you, i am going to report all these inhuman conducts')
+
 # store the levels and descriptions in arrays
-levels = [level0, level7, level2, level3, level4, level5, level6, level7]
-level_descrip = [description0, description7, description2, description3, description4, description5, description6, description7]
+levels = [level0, level1, level2, level3, level4, level5, level6, level7]
+level_descrip = [description0, description1, description2, description3, description4, description5, description6, description7]
 
 
 
