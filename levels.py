@@ -105,14 +105,19 @@ description5 = ('i will take this secret to my grave and I will share it with al
                 'godwilling, I will save these goats from these churls')
 
 level5 = [ 
-    'BBBBBBBBBBBBBBB',
-    'B.EE....EE....B',
-    'BRRRSSSRRE....B',
-    'BRRRSISGR.E...B',
-    'BGRGS.SRRE....B',
-    'BGRR..RRRE....B',
-    'BRRRRRRGR.....B',
-    'BBDBBBBBBBBBBBB'
+    'BBBBBBBBBBB',
+    'B~~E~~~~B',
+    'BRRRSSSRRBB',
+    'BRERSISGR~B',
+    'BGRGS~SRR~B',
+    'BGRR~~ERR~B',
+    'BRRRRRRGRBB',
+    'B_GBBBBBBB',
+    'BG_RB',
+    'B_GSB',
+    'BSGEB',
+    'BGDSB',
+    'BBBB'
 ]
 
 description6 = ('the treatment towards these unfortunate creatures is inhumane',
@@ -181,7 +186,7 @@ description_last = ('let me free these wrethed beasts',
                     'I tell you, i am going to report all these inhuman conducts')
 
 # store the levels and descriptions in arrays
-levels = [level0, level7, level2, level_gdp, level3, level4, level5, level6, level7, level8, level_last]
+levels = [level0, level5, level2, level_gdp, level3, level4, level5, level6, level7, level8, level_last]
 
 level_descrip = [description0, description1, description2, descriptiongdp, description3, description4, description5, description6, description7, description8, description_last]
 

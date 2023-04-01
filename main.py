@@ -23,6 +23,7 @@ class Game:
         pygame.init()
         pygame.mixer.pre_init()
         self.bgm = pygame.mixer.music.load('./assets/music/goat2.ogg')
+        pygame.mixer.music.set_volume(0.6)
         pygame.mixer.music.play(-1)
         self.can_switch_music = True
         self.running = True
@@ -489,6 +490,7 @@ class Game:
         self.events()
         self.state = 'end_screen' #lock this state
         if self.can_switch_music:
+            pygame.mixer.music.set_volume(0.5)
             self.bgm = pygame.mixer.music.load('./assets/music/newspaper.ogg')
             pygame.mixer.music.play(-1)
             self.can_switch_music = False
