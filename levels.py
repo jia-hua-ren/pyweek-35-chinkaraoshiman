@@ -30,11 +30,11 @@ level1 = [
 description2 = ('these foolish guards will not notice me if i concel my person in the shadows',
                 'in short, I must hide in the shadows, or under a goat')
 level2 = [
-    'BBBBBBBBBBBBBBBBBBBB',
-    'B~~~.........RRRRRR_',
-    'B~~C.RRRRRRRRRR_E_R_',
-    'B~~..RGSSSISSSS_D_R_',
-    'BBBBBBBBBBBBBBBBBBBB'
+    'BBBBBBBBBBBBBBBBBBBBB',
+    'B~~~.........RRRERR_B',
+    'B~~C.RRRRRRRRRR_._R_B',
+    'B~~..RGSSSISSSS_D_R_B',
+    'BBBBBBBBBBBBBBBBBBBBB'
 ]
 
 # level2 = [
