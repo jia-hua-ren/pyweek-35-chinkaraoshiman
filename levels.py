@@ -92,6 +92,23 @@ level5 = [
     'BBDBBBBBBBBBBBBBBBBB'
 ]
 
+description6 = ('ppor goats',
+                'they are in fetters')
+
+level6 = [
+    'BBBBBBBBBBBBBBBBBBBB',
+    'BRRRRRRR__E________B',
+    'BRRRGR_RE__________B',
+    'BRRRR_S________M___B',
+    'BRGRRR_...E________B',
+    'BRGRRR~S~...E._M___B',
+    'BRRRRRBB~SSSI._____B',
+    'BBB_____BBBSBBBBBBBB',
+    'BBB__M__BBBSDBBBBBBB',
+    'BBB_____BBBBBBBBBBBB'
+
+]
+
 
 # store the levels and descriptions in arrays
 levels = [level0, level1, level2, level3, level4, level5]
