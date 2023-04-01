@@ -5,7 +5,6 @@ from utility import *
 from button import *
 from textbox import *
 from goat import *
-from attack import *
 from ground import *
 from shadow import *
 from player import *
@@ -43,7 +42,6 @@ class Game:
         self.goat_spritesheet = Spritesheet('./assets/img/goat_spritesheet.png')
         self.terrain_spritesheet = Spritesheet('./assets/img/terrain_spritesheet.png')
         self.enemy_spritesheet = Spritesheet('./assets/img/enemy.png')
-        # self.attack_spritesheet = Spritesheet('img/attack.png')
         self.bg_img = pygame.image.load('./assets/img/bg.png').convert_alpha()
 
         self.F1 = load_new_image('./assets/img/Goat1/Goast1_MoveF_1.png', 100, 100, WHITE)
@@ -151,11 +149,6 @@ class Game:
                     Ground(self, j, i, True)
                     MapObject(self, j, i, self.hair_machine_imgs, 0.1)
 
-                
-                # if column == "P": #player
-                #     self.player = Player(self, j , i)
-                #     # Attack(self, j, i)
-
     def new(self):
         print('newgame')
         # a new game starts
@@ -168,7 +161,6 @@ class Game:
         self.grounds = pygame.sprite.LayeredUpdates()
         self.enemies = pygame.sprite.LayeredUpdates()
         self.playerAOE = pygame.sprite.LayeredUpdates()
-        self.attacks = pygame.sprite.LayeredUpdates()
         self.goats = pygame.sprite.LayeredUpdates()
         self.shadow = pygame.sprite.LayeredUpdates()
         self.textbox = pygame.sprite.LayeredUpdates()
