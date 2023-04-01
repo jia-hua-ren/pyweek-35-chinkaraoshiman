@@ -6,7 +6,7 @@ class Shadow(pygame.sprite.Sprite):
     def __init__(self, game, x, y):
 
         self.game = game
-        self._layer = BLOCK_LAYER
+        self._layer = GROUND_LAYER
         self.groups = self.game.all_sprites, self.game.shadow
         pygame.sprite.Sprite.__init__(self, self.groups)
 
