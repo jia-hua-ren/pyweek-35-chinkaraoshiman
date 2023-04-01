@@ -142,14 +142,14 @@ end_images = [
     './assets/img/ending/endingscene3.png'
 ]
 
-cut0 = ("test")
-cut1 = ("welcome! you are about to save the goats.", "You yield the power of the shadow.", "Use it well to hide yourself in shadows or goats.")
-cut2 = "test"
-cut3 = "test"
-cut4 = "test"
-cut5 = "test"
-cut6 = "test"
-cut7 = "test"
+cut0 = ("level cleared",)
+cut1 = ("welcome! you are about to save the goats.", "You yield the power of the shadow.", "Use it well to hide yourself in shadows or goats.", "Uncover the secret of Bigoat Inc. and tell the world.", "Don't forget to read the awesome subtitles.")
+cut2 = ("level cleared",)
+cut3 = ("level cleared",)
+cut4 = ("level cleared",)
+cut5 = ("level cleared",)
+cut6 = ("level cleared",)
+cut7 = ("level cleared",)
 
 
 cutscenes = [cut0, cut1, cut2, cut3, cut4, cut5, cut6, cut7]
