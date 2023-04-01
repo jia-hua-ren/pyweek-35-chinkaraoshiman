@@ -297,7 +297,7 @@ class Game:
                 self.state = 'title'
                 self.reset()
             
-            self.screen.blit(self.intro_background, (0,0))
+            self.screen.blit(self.bg_img, (0,0))
             text.draw(self.screen)
             self.screen.blit(restart_button.image, restart_button.rect)
             self.screen.blit(title_button.image, title_button.rect)
@@ -470,7 +470,7 @@ class Game:
                     self.state = 'game'
                     cutscene = False
             
-            self.screen.blit(self.intro_background, (0,0))
+            self.screen.blit(self.bg_img, (0,0))
             for sen in sentences:
                 sen.draw(self.screen)
             # print('cutscene active')
