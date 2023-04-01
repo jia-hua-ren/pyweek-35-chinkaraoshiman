@@ -15,14 +15,14 @@ description0 = ('Intro screen',
 level0 = "left blank intentionally"
 
 
-description1 = ('I may press space and i will have a goat','I see a green object, i said, and i must pick it up')
+description1 = ('oh sir, in heavens name let these poor goats be free!', 'base owners, i said, thse hapless goats have no space')
 level1 = [
     'BBBBBBBBBBBBBBBBBBBB',
-    'B..................B',
-    'B.....RRRRR........B',
-    'B.....RRGRR....G...B',
-    'B.....RRRRR........B',
-    'B.....RRRRR......I.B',
+    'B.............___..B',
+    'B.....____R.._GGG_.B',
+    'B....._GGR_.._GGG_.B',
+    'B....._GGR_.._GGG_.B',
+    'B.....____R...___.IB',
     'B..................D',
     'BBBBBBBBBBBBBBBBBBBB'
 ]
@@ -101,7 +101,7 @@ intro_text = ['by holy mary, these are the best goats i have ever seen',
         'I said: sir price please',
         'he says: brother no sale',
         'I am brought by deception to the greatest treachery in the world',
-        'hi'
+        'in my name, then I will come to your farm'
         ]
 
 #INTRO IMAGES LOADED IN GAME CLASS RIGHT NOW

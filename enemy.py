@@ -83,7 +83,7 @@ class Enemy(pygame.sprite.Sprite):
         near_original_x = self.rect.x >= self.original_x_respect_player - 10 and self.rect.x <= self.original_x_respect_player + 10
         near_original = near_original_x and near_original_y
         if near_original:
-            print('enemy returned')
+            # print('enemy returned')
             self.can_returning_to_position = False
         # print(self.can_returning_to_position)
 
