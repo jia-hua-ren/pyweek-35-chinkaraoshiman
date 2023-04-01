@@ -172,13 +172,14 @@ description8 = ('these goats are frozen',
 
 level_last = [
     'BBBBBBBBBBBBBBBBBBBB',
-    'B...GGGG...SSISSSSB',
-    'BGGGGGGG..GGGB.M..SB',
-    'BGGGGGSS.GG..B...ES.B',
-    'B.....E...GGGB.X..SB',
-    'B...E......GGBE...SB',
-    'B.....C...GGGG.H.GSDB',
-    'BBBBBBBBBBBBBBBBBBBB'
+    'B.~~G~G~~~~SSISSSSB',
+    'BG~G~G~G~~GGGB~ME_SB',
+    'B~G~G~SS~G~~~B____SB',
+    'B~~~~~E...G~GB~XE_SB',
+    'B~~~E___~~~G~B____SB',
+    'B~~~~_C_~~G~G~H_GSDB',
+    'BBBBB____BBBBBBBBBBB',
+    'BBBBBBBBBBB'
 ]
 
 description_last = ('let me free these wrethed beasts',
@@ -186,7 +187,7 @@ description_last = ('let me free these wrethed beasts',
                     'I tell you, i am going to report all these inhuman conducts')
 
 # store the levels and descriptions in arrays
-levels = [level0, level8, level2, level_gdp, level3, level4, level5, level6, level7, level8, level_last]
+levels = [level0, level1, level2, level_gdp, level3, level4, level5, level6, level7, level8, level_last]
 
 level_descrip = [description0, description1, description2, descriptiongdp, description3, description4, description5, description6, description7, description8, description_last]
 

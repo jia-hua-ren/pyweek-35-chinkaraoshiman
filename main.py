@@ -128,7 +128,7 @@ class Game:
                 if column == ".": #normal ground
                     Ground(self, j, i)
                 if column == "~": #grass ground
-                    Ground(self, j, i, False, 'grass')
+                    Ground(self, j, i, True, 'grass')
                 if column == "_": #metal ground
                     Ground(self, j, i, False, 'metal')
                 if column == "R": #restricted move area
