@@ -111,7 +111,8 @@ class Game:
             load_new_image('./assets/img/objects/slap2.png', 300, 300, WHITE)
 
         )
-
+        self.ice_img = load_new_image('./assets/img/New_image/Frozen_Goat.png', 300, 300, WHITE)
+        self.shipping_img = load_new_image('./assets/img/New_image/Shipping.png', 300, 300, WHITE)
         self.car_img = self.terrain_spritesheet.get_sprite(157, 153, 300, 250)
         self.back_texture = self.terrain_spritesheet.get_sprite(35, 511, 100, 100)
         self.back_texture = pygame.transform.scale(self.back_texture, (1280, 720))
@@ -161,15 +162,22 @@ class Game:
                 if column == "H": #hair brushing chima san
                     Ground(self, j, i, True)
                     MapObject(self, j, i, self.hair_brushing_imgs, 0.1)
-                if column == "C":
+                if column == "C": #my car
                     Ground(self, j, i, True)
                     MapObject(self, j, i, (self.car_img, self.car_img), 0)
-                if column == "M":
+                if column == "M":# goat machine crying goat
                     Ground(self, j, i, True)
                     MapObject(self, j, i, self.hair_machine_imgs, 0.1)
-                if column == "X":
+                if column == "X":#slapping guy
                     Ground(self, j, i, True)
                     MapObject(self, j, i, self.slapping_imgs, 0.5)
+                if column == "#":#ice
+                    Ground(self, j, i, True, 'metal')
+                    MapObject(self, j, i, (self.ice_img,self.ice_img), 0)
+                if column == "+":#shipping goat
+                    Ground(self, j, i, True, 'metal')
+                    MapObject(self, j, i, (self.shipping_img,self.shipping_img), 0)
+                
 
     def new(self):
         print('newgame')

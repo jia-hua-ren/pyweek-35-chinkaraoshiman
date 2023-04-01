@@ -126,6 +126,22 @@ description7 = (
     'i scorn those arrogant abusers of power'
 )
 
+level8 = [
+    'BBBBBBBBBBBBBBBBBBBB',
+    'B....#.E...#.....E.B',
+    'B...+..+..+.E+..+..B',
+    'B..E..S.#SSIS.#....B',
+    'B#..+GS+SS+.G+..+..B',
+    'B...#.ES.#.#.E..#..B',
+    'B..B.#..S.B#B....E.B',
+    'B.E.+BB+SD+BB+..+..B',
+    'B....B&B#BBBB.#....B',
+    'B...+..+..+..+..+..B',
+    'BBBBBBBBBBBBBBBBBBBB'
+]
+description8 = ('these goats are frozen',
+                'then they are shipped to customers',
+                'this is the cruelest practice I have ever seen')
 
 level_last = [
     'BBBBBBBBBBBBBBBBBBBB',
@@ -143,9 +159,9 @@ description_last = ('let me free these wrethed beasts',
                     'I tell you, i am going to report all these inhuman conducts')
 
 # store the levels and descriptions in arrays
-levels = [level0, level1, level2, level3, level4, level5, level6, level7, level_last]
+levels = [level0, level1, level2, level3, level4, level5, level6, level7, level8, level_last]
 
-level_descrip = [description0, description1, description2, description3, description4, description5, description6, description7, description_last]
+level_descrip = [description0, description1, description2, description3, description4, description5, description6, description7, description8, description_last]
 
 
 
@@ -185,5 +201,6 @@ cut6 = ("level cleared",)
 cut7 = ("level cleared",)
 cut8 = ("level cleared",)
 cut9 = ("level cleared",)
+cut10 = ("level cleared",)
 
-cutscenes = [cut0, cut1, cut2, cut3, cut4, cut5, cut6, cut7, cut8, cut9]
+cutscenes = [cut0, cut1, cut2, cut3, cut4, cut5, cut6, cut7, cut8, cut9, cut10]
