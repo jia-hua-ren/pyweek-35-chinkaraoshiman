@@ -515,15 +515,16 @@ class Game:
         elif self.state == 'end_screen':
             # print('end now')
             self.final_ending_screen()
-        
-g = Game()
-# g.intro_screen()
-g.new()
-while g.running:
-    pygame.display.set_caption("current FPS: "+str(g.clock.get_fps()))
 
-    g.state_manager()
-    # pygame.quit()
+if __name__ == "__main__":    
+    g = Game()
+    # g.intro_screen()
+    g.new()
+    while g.running:
+        pygame.display.set_caption("current FPS: "+str(g.clock.get_fps()))
 
-pygame.quit()
-exit()
+        g.state_manager()
+        # pygame.quit()
+
+    pygame.quit()
+    exit()
