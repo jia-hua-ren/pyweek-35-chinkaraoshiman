@@ -133,6 +133,15 @@ intro_images = [
     './assets/img/intro/5.png'
 ]
 
+ending_text = ['my froends, you will not expire through my fault',
+               'villaines traitors, let these wretches attain what they desire',
+               'then the goats are following me as i make my escape to notify my friends']
+end_images = [
+    './assets/img/ending/endingscene1.png',
+    './assets/img/ending/endingscene2.png',
+    './assets/img/ending/endingscene3.png'
+]
+
 cut0 = []
 cut1 = []
 cut2 = []
