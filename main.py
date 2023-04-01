@@ -87,6 +87,8 @@ class Game:
         self.car_img = self.terrain_spritesheet.get_sprite(157, 153, 300, 250)
 
     def createTilemap(self, level):
+        self.player = Player(self)
+        self.playerAOE = PlayerAOE(self, self.player.x, self.player.y)
         # j is x position
         # i is the y position
         for i, row in enumerate(level):
@@ -137,8 +139,7 @@ class Game:
                 # if column == "P": #player
                 #     self.player = Player(self, j , i)
                 #     # Attack(self, j, i)
-        self.player = Player(self, WIN_HEIGHT/2 , WIN_WIDTH/2)
-        self.playerAOE = PlayerAOE(self, self.player.x, self.player.y)
+
 
     def new(self):
         print('newgame')

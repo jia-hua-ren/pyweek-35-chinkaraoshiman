@@ -31,9 +31,9 @@ description2 = ('i have droven may car,',
                 'they guards will not notice me, i said, if i conceal my person')
 level2 = [
     'BBBBBBBBBBBBBBBBBBBB',
-    'B~~~.........RRRRRRB',
-    'B~~C.RRRRRRRRRR_E_RB',
-    'B~~..RGSSSISSSS_D_RB',
+    'B~~~.........RRRRRR_',
+    'B~~C.RRRRRRRRRR_E_R_',
+    'B~~..RGSSSISSSS_D_R_',
     'BBBBBBBBBBBBBBBBBBBB'
 ]
 
@@ -91,7 +91,7 @@ level5 = [
 
 
 # store the levels and descriptions in arrays
-levels = [level0, level1, level2, level3, level4, level5]
+levels = [level0, level2, level2, level3, level4, level5]
 level_descrip = [description0, description1, description2, description3, description4, description5]
 
 

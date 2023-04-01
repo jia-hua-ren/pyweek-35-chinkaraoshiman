@@ -2,7 +2,9 @@ import pygame
 from config import *
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, game, x, y):
+    def __init__(self, game):
+        self.delta_x = 0
+        self.delta_y = 0
 
         self.shadowForm = False
 
@@ -32,26 +34,6 @@ class Player(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = self.x
         self.rect.y = self.y
-
-        # self.down_animations = [
-        #     self.game.character_spritesheet.get_sprite(3, 2, self.width, self.height),
-        #     self.game.character_spritesheet.get_sprite(35, 2, self.width, self.height),
-        #     self.game.character_spritesheet.get_sprite(68, 2, self.width, self.height)]
-
-        # self.up_animations = [
-        #     self.game.character_spritesheet.get_sprite(3, 34, self.width, self.height),
-        #     self.game.character_spritesheet.get_sprite(35, 34, self.width, self.height),
-        #     self.game.character_spritesheet.get_sprite(68, 34, self.width, self.height)]
-
-        # self.left_animations = [
-        #     self.game.character_spritesheet.get_sprite(3, 98, self.width, self.height),
-        #     self.game.character_spritesheet.get_sprite(35, 98, self.width, self.height),
-        #     self.game.character_spritesheet.get_sprite(68, 98, self.width, self.height)]
-
-        # self.right_animations = [
-        #     self.game.character_spritesheet.get_sprite(3, 66, self.width, self.height),
-        #     self.game.character_spritesheet.get_sprite(35, 66, self.width, self.height),
-        #     self.game.character_spritesheet.get_sprite(68, 66, self.width, self.height)]
 
         self.animations = [
             self.game.character_spritesheet.get_sprite(0, 0, self.width, self.height),
@@ -95,6 +77,7 @@ class Player(pygame.sprite.Sprite):
         self.y_change = 0
 
     def movement(self):
+        
         keys = pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
             for sprite in self.game.all_sprites:
@@ -116,6 +99,10 @@ class Player(pygame.sprite.Sprite):
                 sprite.rect.y -= PLAYER_SPEED
             self.y_change += PLAYER_SPEED
             self.facing = 'down'
+        #used for enemy return to position
+        self.delta_x += self.x_change
+        self.delta_y += self.y_change
+        # print(self.x_change, self.y_change, self.delta_x, self.delta_y)
 
     def shadow_condition(self):
         callable = pygame.sprite.collide_rect_ratio(1)
