@@ -91,7 +91,7 @@ level5 = [
 
 
 # store the levels and descriptions in arrays
-levels = [level0, level2, level2, level3, level4, level5]
+levels = [level0, level1, level2, level3, level4, level5]
 level_descrip = [description0, description1, description2, description3, description4, description5]
 
 

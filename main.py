@@ -85,6 +85,8 @@ class Game:
         self.corpse_img2 = load_new_image('./assets/img/Goat_Eating_Corpes2.png', 300, 300, WHITE)
 
         self.car_img = self.terrain_spritesheet.get_sprite(157, 153, 300, 250)
+        self.back_texture = self.terrain_spritesheet.get_sprite(35, 511, 100, 100)
+        self.back_texture = pygame.transform.scale(self.back_texture, (1280, 720))
 
     def createTilemap(self, level):
         self.player = Player(self)
@@ -139,7 +141,6 @@ class Game:
                 # if column == "P": #player
                 #     self.player = Player(self, j , i)
                 #     # Attack(self, j, i)
-
 
     def new(self):
         print('newgame')
@@ -274,14 +275,19 @@ class Game:
         intro_done = False
         # intro = True
 
-        title = Text('press space to skip intro', (WIN_WIDTH/2, WIN_HEIGHT/6), 50, WHITE, False)
-        title.update('press space to skip intro')
+        title = Text('chinkara goat farm', (WIN_WIDTH/2, WIN_HEIGHT/7), 100, WHITE, False)
+        title.update('chinkara goat farm')
 
         subtitle = Text('If red is your color, and what do you rejoice. When the war is over. Or….',
-                        (WIN_WIDTH/2, 5*WIN_HEIGHT/6), 30, WHITE, True)
+                        (WIN_WIDTH/2, 2*WIN_HEIGHT/7), 30, WHITE, False)
         subtitle.update('If red is your color, and what do you rejoice. When the war is over. Or….')
         
-        play_button = Button(WIN_WIDTH/2, 4*WIN_HEIGHT/6, 300, 150, WHITE, BLACK, 'Play', 100)
+        footer = Text('this is a game for pyweek35 "In the shadows". by all the people in team chinkaraoshiman',
+                        (WIN_WIDTH/2, 12*WIN_HEIGHT/13), 20, WHITE, True)
+        footer.update('this is a game for pyweek35 "In the shadows". by all the people in team chinkaraoshiman')
+
+        play_button = Button(WIN_WIDTH/2, 12*WIN_HEIGHT/20, 300, 70, WHITE, BLACK, 'Play', 60)
+        about_button = Button(WIN_WIDTH/2, 15*WIN_HEIGHT/20, 300, 70, WHITE, BLACK, 'properties', 60)
 
         while not intro_done:
             self.events()
@@ -292,14 +298,56 @@ class Game:
             if play_button.is_pressed(mouse_pos, mouse_pressed):
                 intro_done = True
                 self.state = 'intro'
+            if about_button.is_pressed(mouse_pos, mouse_pressed):
+                intro_done = True
+                self.state = 'about'
             
             self.screen.blit(self.intro_background, (0,0))
             title.draw(self.screen)
             subtitle.draw(self.screen)
+            footer.draw(self.screen)
             self.screen.blit(play_button.image, play_button.rect)
+            self.screen.blit(about_button.image, about_button.rect)
             self.clock.tick(FPS)
 
+            pygame.display.update()
 
+    def about_screen(self):
+
+        intro_done = False
+        # intro = True
+
+        title = Text('about team chinkaraoshiman', (WIN_WIDTH/2, WIN_HEIGHT/7), 70, WHITE, False)
+        title.update('about team chinkaraoshiman')
+        subtitle = Text('like best quality chinkara always | strive for glory only | number one tetam',
+                        (WIN_WIDTH/2, 2*WIN_HEIGHT/7), 30, WHITE, False)
+        subtitle.update('like best quality chinkara always | strive for glory only | number one tetam')
+        
+        line1 = Text('meatyy: code', (WIN_WIDTH/2, 9*WIN_HEIGHT/20), 40, WHITE, False)
+        line2 = Text('name642: art', (WIN_WIDTH/2, 11*WIN_HEIGHT/20), 40, WHITE, False)
+        line3 = Text('speedlimit35: music, art, code', (WIN_WIDTH/2, 13*WIN_HEIGHT/20), 40, WHITE, False)
+        line1.update('meatyy: code')
+        line2.update('name642: art')
+        line3.update('speedlimit35: music, art, code')
+        back_button = Button(WIN_WIDTH/2, 18*WIN_HEIGHT/20, 300, 70, WHITE, BLACK, 'back', 60)
+        while not intro_done:
+            self.events()
+            mouse_pos = pygame.mouse.get_pos()
+            mouse_pressed = pygame.mouse.get_pressed()
+            if back_button.is_pressed(mouse_pos, mouse_pressed):
+                intro_done = True
+                self.state = 'title'
+            
+            self.screen.blit(self.bg_img, (0,0))
+            self.screen.blit(self.back_texture, (0, 0))
+            title.draw(self.screen)
+            subtitle.draw(self.screen)
+            line1.draw(self.screen)
+            line2.draw(self.screen)
+            line3.draw(self.screen)
+            self.screen.blit(back_button.image, back_button.rect)
+
+            self.clock.tick(FPS)
             pygame.display.update()
 
     def cutscene(self):
@@ -366,6 +414,8 @@ class Game:
             self.main()
         elif self.state == 'title':
             self.intro_screen()
+        elif self.state == 'about':
+            self.about_screen()
         elif self.state == 'intro':
             self.intro_anime()
         elif self.state == 'lose':
