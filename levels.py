@@ -19,10 +19,10 @@ description1 = ('oh sir, in heavens name let these poor goats be free!', 'base o
 level1 = [
     'BBBBBBBBBBBBBBBBBBBB',
     'B.............___..B',
-    'B.....____R.._GGG_.B',
+    'B......___..._GGG_.B',
     'B....._GGR_.._GGG_.B',
     'B....._GGR_.._GGG_.B',
-    'B.....____R...___.IB',
+    'B......___....___.IB',
     'B..................D',
     'BBBBBBBBBBBBBBBBBBBB'
 ]
@@ -142,9 +142,14 @@ end_images = [
     './assets/img/ending/endingscene3.png'
 ]
 
-cut0 = []
-cut1 = []
-cut2 = []
-cut3 = []
+cut0 = ("test")
+cut1 = ("welcome! you are about to save the goats.", "You yield the power of the shadow.", "Use it well to hide yourself in shadows or goats.")
+cut2 = "test"
+cut3 = "test"
+cut4 = "test"
+cut5 = "test"
+cut6 = "test"
+cut7 = "test"
 
-cutscenes = [cut0, cut1, cut2, cut3]
+
+cutscenes = [cut0, cut1, cut2, cut3, cut4, cut5, cut6, cut7]

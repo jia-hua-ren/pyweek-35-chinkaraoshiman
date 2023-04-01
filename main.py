@@ -33,6 +33,8 @@ class Game:
         self.level = 0
         self.level_description = level_descrip[0]
         self.level_clear = False
+        self.cutscene_level = 0
+
 
         self.screen = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT))
         self.clock = pygame.time.Clock()
@@ -411,11 +413,17 @@ class Game:
         for sprite in self.all_sprites:
             sprite.kill()
 
-        title = Text('you beat level', (WIN_WIDTH/2, WIN_HEIGHT/6), 50, WHITE, False)
-        title.update('you beat level')
+        self.cutscene_level += 1
+        i = 0
+        sentences = []
+
+        for text in cutscenes[self.cutscene_level]:
+            sentences.append(Text(text, (WIN_WIDTH/2, WIN_HEIGHT/6 + i * 50), 50, WHITE, False))
+            sentences[i].update(text)
+            i+=1
 
         next_level_button = Button(WIN_WIDTH/2, 4*WIN_HEIGHT/6, 300, 150, WHITE, BLACK, 'next level', 50)
-
+        
         while cutscene:
             self.events()
 
@@ -425,24 +433,19 @@ class Game:
             if next_level_button.is_pressed(mouse_pos, mouse_pressed):
                 self.level_clear = True
                 self.item_aquired = False
-                # print(self.state)
 
-                #$#############$%^&*&^%$#$%^&*(*&^%^&*(*&^%$%^&*(*&^%%^&*&^%$%^&*&^%$%^&*(*&^%$%^&*&^%$%^&))))
-                if self.level >= len(levels)-1: #--------------------------------------------------------------------------------------------------check if this is problem later
-                    # insert real game over screen
-                    # pygame.quit()
-                    # sys.exit()
-                    self.state = 'ending'#problem? maybe?
+                if self.level >= len(levels)-1:
+                    self.state = 'ending'
                     cutscene = False
 
                 else:
                     self.levelUpdate()
                     self.state = 'game'
                     cutscene = False
-                #$#############$%^&*&^%$#$%^&*(*&^%^&*(*&^%$%^&*(*&^%%^&*&^%$%^&*&^%$%^&*(*&^%$%^&*&^%$%^&))))
             
             self.screen.blit(self.intro_background, (0,0))
-            title.draw(self.screen)
+            for sen in sentences:
+                sen.draw(self.screen)
             # print('cutscene active')
             self.screen.blit(next_level_button.image, next_level_button.rect)
             self.clock.tick(FPS)
@@ -480,16 +483,6 @@ class Game:
             # print('end now')
             self.final_ending_screen()
         
-
-        
-# class GameStateController:
-#     # control what level or state
-#     # the game is in
-#     # ex: intro --> menu -->
-#     # lvl1 --> lvl2 --> lvl3
-#     def __init__(self):
-#         self.state = 'main_game'
-
 g = Game()
 # g.intro_screen()
 g.new()
