@@ -62,7 +62,7 @@ level3 = [
     'BBBBBBBBBBBBBBBBBBBB'
 ]
 
-description4 = ('never seek to touch goats against their will',
+description4 = ('never seek to brush any goat against their will',
                 'the goats salvation, i said, the remedy depends entirely on me.')
 # description4 = ('the guards are too stupid i will sneak past the fools',
 #                 'now i know their secret they use the humans to make beautifl goats.')
@@ -92,8 +92,8 @@ level5 = [
     'BBDBBBBBBBBBBBBBBBBB'
 ]
 
-description6 = ('ppor goats',
-                'they are in fetters')
+description6 = ('the treatment towards these unfortunate creatures is inhumane',
+                'no goat or person should be restrained in such fashion')
 
 level6 = [
     'BBBBBBBBBBBBBBBBBBBB',
@@ -111,8 +111,8 @@ level6 = [
 
 
 # store the levels and descriptions in arrays
-levels = [level0, level1, level2, level3, level4, level5]
-level_descrip = [description0, description1, description2, description3, description4, description5]
+levels = [level0, level1, level2, level3, level4, level5, level6]
+level_descrip = [description0, description1, description2, description3, description4, description5, description6]
 
 
 
