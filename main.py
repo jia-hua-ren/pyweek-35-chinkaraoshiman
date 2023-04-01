@@ -76,7 +76,19 @@ class Game:
             pygame.image.load(intro_images[4]).convert_alpha()
         ]
 
-        self.end_img = pygame.image.load('./assets/img/ending/ending1.png').convert_alpha()
+        self.ending_images = [
+            pygame.image.load(end_images[0]).convert_alpha(),
+            pygame.image.load(end_images[1]).convert_alpha(),
+            pygame.image.load(end_images[2]).convert_alpha()
+        ]
+
+        self.bg_ending_images = [
+            pygame.image.load(end_images[0]).convert_alpha(),
+            pygame.image.load(end_images[1]).convert_alpha(),
+            pygame.image.load(end_images[2]).convert_alpha()
+        ]
+
+        self.end_img = pygame.image.load('./assets/img/ending/endingscene5.png').convert_alpha()
         self.FinalEnd= Fadein(self.end_img, WIN_CENTER, 0.5, self.screen)
 
         self.hair_brushing_imgs = (
@@ -181,7 +193,8 @@ class Game:
             # insert real game over screen
             # pygame.quit()
             # sys.exit()
-            self.state = 'end_screen'
+            print('ending')
+            self.state = 'ending'
         
         # else don't change level
         for sprite in self.all_sprites:
@@ -289,6 +302,24 @@ class Game:
                 self.levelUpdate()
             
             intro_cutscene.update()
+            self.clock.tick(FPS)
+            pygame.display.update()
+
+    def end_anime(self):
+        end_cutscene = Slideshow(ending_text, self.ending_images, self.bg_ending_images, self.screen)
+        end_done = end_cutscene.stop
+
+        while not end_done:
+            end_done = end_cutscene.stop
+            self.events()
+
+            if end_done == True:
+                end_done = True
+                self.state = 'end_screen'
+                # self.level_clear = True
+                # self.levelUpdate()
+            
+            end_cutscene.update()
             self.clock.tick(FPS)
             pygame.display.update()
 
@@ -401,7 +432,7 @@ class Game:
                     # insert real game over screen
                     # pygame.quit()
                     # sys.exit()
-                    self.state = 'end_screen'#problem? maybe?
+                    self.state = 'ending'#problem? maybe?
                     cutscene = False
 
                 else:
@@ -443,6 +474,8 @@ class Game:
             self.game_over()
         elif self.state == 'cutscene':
             self.cutscene()
+        elif self.state == 'ending':
+            self.end_anime()
         elif self.state == 'end_screen':
             # print('end now')
             self.final_ending_screen()
