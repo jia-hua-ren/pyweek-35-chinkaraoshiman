@@ -143,8 +143,9 @@ description_last = ('let me free these wrethed beasts',
                     'I tell you, i am going to report all these inhuman conducts')
 
 # store the levels and descriptions in arrays
-levels = [level0, level1, level2, level3, level4, level5, level6, level7]
-level_descrip = [description0, description1, description2, description3, description4, description5, description6, description7]
+levels = [level0, level1, level2, level3, level4, level5, level6, level7, level_last]
+
+level_descrip = [description0, description1, description2, description3, description4, description5, description6, description7, description_last]
 
 
 
@@ -182,6 +183,7 @@ cut4 = ("level cleared",)
 cut5 = ("level cleared",)
 cut6 = ("level cleared",)
 cut7 = ("level cleared",)
+cut8 = ("level cleared",)
+cut9 = ("level cleared",)
 
-
-cutscenes = [cut0, cut1, cut2, cut3, cut4, cut5, cut6, cut7]
+cutscenes = [cut0, cut1, cut2, cut3, cut4, cut5, cut6, cut7, cut8, cut9]

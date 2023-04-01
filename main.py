@@ -442,6 +442,10 @@ class Game:
         while cutscene:
             self.events()
 
+            if self.level == len(levels)-1:
+                self.state = 'ending'
+                return
+
             mouse_pos = pygame.mouse.get_pos()
             mouse_pressed = pygame.mouse.get_pressed()
             # print(self.level, len(levels))
