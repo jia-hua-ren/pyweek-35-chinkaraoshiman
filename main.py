@@ -328,8 +328,8 @@ class Game:
         intro_done = False
         # intro = True
 
-        title = Text('chinkara goat farm', (WIN_WIDTH/2, WIN_HEIGHT/7), 100, WHITE, False)
-        title.update('chinkara goat farm')
+        title = Text('chinkara goat paradise', (WIN_WIDTH/2, WIN_HEIGHT/7), 100, WHITE, False)
+        title.update('chinkara goat paradise')
 
         subtitle = Text('If red is your color, and what do you rejoice. When the war is over. Or….',
                         (WIN_WIDTH/2, 2*WIN_HEIGHT/7), 30, WHITE, False)
@@ -456,8 +456,8 @@ class Game:
             pygame.display.update()
 
     def final_ending_screen(self):
-        title = Text('chinkaraoshiman presents this pyweek35 game "chinkara goat farm"', (WIN_WIDTH/2, WIN_HEIGHT/30), 30, WHITE, True)
-        title.update('chinkaraoshiman presents this pyweek35 game "chinkara goat farm"')
+        title = Text('chinkaraoshiman presents this pyweek35 game "chinkara goat paradise"', (WIN_WIDTH/2, WIN_HEIGHT/30), 30, WHITE, True)
+        title.update('chinkaraoshiman presents this pyweek35 game "chinkara goat paradise"')
         congrats_text = Text('you win and thank you for playing this game, we hope we win, we hope we get the part.', (WIN_WIDTH/2, WIN_HEIGHT-WIN_HEIGHT/30), 30, WHITE, True)
         congrats_text.update('you win and thank you for playing this game, we hope we win, we hope we get the part.')
         self.events()
