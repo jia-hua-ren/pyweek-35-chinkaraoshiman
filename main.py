@@ -106,6 +106,11 @@ class Game:
             load_new_image('./assets/img/objects/hairmachine4.png', 300, 300, BLACK),
             load_new_image('./assets/img/objects/hairmachine5.png', 300, 300, BLACK)
         )
+        self.slapping_imgs = (
+            load_new_image('./assets/img/objects/slap1.png', 300, 300, WHITE),
+            load_new_image('./assets/img/objects/slap2.png', 300, 300, WHITE)
+
+        )
 
         self.car_img = self.terrain_spritesheet.get_sprite(157, 153, 300, 250)
         self.back_texture = self.terrain_spritesheet.get_sprite(35, 511, 100, 100)
@@ -162,6 +167,9 @@ class Game:
                 if column == "M":
                     Ground(self, j, i, True)
                     MapObject(self, j, i, self.hair_machine_imgs, 0.1)
+                if column == "X":
+                    Ground(self, j, i, True)
+                    MapObject(self, j, i, self.slapping_imgs, 0.5)
 
     def new(self):
         print('newgame')
