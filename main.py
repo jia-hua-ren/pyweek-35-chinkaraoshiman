@@ -226,6 +226,13 @@ class Game:
                 # self.playing = False
                 # self.running = False
 
+    def reset(self):
+        # this method RESETS the game, do NOT call for restarting level
+        self.level = 0
+        self.level_clear = False
+        self.item_aquired = False
+
+
     def game_over(self):
         # print('death')
 
@@ -237,7 +244,9 @@ class Game:
         text = Text('you die', (WIN_WIDTH/2, WIN_HEIGHT/6), 50, WHITE, False)
         text.update('you die')
 
-        restart_button = Button(WIN_WIDTH/2, 4*WIN_HEIGHT/6, 300, 150, WHITE, BLACK, 'next level', 50)
+        restart_button = Button(WIN_WIDTH/2, 4*WIN_HEIGHT/6, 300, 150, WHITE, BLACK, 'restart level', 50)
+        title_button = Button(200, 5*WIN_HEIGHT/6, 300, 150, WHITE, BLACK, 'title screen', 50)
+
 
         while gameover:
             self.events()
@@ -251,10 +260,17 @@ class Game:
                 self.level_clear = False
                 self.item_aquired = False
                 self.levelUpdate()
+
+            if title_button.is_pressed(mouse_pos, mouse_pressed):
+                gameover = False
+                self.state = 'title'
+                self.reset()
             
             self.screen.blit(self.intro_background, (0,0))
             text.draw(self.screen)
             self.screen.blit(restart_button.image, restart_button.rect)
+            self.screen.blit(title_button.image, title_button.rect)
+
             self.clock.tick(FPS)
             pygame.display.update()
 
@@ -293,7 +309,7 @@ class Game:
         footer.update('this is a game for pyweek35 "In the shadows". by all the people in team chinkaraoshiman')
 
         play_button = Button(WIN_WIDTH/2, 12*WIN_HEIGHT/20, 300, 70, WHITE, BLACK, 'Play', 60)
-        about_button = Button(WIN_WIDTH/2, 15*WIN_HEIGHT/20, 300, 70, WHITE, BLACK, 'properties', 60)
+        about_button = Button(WIN_WIDTH/2, 15*WIN_HEIGHT/20, 300, 70, WHITE, BLACK, 'credits', 60)
 
         while not intro_done:
             self.events()
