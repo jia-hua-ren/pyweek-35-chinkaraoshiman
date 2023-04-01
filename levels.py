@@ -61,17 +61,18 @@ level3 = [
     'BBBBBBBBBBBBBBBBBBBB'
 ]
 
-
-description4 = ('the guards are too stupid i will sneak past the fools',
-                'now i know their secret they use the humans to make beautifl goats.')
+description4 = ('what is this, i tell you i despise you',
+                'never seek to touch goats against their will')
+# description4 = ('the guards are too stupid i will sneak past the fools',
+#                 'now i know their secret they use the humans to make beautifl goats.')
 
 level4 = [ 
     'BBBBBBBBBBBBBBBBBBBB',
-    'B...SSSSSSSSSS.....BB',
-    'B...BS.......SISSSSDB',
-    'B...BS...O.........BB',
-    'B...BS......E......B',
-    'B....G...G....G....B',
+    'BG~GSSSSSSSSSS...E.BB',
+    'BR~RBS.BBBBB.SISSSSDB',
+    'BRHRBS.B.H.B.......BB',
+    'B.~.B_.BBBBBE._..E.B',
+    'B.~._G_._G_.._G_...B',
     'BBBBBBBBBBBBBBBBBBBB'
 ]
 
@@ -92,7 +93,7 @@ level5 = [
 
 # store the levels and descriptions in arrays
 levels = [level0, level1, level2, level3, level4, level5]
-level_descrip = [description0, description1, description2, description3, description4, description5]
+level_descrip = [description0, description4, description2, description3, description4, description5]
 
 
 

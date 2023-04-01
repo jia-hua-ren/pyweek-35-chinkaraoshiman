@@ -32,7 +32,7 @@ class Textbox(pygame.sprite.Sprite):
 
         self.kill_on_release = False
 
-        self.wait_seconds = 3
+        self.wait_seconds = 3.5
         self.wait_clock_cycles = FPS * self.wait_seconds
         self.clock_cycles = 0
 

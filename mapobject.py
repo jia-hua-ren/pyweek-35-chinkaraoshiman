@@ -3,7 +3,7 @@ from config import *
 
 
 class MapObject(pygame.sprite.Sprite):
-    def __init__(self, game, x, y, images):
+    def __init__(self, game, x, y, images, wait_seconds):
         self.x = x
         self.y = y
         self.images = images
@@ -27,7 +27,7 @@ class MapObject(pygame.sprite.Sprite):
         self.clock_cycles = 0
         self.animation_loop = 0
 
-        self.wait_seconds = 0.5
+        self.wait_seconds = wait_seconds
         self.wait_clock_cycles = self.wait_seconds * FPS
 
     def update(self):

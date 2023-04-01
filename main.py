@@ -81,8 +81,12 @@ class Game:
         self.end_img = pygame.image.load('./assets/img/ending/ending1.png').convert_alpha()
         self.FinalEnd= Fadein(self.end_img, WIN_CENTER, 0.5, self.screen)
 
-        self.corpse_img = load_new_image('./assets/img/Goat_Eating_Corpes.png', 300, 300, WHITE)
-        self.corpse_img2 = load_new_image('./assets/img/Goat_Eating_Corpes2.png', 300, 300, WHITE)
+        self.hair_brushing_imgs = (
+            load_new_image('./assets/img/objects/hairing1.png', 300, 300, BLACK),
+            load_new_image('./assets/img/objects/hairing2.png', 300, 300, BLACK),
+            load_new_image('./assets/img/objects/hairing3.png', 300, 300, BLACK),
+            load_new_image('./assets/img/objects/hairing2.png', 300, 300, BLACK)
+        )
 
         self.car_img = self.terrain_spritesheet.get_sprite(157, 153, 300, 250)
         self.back_texture = self.terrain_spritesheet.get_sprite(35, 511, 100, 100)
@@ -130,12 +134,12 @@ class Game:
                     Enemy(self, j, i)
                 
                 #map objects
-                if column == "O": #map object corpse can add animation later
+                if column == "H": #hair brushing chima san
                     Ground(self, j, i, True)
-                    MapObject(self, j, i, (self.corpse_img, self.corpse_img2))
+                    MapObject(self, j, i, self.hair_brushing_imgs, 0.1)
                 if column == "C":
                     Ground(self, j, i, True)
-                    MapObject(self, j, i, (self.car_img, self.car_img))
+                    MapObject(self, j, i, (self.car_img, self.car_img), 0)
 
                 
                 # if column == "P": #player
@@ -406,7 +410,6 @@ class Game:
         self.FinalEnd.draw()
         self.clock.tick(FPS)
         pygame.display.update()
-
 
     def state_manager(self):
         # print(self.state)
