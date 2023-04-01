@@ -141,8 +141,8 @@ level7 = [
     'BBBBBBBBBBBBBBBB',
     'B.BB.B.X.B..X._B',
     'B__X.B___BB__.BB',
-    'B___..SSSR..E_BB',
-    'BBBRS.EGRGR____B',
+    'B_E_..SSSR..E_BB',
+    'BBBRS..GRGR____B',
     'BR_GRBB.SRGR_E_B',
     'BISXSB.SRGRBBBBB',
     'BBBBBBBBBDBBB'
