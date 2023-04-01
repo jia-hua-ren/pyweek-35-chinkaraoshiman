@@ -87,6 +87,13 @@ class Game:
             load_new_image('./assets/img/objects/hairing3.png', 300, 300, BLACK),
             load_new_image('./assets/img/objects/hairing2.png', 300, 300, BLACK)
         )
+        self.hair_machine_imgs = (
+            load_new_image('./assets/img/objects/hairmachine1.png', 300, 300, BLACK),
+            load_new_image('./assets/img/objects/hairmachine2.png', 300, 300, BLACK),
+            load_new_image('./assets/img/objects/hairmachine3.png', 300, 300, BLACK),
+            load_new_image('./assets/img/objects/hairmachine4.png', 300, 300, BLACK),
+            load_new_image('./assets/img/objects/hairmachine5.png', 300, 300, BLACK)
+        )
 
         self.car_img = self.terrain_spritesheet.get_sprite(157, 153, 300, 250)
         self.back_texture = self.terrain_spritesheet.get_sprite(35, 511, 100, 100)
@@ -140,6 +147,9 @@ class Game:
                 if column == "C":
                     Ground(self, j, i, True)
                     MapObject(self, j, i, (self.car_img, self.car_img), 0)
+                if column == "M":
+                    Ground(self, j, i, True)
+                    MapObject(self, j, i, self.hair_machine_imgs, 0.1)
 
                 
                 # if column == "P": #player
