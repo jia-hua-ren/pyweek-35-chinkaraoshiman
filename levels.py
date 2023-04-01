@@ -54,10 +54,10 @@ description3 = ('by holy mary! brother there are many goats.',
 level3 = [
     'BBBBBBBBBBBBBBBBDBBB',
     'BRRRRRRRRRRRRRRRRRRB',
-    'BR........E.......RB',
-    'BR.GGGGGGGGGGGGGG.RB',
-    'BR.GGGGGGGGGGGGGG.RB',
-    'BR...E......I.....RB',
+    'B.........E........B',
+    'BGGGGGGGGGGGGGGGGGGB',
+    'BGGGGGGGGGGGGGGGGGGB',
+    'BR...E......I......B',
     'BRRRRRRRRRRRRRRRRRRB',
     'BBBBBBBBBBBBBBBBBBBB'
 ]
@@ -82,14 +82,14 @@ description5 = ('i will take this secret to my grave and I will share it with al
                 'godwilling, I will save these goats from these churls')
 
 level5 = [ 
-    'BBBBBBBBBBBBBBBBBBBB',
-    'B.EE....EE.........B',
-    'BRRRSSSRRE......B',
-    'BRRRSISGR.E........B',
-    'BGRGS.SRRE.........B',
-    'BGRR..RRRE.........B',
-    'BRRRRRRGR..........B',
-    'BBDBBBBBBBBBBBBBBBBB'
+    'BBBBBBBBBBBBBBB',
+    'B.EE....EE....B',
+    'BRRRSSSRRE....B',
+    'BRRRSISGR.E...B',
+    'BGRGS.SRRE....B',
+    'BGRR..RRRE....B',
+    'BRRRRRRGR.....B',
+    'BBDBBBBBBBBBBBB'
 ]
 
 description6 = ('the treatment towards these unfortunate creatures is inhumane',
@@ -97,9 +97,9 @@ description6 = ('the treatment towards these unfortunate creatures is inhumane',
 
 level6 = [
     'BBBBBBBBBBBBBBBBBBBB',
-    'BRRRRRRR__E________B',
+    'BRRRRRRR__E____SSSSB',
     'BRRRGR_RE__________B',
-    'BRRRR_S________M___B',
+    'BRRRR_SSSSSS___M___B',
     'BRGRRR_...E________B',
     'BRGRRR~S~...E._M___B',
     'BRRRRRBB~SSSI._____B',
