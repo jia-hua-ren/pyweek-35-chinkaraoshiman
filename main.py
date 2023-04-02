@@ -264,6 +264,7 @@ class Game:
     def reset(self):
         # this method RESETS the game, do NOT call for restarting level
         self.level = 0
+        self.cutscene_level = 0
         self.level_clear = False
         self.item_aquired = False
 
